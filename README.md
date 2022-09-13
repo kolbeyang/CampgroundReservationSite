@@ -7,7 +7,7 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 
 - Michael Oldziej
 - Kolbe Yang
-- MEMBER3
+- Sherry Robinson
 - MEMBER4
 
 
