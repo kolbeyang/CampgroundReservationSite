@@ -9,7 +9,7 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 - Kolbe Yang
 - Sherry Robinson
 - Lianna Pottgen 
-- MEMBER 5
+- Troy Wolf
 
 
 ## Prerequisites
