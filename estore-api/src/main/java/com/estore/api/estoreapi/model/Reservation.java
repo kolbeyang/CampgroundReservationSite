@@ -13,10 +13,11 @@ public class Reservation {
     static final String STRING_FORMAT = "Reservation [id=%d, startDate=%d, endDate=%d]";
 
     @JsonProperty("id") private int id;
-    @JsonProperty("startDate") private int startDate;
-    @JsonProperty("endDate") private int endDate;
+    // Dates stored as millisecond since 197[0]
+    @JsonProperty("startDate") private long startDate;
+    @JsonProperty("endDate") private long endDate;
 
-    public Reservation(@JsonProperty("id") int id, @JsonProperty("startDate") int startDate, @JsonProperty("endDate") int endDate) {
+    public Reservation(@JsonProperty("id") int id, @JsonProperty("startDate") long startDate, @JsonProperty("endDate") long endDate) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -24,16 +25,16 @@ public class Reservation {
 
     public int getId() {return id;}
 
-    public void setDate(int startDate, int endDate) {
+    public void setDate(long startDate, long endDate) {
         assert endDate > startDate : "Invalid dates";
 
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public int getStartDate() {return this.startDate;}
+    public long getStartDate() {return this.startDate;}
 
-    public int getEndDate() {return this.endDate;}
+    public long getEndDate() {return this.endDate;}
 
     @Override
     public String toString() {
