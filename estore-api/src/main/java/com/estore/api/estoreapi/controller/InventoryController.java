@@ -12,24 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.estore.api.estoreapi.model.Campsite;
 
-/**
- * Handles the REST API requests for the Hero resource
- * <p>
- * {@literal @}RestController Spring annotation identifies this class as a REST API
- * method handler to the Spring framework
- * 
- * @author SWEN Faculty
- */
 
 @RestController
 @RequestMapping("campsites")
@@ -59,7 +49,7 @@ public class InventoryController {
 
     @GetMapping("")
     public ResponseEntity<Campsite[]> getCampsites() {
-        LOG.info("GET /heroes");
+        LOG.info("GET /campsites");
         try {
             Campsite[] campsitesArray = inventoryDAO.getCampsites();
             if (campsitesArray != null) 
@@ -74,13 +64,8 @@ public class InventoryController {
         }
     }
 
-    /**
-
-     * Example: Find all heroes that contain the text "ma"
-     * GET http://localhost:8080/campsites/?name=ma
-     */
     @GetMapping("/")
-    public ResponseEntity<Campsite[]> searchHeroes(@RequestParam String name) {
+    public ResponseEntity<Campsite[]> searchCampsites(@RequestParam String name) {
         LOG.info("GET /campsites/?name="+name);
         try {
             Campsite[] output = inventoryDAO.findCampsites(name);
