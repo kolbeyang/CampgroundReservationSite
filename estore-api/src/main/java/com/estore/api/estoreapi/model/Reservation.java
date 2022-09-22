@@ -13,12 +13,14 @@ public class Reservation {
     static final String STRING_FORMAT = "Reservation [id=%d, startDate=%d, endDate=%d]";
 
     @JsonProperty("id") private int id;
-    // Dates stored as millisecond since 197[0]
+    @JsonProperty("campsiteId") private int campsiteId;
+    // Dates stored as millisecond since 1970
     @JsonProperty("startDate") private long startDate;
     @JsonProperty("endDate") private long endDate;
 
-    public Reservation(@JsonProperty("id") int id, @JsonProperty("startDate") long startDate, @JsonProperty("endDate") long endDate) {
+    public Reservation(@JsonProperty("id") int id, @JsonProperty("campsiteId") int campsiteId, @JsonProperty("startDate") long startDate, @JsonProperty("endDate") long endDate) {
         this.id = id;
+        this.campsiteId = campsiteId;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -31,6 +33,8 @@ public class Reservation {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    public long getCampsiteId() {return this.campsiteId;}
 
     public long getStartDate() {return this.startDate;}
 
