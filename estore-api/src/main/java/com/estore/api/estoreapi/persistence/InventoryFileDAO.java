@@ -155,7 +155,7 @@ public class InventoryFileDAO implements InventoryDAO {
         synchronized(campsites) {
             // We create a new hero object because the id field is immutable
             // and we need to assign the next unique id
-            Campsite newCampsite = new Campsite(nextId(),campsite.getName());
+            Campsite newCampsite = new Campsite(nextId(),campsite.getName(),campsite.getRate());
             campsites.put(newCampsite.getId(),newCampsite);
             save(); // may throw an IOException
             return newCampsite;
