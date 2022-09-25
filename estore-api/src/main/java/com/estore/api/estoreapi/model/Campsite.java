@@ -35,7 +35,15 @@ public class Campsite {
 
     public void setRate(double rate) {this.rate = rate;}
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o instanceof Campsite) {
+            Campsite otherCampsite = (Campsite) o;
+            return this.name.equals(otherCampsite.name);
+        }
+        return false;
+    }
 
     /**
      * {@inheritDoc}

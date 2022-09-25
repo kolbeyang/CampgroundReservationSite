@@ -83,9 +83,10 @@ public class InventoryController {
         LOG.info("POST /campsites " + campsite);
         try {
             Campsite[] campsites = inventoryDAO.getCampsites();
-            if (Arrays.asList(campsites).contains(campsite))  
+            if (Arrays.asList(campsites).contains(campsite))  {
+                System.out.println("The array contains the campsite already");
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
-            else {
+            } else {
                 Campsite created = inventoryDAO.createCampsite(campsite);
                 return new ResponseEntity<Campsite>(created, HttpStatus.CREATED);
             }

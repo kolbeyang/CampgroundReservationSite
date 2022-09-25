@@ -68,6 +68,7 @@ public class InventoryFileDAO implements InventoryDAO {
 
         Campsite[] campsiteArray = objectMapper.readValue(new File(filename),Campsite[].class);
 
+
         for (Campsite campsite : campsiteArray) {
             campsites.put(campsite.getId(),campsite);
             if (campsite.getId() > nextId)
