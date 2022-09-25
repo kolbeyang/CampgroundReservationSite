@@ -9,7 +9,7 @@ public class Campsite {
     private static final Logger LOG = Logger.getLogger(Campsite.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Campsite [id=%d, name=%s, rate=%d]";
+    static final String STRING_FORMAT = "Campsite [id=%d, name=%s, rate=%f]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
