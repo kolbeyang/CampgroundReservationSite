@@ -14,6 +14,10 @@ import org.springframework.stereotype.Component;
 
 import com.estore.api.estoreapi.model.Campsite;
 
+/**
+ * The Inventory Data Access Object
+ * Handles the persistance of campsites
+ */
 @Component
 public class InventoryFileDAO implements InventoryDAO {
     private static final Logger LOG = Logger.getLogger(InventoryFileDAO.class.getName());
@@ -22,22 +26,41 @@ public class InventoryFileDAO implements InventoryDAO {
     private static int nextId; 
     private String filename;    
 
+    /**
+     * Constructor
+     * @param filename : the file of campsite data
+     * @param objectMapper : the object mapper 
+     * @throws IOException
+     */
     public InventoryFileDAO(@Value("${campsites.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();  
     }
 
+    /**
+     * Generates the next id 
+     * @return the new id
+     */
     private synchronized static int nextId() {
         int id = nextId;
         ++nextId;
         return id;
     }
 
+    /**
+     * Returns an array of all campsites
+     * @return an array of all campsites
+     */
     private Campsite[] getCampsitesArray() {
         return getCampsitesArray(null);
     }
 
+    /**
+     * Returns an array of all campsites with the input containsText
+     * @param containsText : a string of text to check Campsite names against
+     * @return an array of all campsites
+     */
     private Campsite[] getCampsitesArray(String containsText) { // if containsText == null, no filter
         ArrayList<Campsite> campsiteArrayList = new ArrayList<>();
 
@@ -52,6 +75,11 @@ public class InventoryFileDAO implements InventoryDAO {
         return campsiteArray;
     }
 
+    /**
+     * Saves all Java objects into JSON objects in the JSON file
+     * @return whether this operation was successful
+     * @throws IOException
+     */
     private boolean save() throws IOException {
         Campsite[] campsiteArray = getCampsitesArray();
 
@@ -62,6 +90,11 @@ public class InventoryFileDAO implements InventoryDAO {
         return true;
     }
 
+    /**
+     * Loads campsites from the JSON file
+     * @return the array of campsites from the JSON file
+     * @throws IOException
+     */
     private boolean load() throws IOException {
         campsites = new TreeMap<>();
         nextId = 0;
@@ -79,20 +112,27 @@ public class InventoryFileDAO implements InventoryDAO {
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Campsite[] getCampsites() {
         synchronized(campsites) {
             return getCampsitesArray();
         }
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public Campsite[] findCampsites(String containsText) {
         synchronized(campsites) {
             return getCampsitesArray(containsText);
         }
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public Campsite getCampsite(int id) {
         synchronized(campsites) {
@@ -102,7 +142,9 @@ public class InventoryFileDAO implements InventoryDAO {
                 return null;
         }
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public Campsite createCampsite(Campsite campsite) throws IOException {
         synchronized(campsites) {
@@ -112,7 +154,9 @@ public class InventoryFileDAO implements InventoryDAO {
             return newCampsite;
         }
     }
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public Campsite updateCampsite(Campsite campsite) throws IOException {
         synchronized(campsites) {
@@ -125,7 +169,9 @@ public class InventoryFileDAO implements InventoryDAO {
         }
     }
 
-
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean deleteCampsite(int id) throws IOException {
         synchronized(campsites) {

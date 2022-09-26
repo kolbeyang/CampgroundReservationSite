@@ -16,6 +16,7 @@ public class Campsite {
     @JsonProperty("rate") private double rate;
 
     /**
+     * Constructor, sets private variables based on input
      * @param id the id of the campsite
      * @param name the name of the campsite
      */
@@ -25,16 +26,36 @@ public class Campsite {
         this.rate = rate;
     }
 
+    /**
+     * @return the id of the campsite
+     */
     public int getId() {return id;}
 
+    /**
+     * Sets the name of the Campsite
+     * @param name : the new name
+     */
     public void setName(String name) {this.name = name;}
     
+    /**
+     * @return the name of the campsite
+     */
     public String getName() {return name;}
 
+    /**
+     * @return the nightly rate of the campsite
+     */
     public double getRate() {return rate;}
 
+    /**
+     * Sets the nightly rate of the Campsite
+     * @param rate : the new rate
+     */
     public void setRate(double rate) {this.rate = rate;}
 
+    /**
+     * Two campsites are equal iff their names are equal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,7 +67,7 @@ public class Campsite {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns a string representation of the campsite objectw
      */
     @Override
     public String toString() {

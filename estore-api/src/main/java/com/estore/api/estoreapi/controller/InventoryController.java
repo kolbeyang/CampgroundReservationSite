@@ -1,6 +1,5 @@
 package com.estore.api.estoreapi.controller;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,22 +14,33 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
 import java.util.Arrays;
 import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.estore.api.estoreapi.model.Campsite;
 
-
+/**
+ * Inventory Controller handles requests for all Campsites.
+ */
 @RestController
 @RequestMapping("campsites")
 public class InventoryController {
     private static final Logger LOG = Logger.getLogger(InventoryController.class.getName());
     private InventoryDAO inventoryDAO;
 
+    /**
+     * Constructor for InventoryController
+     * @param inventoryDAO : the data access object for campsites
+     */
     public InventoryController(InventoryDAO inventoryDAO) {
         this.inventoryDAO = inventoryDAO;
     }
 
+    /**
+     * Handles the get request for a specific campsite
+     * returns a status code of OK, NOT_FOUND, or INTERNAL_SERVER_ERROR
+     * @param id : the id of the campsite to get
+     * @return a json object of the campsite requested
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Campsite> getCampsite(@PathVariable int id) {
         LOG.info("GET /campsites/" + id);
@@ -47,6 +57,11 @@ public class InventoryController {
         }
     }
 
+    /**
+     * Gets all Campsites in the inventory
+     * returns a status code of OK, NOT_FOUND, or INTERNAL_SERVER_ERROR
+     * @return a json object of all Campsites in the inventory
+     */
     @GetMapping("")
     public ResponseEntity<Campsite[]> getCampsites() {
         LOG.info("GET /campsites");
@@ -64,6 +79,13 @@ public class InventoryController {
         }
     }
 
+    /**
+     * Searches through all the campsites and finds only those whose name contains the input string
+     * returns a status code of OK or INTERNAL_SERVER_ERROR
+     * requests of the form /campsites/?name=____
+     * @param name : the string to look for 
+     * @return a JSON object of all campsites with the given string in their name
+     */
     @GetMapping("/")
     public ResponseEntity<Campsite[]> searchCampsites(@RequestParam String name) {
         LOG.info("GET /campsites/?name="+name);
@@ -78,13 +100,18 @@ public class InventoryController {
         }
     }
 
+    /**
+     * Creates a campsite based on the input if a campsite of the same name has not yet been created
+     * returns status code of CONFLICT, CREATED, or INTERNAL_SERVER_ERROR
+     * @param campsite : an object of the campsite to create
+     * @return the new created campsite
+     */
     @PostMapping("")
     public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) {
         LOG.info("POST /campsites " + campsite);
         try {
             Campsite[] campsites = inventoryDAO.getCampsites();
             if (Arrays.asList(campsites).contains(campsite))  {
-                System.out.println("The array contains the campsite already");
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             } else {
                 Campsite created = inventoryDAO.createCampsite(campsite);
@@ -100,6 +127,12 @@ public class InventoryController {
         }
     }
 
+    /**
+     * Updates the campsite with the input id to match the input data
+     * returns a status code of NOT_FOUND, OK, or INTERNAL_SERVER_ERROR
+     * @param campsite : a campsite object with input data
+     * @return the updated campsite object
+     */
     @PutMapping("")
     public ResponseEntity<Campsite> updateCampsite(@RequestBody Campsite campsite) {
         LOG.info("PUT /campsites " + campsite);
@@ -116,7 +149,12 @@ public class InventoryController {
         }
     }
 
-
+    /**
+     * Deletes the campsite with the inptu id
+     * returns a status code of OK, NOT_FOUND, or INTERNAL_SERVER_ERROR
+     * @param id
+     * @return a status code
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Campsite> deleteCampsite(@PathVariable int id) {
         LOG.info("DELETE /campsites/" + id);
