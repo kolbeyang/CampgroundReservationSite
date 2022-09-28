@@ -24,15 +24,42 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 1. Clone the repository and go to the root directory.
 2. Execute `mvn compile exec:java`
 3. Open in your browser `http://localhost:8080/`
-4.  _add any other steps required or examples of how to use/run_
+4. Have a command prompt ready to run cURL commands
 
 ## Known bugs and disclaimers
 (It may be the case that your implementation is not perfect.)
+- Still possible to add in negative values to the rates
+- The campsite names are not case-sensitive so duplicate names with different cases will be accepted
+- Still possible to add in empty campsite names
 
 Document any known bug or nuisance.
 If any shortcomings, make clear what these are and where they are located.
 
 ## How to test it
+
+No unit tests were used for this version. Instead cURL commands were used to test the 
+functionality of the code:
+
+### For Windows:
+
+Create/Add an new Campsite
+`curl -X POST http://localhost:8080/campsites -H Content-Type:application/json -d "{\"name\":\"INSERT NAME HERE\", \"rate\":INSERT RATE HERE}" -i`
+
+-Get all the products in the inventory
+`curl -X GET "localhost:8080/campsites" -i`
+
+-Delete the product with an ID 
+`curl -X DELETE "localhost:8080/campsites/INSERTIDNUMBERHERE" -i`
+
+-Get a certain product with the ID
+`curl -X GET "localhost:8080/campsites/INSERTIDNUMBERHERE" -i`
+
+-Update a certain product with a new name or ID
+`curl -X PUT http://localhost:8080/campsites -H Content-Type:application/json -d "{\"id\":INSERT ID NAME HERE,\"name\":\"INSERT NAME HERE\", \"rate\":INSERT RATE HERE}" -i`
+
+-Search a certain product using a string
+`curl -X GET "localhost:8080/campsites/?name=INSERT STRING HERE" -i`
+
 
 The Maven build script provides hooks for run unit tests and generate code coverage
 reports in HTML.
@@ -65,6 +92,7 @@ To run tests on all the tiers in isolation do this:
 
 
 ## How to setup/run/test program 
+
 1. Tester, first obtain the Acceptance Test plan
 2. IP address of target machine running the app
 3. Execute ________
