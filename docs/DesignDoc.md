@@ -9,13 +9,13 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: Fantastic Five
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
-
+  * Michael Oldziej
+  * Kolbe Yang
+  * Troy Wolf
+  * Sherry Robinson
+  * Lianna Pottgen
 ## Executive Summary
 
 This is a summary of the project.
