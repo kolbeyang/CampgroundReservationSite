@@ -55,7 +55,7 @@ public class Reservation {
      * Getter
      * @return the campsiteID of the campsite this reservation belongs to
      */
-    public long getCampsiteId() {return this.campsiteId;}
+    public int getCampsiteId() {return this.campsiteId;}
 
     /**
      * Getter
