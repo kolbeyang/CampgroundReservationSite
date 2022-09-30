@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import java.util.Arrays;
 import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.estore.api.estoreapi.model.Campsite;
+import com.estore.api.estoreapi.model.Reservation;
+import com.estore.api.estoreapi.model.ScheduleService;
 
 /**
  * Inventory Controller handles requests for all Campsites.
@@ -26,13 +28,15 @@ import com.estore.api.estoreapi.model.Campsite;
 public class InventoryController {
     private static final Logger LOG = Logger.getLogger(InventoryController.class.getName());
     private InventoryDAO inventoryDAO;
+    private ScheduleService scheduleService;
 
     /**
      * Constructor for InventoryController
      * @param inventoryDAO : the data access object for campsites
      */
-    public InventoryController(InventoryDAO inventoryDAO) {
+    public InventoryController(InventoryDAO inventoryDAO, ScheduleService scheduleService) {
         this.inventoryDAO = inventoryDAO;
+        this.scheduleService = scheduleService;
     }
 
     /**
@@ -122,6 +126,23 @@ public class InventoryController {
 
         }
         catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/reserve")
+    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
+        LOG.info("POST /campsites " + reservation);
+        try {
+            if (scheduleService.isValidReservation(reservation)) {
+                Reservation created = scheduleService.createReservation(reservation);
+                return new ResponseEntity<Reservation>(created, HttpStatus.CREATED);
+            } else {
+                //Invalid
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch(IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
