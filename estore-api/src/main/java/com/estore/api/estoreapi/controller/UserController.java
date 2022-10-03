@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estore.api.estoreapi.model.AuthenticationService;
+import com.estore.api.estoreapi.model.LoginRequest;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.UserDAO;
 
@@ -28,13 +30,15 @@ import java.util.Arrays;
 public class UserController {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDAO userDAO;
+    private AuthenticationService authenticationService;
 
     /**
      * Constructor for UserController
      * @param userDAO : the data access object for users
      */
-    public UserController(UserDAO userDAO) {
+    public UserController(UserDAO userDAO, AuthenticationService authenticationService) {
         this.userDAO = userDAO;
+        this.authenticationService = authenticationService;
     }
 
     /**
@@ -44,10 +48,10 @@ public class UserController {
      * @return a json object of the user requested
      */
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable int id) {
-        LOG.info("GET /users/" + id);
+    public ResponseEntity<User> getUser(@PathVariable String username) {
+        LOG.info("GET /users/" + username);
         try {
-            User user = userDAO.getUser(id);
+            User user = userDAO.getUser(username);
             if (user != null)
                 return new ResponseEntity<User>(user,HttpStatus.OK);
             else
@@ -125,6 +129,22 @@ public class UserController {
                 return new ResponseEntity<User>(updated, HttpStatus.OK);
         }
         catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<String> userLogin(@RequestBody LoginRequest loginRequest) {
+        LOG.info("POST /users/login");
+        try {
+            String token = authenticationService.userLogin(loginRequest);
+            if (token != null) {
+                return new ResponseEntity<>(token, HttpStatus.ACCEPTED);
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

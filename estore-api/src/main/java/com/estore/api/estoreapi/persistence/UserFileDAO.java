@@ -39,16 +39,6 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
-     * Generates the next id 
-     * @return the new id
-     */
-    private synchronized static int nextId() {
-        int id = nextId;
-        ++nextId;
-        return id;
-    }
-
-    /**
      * Returns an array of all users
      * @return an array of all users
      */
@@ -123,10 +113,10 @@ public class UserFileDAO implements UserDAO {
      * @inheritDoc
      */
     @Override
-    public User getUser(int id) {
+    public User getUser(String username) {
         synchronized(users) {
-            if (users.containsKey(id))
-                return users.get(id);
+            if (users.containsKey(username))
+                return users.get(username);
             else
                 return null;
         }

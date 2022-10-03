@@ -16,11 +16,11 @@ public interface UserDAO {
 
     /**
      * Getter
-     * @param id : an id of the user to look for
+     * @param username: the unique identifier of the user
      * @return the user of the given id
      * @throws IOException
      */
-    User getUser(int id) throws IOException;
+    User getUser(String username) throws IOException;
 
     /**
      * Creates a user based on the input data
