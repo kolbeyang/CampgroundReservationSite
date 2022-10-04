@@ -156,10 +156,10 @@ public class UserFileDAO implements UserDAO {
      * @inheritDoc
      */
     @Override
-    public boolean deleteUser(int id) throws IOException {
+    public boolean deleteUser(String username) throws IOException {
         synchronized(users) {
-            if (users.containsKey(id)) {
-                users.remove(id);
+            if (users.containsKey(username)) {
+                users.remove(username);
                 return save();
             }
             else

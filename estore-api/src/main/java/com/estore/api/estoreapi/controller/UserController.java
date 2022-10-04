@@ -165,10 +165,10 @@ public class UserController {
      * @return a status code
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable int id) {
-        LOG.info("DELETE /users/" + id);
+    public ResponseEntity<User> deleteUser(@PathVariable String username) {
+        LOG.info("DELETE /users/" + username);
         try {
-            if (userDAO.deleteUser(id))
+            if (userDAO.deleteUser(username))
                 return new ResponseEntity<>(HttpStatus.OK);
             else 
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

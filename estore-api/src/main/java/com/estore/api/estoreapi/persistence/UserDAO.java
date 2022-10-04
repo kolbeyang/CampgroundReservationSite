@@ -45,5 +45,5 @@ public interface UserDAO {
      * @return whether the user was successfully deleted
      * @throws IOException
      */
-    boolean deleteUser(int id) throws IOException;
+    boolean deleteUser(String username) throws IOException;
 }
