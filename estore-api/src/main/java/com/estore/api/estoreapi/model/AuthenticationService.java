@@ -86,4 +86,13 @@ public class AuthenticationService {
         }
     }
 
+    public Boolean userLogout(String token) {
+        if (!tokens.containsKey(token)) {
+            System.out.println("Token not found");
+            return false;
+        }
+        tokens.remove(token);
+        return true;
+    }
+
 }
