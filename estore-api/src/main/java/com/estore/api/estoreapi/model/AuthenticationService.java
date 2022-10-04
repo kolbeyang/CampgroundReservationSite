@@ -41,6 +41,37 @@ public class AuthenticationService {
         return token;
     }
 
+    /**
+     * Verifies that the token is associated with the given user
+     * @param username the username of the user to check
+     * @param token the token of the user
+     * @return Whether the token is associated with the user
+     * @throws IOException
+     */
+    public Boolean isUserToken(String username, String token) {
+        if (!tokens.containsKey(token)) {
+            System.out.println("Token not found");
+            return null;
+        }
+        return tokens.get(token).equals(username);
+    }
+
+    /**
+     * CHocks whether the given token is associated with an admin user
+     * @param token : the token to check
+     * @return whether the token is an admin token
+     * @throws IOException
+     */
+    public Boolean isAdminToken(String token) throws IOException{
+        if (!tokens.containsKey(token)) {
+            System.out.println("Token not found");
+            return null;
+        }
+        String username = tokens.get(token);
+        User user = userDAO.getUser(username);
+        return user.getIsAdmin();
+    }
+
     public String userLogin(LoginRequest loginRequest) throws IOException{
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
