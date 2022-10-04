@@ -150,6 +150,14 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/logout")
+    public ResponseEntity<String> userLogout(@RequestBody String token) {
+        Boolean successful = authenticationService.userLogout(token);
+
+        if (successful) return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     /**
      * Deletes the user with the inptu id
      * returns a status code of OK, NOT_FOUND, or INTERNAL_SERVER_ERROR
