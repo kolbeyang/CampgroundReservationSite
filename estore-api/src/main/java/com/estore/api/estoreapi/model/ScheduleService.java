@@ -80,7 +80,7 @@ public class ScheduleService {
     }
 
     /**
-     * Checks to see if the reservation data will make a reservation data
+     * Checks to see if the reservation data is valid
      * the campsiteId must exist and the start and end dates must fit within the campsite's schedule
      * @param reservation the JSON data made into a reservation object
      * @return whether the data will make a valid reservation
