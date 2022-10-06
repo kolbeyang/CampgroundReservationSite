@@ -65,6 +65,7 @@ public class ScheduleService {
                 overlap = false;
                 overlap = overlap || ( aBetweenBandC(startDate, compareStart, compareEnd) || aBetweenBandC(compareStart, startDate, endDate) );
                 overlap = overlap || ( aBetweenBandC(endDate, compareStart, compareEnd) || aBetweenBandC(compareEnd, startDate, endDate) );
+                overlap = overlap || (startDate == compareStart && endDate == compareEnd);
 
                 if ( overlap ) {
                     System.out.println("ScheduleService: Invalid Reservation time");
