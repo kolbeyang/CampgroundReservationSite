@@ -81,7 +81,7 @@ public class AuthenticationService {
     }
 
     public Boolean userLoggedIn(LoginRequest loginRequest) {
-        return tokens.containsKey(loginRequest.getUsername());
+        return tokens.containsValue(loginRequest.getUsername());
     }
 
     public String userLogin(LoginRequest loginRequest) throws IOException{
@@ -89,11 +89,6 @@ public class AuthenticationService {
         String password = loginRequest.getPassword();
 
         User user = userDAO.getUser(username);
-
-        if (tokens.containsKey(username)) {
-            System.out.println("User already logged in");
-
-        }
 
         if (user.authenticatePassword(password)) {
             //password was correct

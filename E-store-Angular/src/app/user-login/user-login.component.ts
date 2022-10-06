@@ -12,26 +12,36 @@ export class UserLoginComponent implements OnInit {
 
   model = new User("","", false);
   token = "";
+  errorMessage = '';
 
   constructor(private loginService: LoginService) { 
   }
   
+  handleLoginError(error: any) {
+    console.log("Error caught in component " + error.status);
+    if (error.status == 404 || error.status == 401) {
+      this.errorMessage = 'Incorrect Username or Password';
+    } else if (error.status == 409) {
+      this.errorMessage = 'User Already Logged In';
+    }
+  }
+
   ngOnInit(): void {
   }
 
   onLogin(loginForm: NgForm) {
-    const username = this.model.username;
-    const password = this.model.password;
     console.log(this.model);
-    this.loginService.login(this.model).subscribe(token => this.token = token);
+    this.errorMessage = '';
+    this.loginService.login(this.model).subscribe(
+      token => this.token = token,
+      (error) => this.handleLoginError(error));
     loginForm.reset();
     console.log("Logged in!");
   }
 
   onSignup(loginForm: NgForm) {
-    const username = this.model.username;
-    const password = this.model.password;
     console.log(this.model);
+    this.errorMessage = '';
     this.loginService.signUp(this.model).subscribe();
     loginForm.reset();
     console.log("Signed up!");

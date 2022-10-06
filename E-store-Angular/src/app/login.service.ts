@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from './user';
@@ -15,7 +15,7 @@ export class LoginService {
   private loginURL = 'http://localhost:8080/users'
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' , observe: 'response'})
   };
 
   constructor(
@@ -54,7 +54,7 @@ export class LoginService {
         this.log(`${operation} failed: ${error.message}`);
   
         // Let the app keep running by returning an empty result.
-        return of(result as T);
+        return throwError(() => error);
       };
     }
 
