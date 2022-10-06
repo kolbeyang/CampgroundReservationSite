@@ -1,1 +1,1 @@
-[{"username":"BobAdmin","isAdmin":true,"cart":[],"reservations":[]}]
+[{"username":"Billy","password":"Bob","isAdmin":false,"cart":[],"reservations":[]},{"username":"BobAdmin","password":null,"isAdmin":true,"cart":[],"reservations":[]}]

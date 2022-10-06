@@ -1,17 +1,38 @@
 /* Application-wide Styles */
+input {
+  padding: .5rem;
+  width: 100%;
+  height: 44px;
+  box-sizing: border-box;
+  display: block;
+  background-color: #D9D9D9;
+  outline-style: none;
+  margin-top: 20px;
+  font-size: 20px;
+
+  border-radius: 6px;
+  border:none;
+  outline-width: 0;
+}
+input:focus {
+  outline: #3E602E auto 10px;
+}
+
 h1 {
-    color: #369;
-    font-family: Arial, Helvetica, sans-serif;
+  color: #435848;
+    font-family: Helvetica, sans-serif;
     font-size: 250%;
   }
-  h2, h3 {
-    color: #444;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-  }
+  h2 {
+    font-size: 36px;
+    font-family: Helvetica, sans-serif;
+    color: #435848;
+    text-align: left;
+    margin: 0px;
+}
   body, input[type="text"], button {
     color: #333;
-    font-family: Cambria, Georgia, serif;
+    font-family: Helvetica, sans-serif;
   }
   button {
     background-color: #3E602E;
@@ -19,15 +40,14 @@ h1 {
     padding: 20px;
     font-size: 24px;
     color: white;
-    margin-top: 30px;
+    margin-top: 10px;
 
     border-radius: 6px;
     border:none;
     outline-width: 0;
 }
   button:hover {
-    background-color: black;
-    color: white;
+    background-color: #5b8849;
   }
   button:disabled {
     background-color: #eee;

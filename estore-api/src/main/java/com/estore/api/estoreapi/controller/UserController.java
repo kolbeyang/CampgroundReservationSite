@@ -93,6 +93,7 @@ public class UserController {
      */
     @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
+        System.out.println("Post createUser request received");
         LOG.info("POST /users " + user);
         try {
             User[] users = userDAO.getUsers();
@@ -137,6 +138,7 @@ public class UserController {
     @GetMapping("/login")
     public ResponseEntity<String> userLogin(@RequestBody LoginRequest loginRequest) {
         LOG.info("POST /users/login");
+        System.out.println("User logged in!");
         try {
             String token = authenticationService.userLogin(loginRequest);
             if (token != null) {
