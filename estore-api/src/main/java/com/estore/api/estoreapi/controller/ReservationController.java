@@ -80,7 +80,7 @@ public class ReservationController {
     }
 
     /**
-     * Creates a reservation based on the input if a reservation of the same name has not yet been created
+     * Creates a reservation based on the input
      * returns status code of CONFLICT, CREATED, or INTERNAL_SERVER_ERROR
      * @param reservation : an object of the reservation to create
      * @return the new created reservation
