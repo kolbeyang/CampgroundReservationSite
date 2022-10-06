@@ -112,6 +112,7 @@ public class InventoryController {
      */
     @PostMapping("")
     public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) {
+        System.out.println("InventoryController.createCampsite: creating campsite");
         LOG.info("POST /campsites " + campsite);
         try {
             Campsite[] campsites = inventoryDAO.getCampsites();
