@@ -54,7 +54,11 @@ public class User {
      * Checks whether the given password is correct or not
      * @return True if the password is correct
      */
-    public Boolean authenticatePassword(String password) {return this.password.equals(password);}
+    public Boolean authenticatePassword(String password) {
+        Boolean output = this.password.equals(password);
+        System.out.println("User.authenticatePassword output " + output);
+        return output;
+    }
 
     /**
      * Getter

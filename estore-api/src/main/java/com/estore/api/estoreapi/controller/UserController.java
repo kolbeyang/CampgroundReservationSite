@@ -135,14 +135,22 @@ public class UserController {
         }
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<String> userLogin(@RequestBody LoginRequest loginRequest) {
         LOG.info("POST /users/login");
-        System.out.println("User logged in!");
         try {
+            if (!userDAO.userExists(loginRequest.getUsername())) {
+                LOG.info("User does not exist");
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            if (authenticationService.userLoggedIn(loginRequest)) {
+                LOG.info("User already logged in");
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
             String token = authenticationService.userLogin(loginRequest);
+            System.out.println("token is " + token);
             if (token != null) {
-                return new ResponseEntity<>(token, HttpStatus.ACCEPTED);
+                return new ResponseEntity<String>(token, HttpStatus.ACCEPTED);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }

@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from './user';
+import { LoginRequest } from './loginRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +21,22 @@ export class LoginService {
   constructor(
     private http: HttpClient) { }
 
-  signUp(user: User): Observable<string> {
+  signUp(user: User): Observable<User> {
     console.log("Sending post request for Signup")
-    return this.http.post<string>(this.loginURL, user, this.httpOptions).pipe(
-      catchError(this.handleError<string>('signUp', ""))
+    return this.http.post<User>(this.loginURL, user, this.httpOptions).pipe(
+      catchError(this.handleError<User>('signUp', user))
     );
     
   }
+
+  login(loginRequest: LoginRequest): Observable<string> {
+    console.log("Sending post requset fo Login")
+    return this.http.post<string>(this.loginURL + "/login", loginRequest, this.httpOptions).pipe(
+      catchError(this.handleError<string>('login', ""))
+    );
+  
+  }
+
     /**
    * Handle Http operation that failed.
    * Let the app continue.
