@@ -21,7 +21,7 @@ input:focus {
 h1 {
   color: #435848;
     font-family: Helvetica, sans-serif;
-    font-size: 250%;
+    font-size: 24px;
   }
   h2 {
     font-size: 36px;
@@ -45,6 +45,33 @@ h1 {
     border-radius: 6px;
     border:none;
     outline-width: 0;
+}
+.title {
+  font-size: 18px;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 9px;
+  text-decoration: none;
+  color: #919993;
+}
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  width: 100%;
+}
+.button-box {
+  display: grid;
+  max-width: 160px;
+  grid-template-columns: 1fr 1fr;
+}
+.nav-button {
+  font-size: 18px;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 9px;
+  text-decoration: none;
+  color: #919993;
 }
   button:hover {
     background-color: #5b8849;
