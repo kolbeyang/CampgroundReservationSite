@@ -1,0 +1,27 @@
+
+.login-box{
+    max-width: 350px;
+    padding: 72px 54px;
+    margin: auto;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    row-gap: 20px;
+    display: flexbox;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 5px 10px 5px #E6EAE6;
+}
+
+button{
+    width: auto;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.buttons{
+    margin-top: 20px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    
+}

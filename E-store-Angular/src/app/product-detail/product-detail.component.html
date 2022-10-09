@@ -1,1 +1,25 @@
-<p>product-detail works!</p>
+<h2>My Products</h2>
+<ul class="products">
+  <li *ngFor="let product of products">
+    <button [class.selected]="product === selectedProduct" type="button" (click)="onSelect(product)">
+      <span class="badge">{{product.id}}</span>
+      <span class="name">{{product.name}}</span>
+    </button>
+  </li>
+</ul>
+
+<div *ngIf="selectedProduct">
+  <h2>{{selectedProduct.name | uppercase}} Details</h2>
+  <div>id: {{selectedProduct.id}}</div>
+
+  <div>
+    <label for="product-name">Campsite name: </label>
+    <input id="product-name" [(ngModel)]="selectedProduct.name" placeholder="name">
+  </div>
+
+  <div>
+    <label for="product-rate">Campsite rate: </label>
+    <input id="product-rate" [(ngModel)]="selectedProduct.rate" placeholder="raye">
+  </div>
+</div>
+
