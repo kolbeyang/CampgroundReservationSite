@@ -85,4 +85,13 @@ public class Campsite {
     public String toString() {
         return String.format(STRING_FORMAT,id,name,rate);
     }
+
+    /**
+     * Returns a boolean value based on whether the name paramater is valid
+     * @param name 
+     */
+    public boolean isValidName(String name) {
+        name = name.toLowerCase();
+        return name.contains("campsite");
+    }
 }
