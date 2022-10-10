@@ -24,4 +24,6 @@ export class ProductDetailComponent implements OnInit {
   getProducts(): void{
     this.productService.getProducts().subscribe(products => this.products = products);
   }
+
+
 }
