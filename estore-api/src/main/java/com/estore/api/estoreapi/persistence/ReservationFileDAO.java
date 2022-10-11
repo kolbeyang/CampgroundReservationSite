@@ -84,6 +84,24 @@ public class ReservationFileDAO implements ReservationDAO {
     }
 
     /**
+     * Returns an array of all reservations of a specified campsite
+     * @return an array of the reservations of a specified campsite
+     */
+    private Reservation[] getCampsiteReservationsArray(int id) {
+        ArrayList<Reservation> campsiteReservations = new ArrayList<>();
+
+        for(Reservation reservation : reservations.values()) {
+            if(reservation.getCampsiteId() == id)
+                campsiteReservations.add(reservation);
+        }
+
+        Reservation[] campsiteReservationsArray = new Reservation[campsiteReservations.size()];
+        campsiteReservations.toArray(campsiteReservationsArray);
+        return campsiteReservationsArray;
+    }
+
+
+    /**
      * Saves all Java objects into JSON objects in the JSON file
      * @return whether this operation was successful
      * @throws IOException
@@ -148,6 +166,15 @@ public class ReservationFileDAO implements ReservationDAO {
     public Reservation[] getUserReservations(String username) {
         synchronized(reservations) {
             return getUserReservationsArray(username);
+        }
+    }
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Reservation[] getCampsiteReservations(int id) {
+        synchronized(reservations) {
+            return getCampsiteReservationsArray(id);
         }
     }
     /**

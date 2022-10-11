@@ -31,6 +31,15 @@ public interface ReservationDAO {
      */
     Reservation[] getUserReservations(String username) throws IOException;
 
+    //TODO NEW
+    /**
+     * Getter
+     * @param id : the id of the campsite whose reservations to get
+     * @return an array of this campsite's reservations
+     * @throws IOException
+     */
+    Reservation[] getCampsiteReservations(int id) throws IOException;
+
     /**
      * Creates a reservation based on the input data
      * @param reservation : a reservation object based directly on the input JSON data
