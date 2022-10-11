@@ -94,7 +94,7 @@ public class ScheduleService {
         if (campsite != null) {
             long startDate = reservation.getStartDate();
             long endDate = reservation.getEndDate();
-            return fitsInSchedule(startDate, endDate, campsite.getReservations());
+            return fitsInSchedule(startDate, endDate, reservationDAO.getCampsiteReservations(campsiteId));
         } 
         System.out.println("ScheduleService.isValidReservation: Campsite of id " + campsiteId + " not found");
         return false;
@@ -111,7 +111,6 @@ public class ScheduleService {
         int campsiteId = reservation.getCampsiteId();
         Campsite campsite = inventoryDAO.getCampsite(campsiteId);
 
-        campsite.addReservationId(reservation.getId());
 
         return created;
     }
