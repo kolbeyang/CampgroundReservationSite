@@ -17,11 +17,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ch.qos.logback.core.recovery.ResilientFileOutputStream;
+
 import com.estore.api.estoreapi.model.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 
 
@@ -44,7 +48,7 @@ public class InventoryFileDAOTest {
         mockObjectMapper = mock(ObjectMapper.class);
         Campsite camp1 = new Campsite(1, "Lucky Meadows", 11.99);
         Campsite camp2 = new Campsite(2, "Eagle heights", 12.43);
-        Campsite camp3 = new Campsite(3, "Stony Brook", 14);
+        Campsite camp3 = new Campsite(3, "Stony Brooks", 14);
         testCampsites = new Campsite[3];
         testCampsites[0] = camp1;
         testCampsites[1] = camp2;
@@ -85,8 +89,72 @@ public class InventoryFileDAOTest {
     @Test
     public void testfindCampsites(){
         Campsite[] campsites  = inventoryFileDAO.getCampsites();
+        Campsite[] containsTxt = new Campsite[campsites.length];
+        Campsite[] allCampsites = inventoryFileDAO.findCampsites("s");
+        for(int i = 0; i < campsites.length; i++){
+            containsTxt[i] = campsites[i];
+            assertEquals(containsTxt[i], inventoryFileDAO.findCampsites(campsites[i].getName())[0]);
+        }
+
+        
+        //assertEquals(containsTxt, allCampsites);
+    }
+
+
+    @Test
+    public void testcreateCampsites() throws IOException{
+        Campsite newCampsite = new Campsite(4, "Warbling wonders", 34.54);
+        inventoryFileDAO.createCampsite(newCampsite);
+        assertEquals(newCampsite, inventoryFileDAO.getCampsite(newCampsite.getId()));
+    }
+
+    @Test
+    public void testupdateCampsite(){
+        Campsite updateCampsite = new Campsite(3, "Worming Wonders", 34.54);
+
+        testCampsites[2].setName(updateCampsite.getName());
+        testCampsites[2].setRate(updateCampsite.getRate());
+
+        assertDoesNotThrow( () -> inventoryFileDAO.updateCampsite(updateCampsite), "This is a message");
+
+        assertEquals(testCampsites[2],inventoryFileDAO.getCampsite(updateCampsite.getId()));
 
     }
 
+    @Test
+    public void testDeleteCampsite(){
+        boolean result = assertDoesNotThrow( () -> inventoryFileDAO.deleteCampsite(1), "This ");
+
+        assertEquals(result, true);
+        assertNull(inventoryFileDAO.getCampsite(1));
+
+    }
+
+    @Test
+    public void testSaveException() throws IOException{
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .writeValue(any(File.class), any(Campsite[].class));
+
+        Campsite newCampsite = new Campsite(23, "Evererst Glades", 9.65);
+
+        assertThrows(IOException.class, () -> inventoryFileDAO.createCampsite(newCampsite));
+        assertThrows(IOException.class, () -> inventoryFileDAO.updateCampsite(new Campsite(newCampsite.getId(),"Everest Glades", 9.65 )));
+        assertThrows(IOException.class, () -> inventoryFileDAO.deleteCampsite(newCampsite.getId()));
+    }
+
+    @Test
+    public void testLoadException() throws IOException{
+
+        ObjectMapper mObjectMapper = mock(ObjectMapper.class);
+        doThrow(new IOException())
+            .when(mObjectMapper)
+                .readValue(new File("Whatever.txt"), Campsite[].class);
+
+        assertThrows(IOException.class, 
+                       () -> new InventoryFileDAO("Whatever.txt", mObjectMapper), 
+                      " Did not throw proper exception");
+    
+    }
 
 }
