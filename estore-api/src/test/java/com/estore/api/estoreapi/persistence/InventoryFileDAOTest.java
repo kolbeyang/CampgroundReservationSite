@@ -2,7 +2,6 @@ package com.estore.api.estoreapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -12,26 +11,23 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ch.qos.logback.core.recovery.ResilientFileOutputStream;
 
 import com.estore.api.estoreapi.model.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 
 
 /**
  * Tests the Inventory File DAO class
  */
+@Tag("persistence")
 public class InventoryFileDAOTest {
     InventoryFileDAO inventoryFileDAO;
     ObjectMapper mockObjectMapper;
@@ -75,7 +71,7 @@ public class InventoryFileDAOTest {
         assertEquals(campsites.length,testCampsites.length);
 
         for (int i = 0; i < campsites.length; i++)
-            assertEquals(campsites[0], testCampsites[0]);
+            assertEquals(campsites[i], testCampsites[i]);
     }
 
     @Test
