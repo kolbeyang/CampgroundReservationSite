@@ -45,36 +45,25 @@ public class ScheduleService {
      * @param reservations the arraylist of reservation IDs from a campsite
      * @return true if there are no schedule conflicts
      */
-    private boolean fitsInSchedule(long startDate, long endDate, ArrayList<Integer> reservations )  {
-        Reservation currentReservation;
+    private boolean fitsInSchedule(long startDate, long endDate, Reservation[] reservations )  {
         long compareStart;
         long compareEnd;
         boolean overlap;
         //Go through each of the reservations
-        for (int reservationId : reservations) {
-            try { 
-                currentReservation = this.reservationDAO.getReservation(reservationId);
-                if (currentReservation == null) {
-                    System.out.println("ScheduleService.fitsInSchedule: Invalid Reservation ID of " + reservationId);
-                    return false;
-                }
-                compareStart = currentReservation.getStartDate();
-                compareEnd = currentReservation.getEndDate();
+        for (Reservation currentReservation : reservations) {
+            compareStart = currentReservation.getStartDate();
+            compareEnd = currentReservation.getEndDate();
 
-                // If there is overlap in the times, return false
-                overlap = false;
-                overlap = overlap || ( aBetweenBandC(startDate, compareStart, compareEnd) || aBetweenBandC(compareStart, startDate, endDate) );
-                overlap = overlap || ( aBetweenBandC(endDate, compareStart, compareEnd) || aBetweenBandC(compareEnd, startDate, endDate) );
-                overlap = overlap || (startDate == compareStart && endDate == compareEnd);
+            // If there is overlap in the times, return false
+            overlap = false;
+            overlap = overlap || ( aBetweenBandC(startDate, compareStart, compareEnd) || aBetweenBandC(compareStart, startDate, endDate) );
+            overlap = overlap || ( aBetweenBandC(endDate, compareStart, compareEnd) || aBetweenBandC(compareEnd, startDate, endDate) );
+            overlap = overlap || (startDate == compareStart && endDate == compareEnd);
 
-                if ( overlap ) {
-                    System.out.println("ScheduleService: Invalid Reservation time");
-                    return false;
-                }
-            } catch (IOException IOE) {
-                System.out.println("ScheduleService.fitsInSchedule: Invalid Reservation ID of " + reservationId);
+            if ( overlap ) {
+                System.out.println("ScheduleService: Invalid Reservation time");
+                return false;
             }
-                
 
         }
         return true;
