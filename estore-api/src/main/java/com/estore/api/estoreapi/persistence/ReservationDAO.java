@@ -22,6 +22,15 @@ public interface ReservationDAO {
      */
     Reservation getReservation(int id) throws IOException;
 
+    //TODO NEW
+    /**
+     * Getter
+     * @param userID : the id of the user whose reservations to get
+     * @return an array of this user's reservations
+     * @throws IOException
+     */
+    Reservation[] getUserReservations(String username) throws IOException;
+
     /**
      * Creates a reservation based on the input data
      * @param reservation : a reservation object based directly on the input JSON data

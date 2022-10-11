@@ -16,8 +16,6 @@ public class User {
 
     @JsonProperty("username") private String username;
     @JsonProperty("password") private String password;
-    @JsonProperty("cart") private ArrayList<Integer> cart;
-    @JsonProperty("reservations") private ArrayList<Integer> reservations;
     @JsonProperty("isAdmin") private Boolean isAdmin;
 
     /**
@@ -28,8 +26,6 @@ public class User {
         this.username = username;
         this.password = psasword;
         this.isAdmin = isAdmin;
-        this.cart = new ArrayList<Integer>();
-        this.reservations = new ArrayList<Integer>();
     }
 
     /**
@@ -40,7 +36,7 @@ public class User {
 
     /**
      * Sets a new password
-     * @param psasword : the new password
+     * @param password : the new password
      */
     public void setPassword(String psasword) {this.password = password;}
 
@@ -71,18 +67,6 @@ public class User {
      * @param isAdmin the new value of isAdmin
      */
     public void setIsAdmin(Boolean isAdmin) {this.isAdmin = isAdmin;}
-
-    /**
-     * Getter
-     * @return the ArrayList of reservation ids in the user's cart
-     */
-    public ArrayList<Integer> getCart() {return this.cart;}
-
-    /**
-     * Getter
-     * @return the ArrayList of reservation ids
-     */
-    public ArrayList<Integer> getReservations() {return this.reservations;}
 
     /**
      * Two users are equal iff their usernames are equal
