@@ -90,7 +90,7 @@ public class InventoryController {
      * @param id : id of the campsite whose reservations to get
      * @return a json object of all reservations for this campsite
      */
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/reservations")
     public ResponseEntity<Reservation[]> getCampsiteReservations(@PathVariable int id) {
         LOG.info("GET /campsites/" + id + "/reservations");
         try {
