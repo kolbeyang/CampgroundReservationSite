@@ -1,7 +1,6 @@
 package com.estore.api.estoreapi.model;
 
 import java.util.logging.Logger;
-import java.util.concurrent.TimeUnit;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -18,8 +17,6 @@ public class Reservation {
     // Dates stored as millisecond since 1970
     @JsonProperty("startDate") private long startDate;
     @JsonProperty("endDate") private long endDate;
-    @JsonProperty("price") private long price;
-    @JsonProperty("username") private String username;
 
     /**
      * Constructor sets private variables based on input
@@ -28,23 +25,12 @@ public class Reservation {
      * @param startDate : the beginning time of the reservation in milliseconds since 1970
      * @param endDate : the end time of the reservation in milliseconds since 1970
      */
-    public Reservation(@JsonProperty("id") int id, @JsonProperty("campsiteId") int campsiteId, @JsonProperty("startDate") long startDate, @JsonProperty("endDate") long endDate, @JsonProperty("username") String username) {
+    public Reservation(@JsonProperty("id") int id, @JsonProperty("campsiteId") int campsiteId, @JsonProperty("startDate") long startDate, @JsonProperty("endDate") long endDate) {
         this.id = id;
         this.campsiteId = campsiteId;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.username = username;
-
-        //TODO to get the price
-        //Campsite campsite = 
-        //this.price = (TimeUnit.MILLISECONDS.toDays(this.endDate) - TimeUnit.MILLISECONDS.toDays(this.startDate)) *  
     }
-
-    /**
-     * Getter
-     * @return username of the user whose reservation this is
-     */
-    public String getUsername() {return username;}
 
     /**
      * Getter
@@ -69,7 +55,7 @@ public class Reservation {
      * Getter
      * @return the campsiteID of the campsite this reservation belongs to
      */
-    public int getCampsiteId() {return this.campsiteId;}
+    public long getCampsiteId() {return this.campsiteId;}
 
     /**
      * Getter
