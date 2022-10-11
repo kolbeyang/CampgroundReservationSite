@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from './user';
+import { LoginRequest } from './loginRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,28 @@ export class LoginService {
   private loginURL = 'http://localhost:8080/users'
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' , observe: 'response'})
   };
 
   constructor(
     private http: HttpClient) { }
 
-  signUp(user: User): Observable<string> {
+  signUp(user: User): Observable<User> {
     console.log("Sending post request for Signup")
-    return this.http.post<string>(this.loginURL, user, this.httpOptions).pipe(
-      catchError(this.handleError<string>('signUp', ""))
+    return this.http.post<User>(this.loginURL, user, this.httpOptions).pipe(
+      catchError(this.handleError<User>('signUp', user))
     );
     
   }
+
+  login(loginRequest: LoginRequest): Observable<string> {
+    console.log("Sending post requset fo Login")
+    return this.http.post<string>(this.loginURL + "/login", loginRequest, this.httpOptions).pipe(
+      catchError(this.handleError<string>('login', ""))
+    );
+  
+  }
+
     /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -44,7 +54,7 @@ export class LoginService {
         this.log(`${operation} failed: ${error.message}`);
   
         // Let the app keep running by returning an empty result.
-        return of(result as T);
+        return throwError(() => error);
       };
     }
 

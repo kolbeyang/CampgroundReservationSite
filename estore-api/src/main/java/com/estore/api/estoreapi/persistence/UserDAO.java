@@ -23,6 +23,13 @@ public interface UserDAO {
     User getUser(String username) throws IOException;
 
     /**
+     * Returns whether the user exists
+     * @param username the username of the user to search for
+     * @return boolean
+     */
+    Boolean userExists(String username);
+
+    /**
      * Creates a user based on the input data
      * @param user : a user object based directly on the input JSON data
      * @return the new user

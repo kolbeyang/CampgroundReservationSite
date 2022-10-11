@@ -97,8 +97,6 @@ public class ReservationController {
                 return new ResponseEntity<Reservation>(created, HttpStatus.CREATED);
             }
 
-
-
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());

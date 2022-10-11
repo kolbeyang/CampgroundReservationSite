@@ -2,10 +2,12 @@ package com.estore.api.estoreapi.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Component;
+
 import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.estore.api.estoreapi.persistence.ReservationDAO;
 import com.estore.api.estoreapi.persistence.UserDAO;
@@ -26,6 +28,7 @@ public class AuthenticationService {
      * @param reservationDAO handles Reservation data
      */
     public AuthenticationService(UserDAO userDAO) {
+        this.tokens = new HashMap<String, String>();
         this.userDAO = userDAO;
         this.seed = 1015;
     }
@@ -72,11 +75,21 @@ public class AuthenticationService {
         return user.getIsAdmin();
     }
 
+    public Boolean userExists(LoginRequest loginRequest) {
+        String username = loginRequest.getUsername();
+        return userDAO.userExists(username);
+    }
+
+    public Boolean userLoggedIn(LoginRequest loginRequest) {
+        return tokens.containsValue(loginRequest.getUsername());
+    }
+
     public String userLogin(LoginRequest loginRequest) throws IOException{
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
 
         User user = userDAO.getUser(username);
+
         if (user.authenticatePassword(password)) {
             //password was correct
             return startSession(user);

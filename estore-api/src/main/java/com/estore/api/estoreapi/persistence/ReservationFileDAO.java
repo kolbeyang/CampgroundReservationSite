@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import javax.naming.spi.ResolveResult;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -63,6 +65,41 @@ public class ReservationFileDAO implements ReservationDAO {
         reservationArrayList.toArray(reservationArray);
         return reservationArray;
     }
+
+    /**
+     * Returns an array of all reservations of a specified user
+     * @return an array of the reservations of a specified user
+     */
+    private Reservation[] getUserReservationsArray(String username) {
+        ArrayList<Reservation> userReservations = new ArrayList<>();
+
+        for(Reservation reservation : reservations.values()) {
+            if(reservation.getUsername().equals(username))
+                userReservations.add(reservation);
+        }
+
+        Reservation[] userReservationsArray = new Reservation[userReservations.size()];
+        userReservations.toArray(userReservationsArray);
+        return userReservationsArray;
+    }
+
+    /**
+     * Returns an array of all reservations of a specified campsite
+     * @return an array of the reservations of a specified campsite
+     */
+    private Reservation[] getCampsiteReservationsArray(int id) {
+        ArrayList<Reservation> campsiteReservations = new ArrayList<>();
+
+        for(Reservation reservation : reservations.values()) {
+            if(reservation.getCampsiteId() == id)
+                campsiteReservations.add(reservation);
+        }
+
+        Reservation[] campsiteReservationsArray = new Reservation[campsiteReservations.size()];
+        campsiteReservations.toArray(campsiteReservationsArray);
+        return campsiteReservationsArray;
+    }
+
 
     /**
      * Saves all Java objects into JSON objects in the JSON file
@@ -126,9 +163,27 @@ public class ReservationFileDAO implements ReservationDAO {
      * @inheritDoc
      */
     @Override
+    public Reservation[] getUserReservations(String username) {
+        synchronized(reservations) {
+            return getUserReservationsArray(username);
+        }
+    }
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Reservation[] getCampsiteReservations(int id) {
+        synchronized(reservations) {
+            return getCampsiteReservationsArray(id);
+        }
+    }
+    /**
+     * @inheritDoc
+     */
+    @Override
     public Reservation createReservation(Reservation reservation) throws IOException {
         synchronized(reservations) {
-            Reservation newReservation = new Reservation(nextId(),reservation.getCampsiteId(),reservation.getStartDate(), reservation.getEndDate());
+            Reservation newReservation = new Reservation(nextId(),reservation.getCampsiteId(),reservation.getStartDate(), reservation.getEndDate(), reservation.getUsername());
             reservations.put(newReservation.getId(),newReservation);
             save(); // may throw an IOException
             return newReservation;

@@ -152,6 +152,11 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
+    @Override
+    public Boolean userExists(String username) {
+        return users.containsKey(username);
+    }
+
     /**
      * @inheritDoc
      */
