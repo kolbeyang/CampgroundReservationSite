@@ -1,11 +1,30 @@
-<style>
-      input {align-items: center;}
-      div   {align-items: center;}
-</style>
-<div>
-<input id="name" placeholder="name">
-<input id="password" placeholder="password">
-</div>
-<div>
-    <button type="button" class="user-login" title="Submit Credentials">Submit</button>
-</div>
+<html>
+    <div class = "background">
+        <div class = "login-box">
+            <h2>Login</h2>
+            <div
+                *ngIf="errorMessage!=''"
+                class = "alert">
+                {{errorMessage}}
+            </div>
+            <form #loginForm = 'ngForm' ng-submit = "onLogin()">
+                <input type="text" 
+                    class="form-control" 
+                    id="username" 
+                    required
+                    placeholder="Username"
+                    [(ngModel)]="model.username" name="username">
+                <input type="text" 
+                    class="form-control" 
+                    id="password" 
+                    required
+                    placeholder="Password"
+                    [(ngModel)]="model.password" name="password">
+                <div class = "buttons">
+                    <button [disabled] = "!loginForm.valid" type="button" value="login"  (click)="onLogin(loginForm)">Log Me In</button>
+                    <button [disabled] = "!loginForm.valid" type="button" value="signup-button" (click)="onSignup(loginForm)">Sign Me Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</html>
