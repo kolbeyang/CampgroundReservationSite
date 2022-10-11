@@ -1,1 +1,1 @@
-[{"username":"Billy","password":"Bob","isAdmin":false,"cart":[],"reservations":[]},{"username":"BobAdmin","password":"1234","isAdmin":true,"cart":[],"reservations":[]}]
+[{"username":"Billy","password":"Bob","isAdmin":false,"cart":[],"reservations":[]},{"username":"BobAdmin","password":"1234","isAdmin":true,"cart":[],"reservations":[]},{"username":"Sam","password":"1234","isAdmin":false,"cart":[],"reservations":[]}]
