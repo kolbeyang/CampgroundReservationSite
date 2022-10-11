@@ -28,27 +28,30 @@ public class Campsite {
         this.name = name;
         this.rate = rate;
     }
-
     /**
      * Constructor for when a campsite name and rate aren't provided
      * @param id the id of the campsite
      */
+    /*
     public Campsite(@JsonProperty("id") int id) {
         this.id = id;
         this.name = "Unnamed Campsite";
         this.rate = 20.00;
     }
+    */
 
     /**
      * Constructor for when a rate isn't provided
      * @param id the id of the campsite
      * @param name the name of the campsite
      */
+    /*
     public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name) {
         this.id = id;
         this.name = name;
         this.rate = 20.00;
     }
+    */
 
     /**
      * @return the id of the campsite

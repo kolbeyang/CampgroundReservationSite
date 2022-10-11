@@ -19,6 +19,7 @@ import com.estore.api.estoreapi.persistence.InventoryDAO;
 import com.estore.api.estoreapi.model.Campsite;
 import com.estore.api.estoreapi.model.Reservation;
 import com.estore.api.estoreapi.model.ScheduleService;
+import com.estore.api.estoreapi.persistence.ReservationDAO;
 
 /**
  * Inventory Controller handles requests for all Campsites.
@@ -28,6 +29,7 @@ import com.estore.api.estoreapi.model.ScheduleService;
 public class InventoryController {
     private static final Logger LOG = Logger.getLogger(InventoryController.class.getName());
     private InventoryDAO inventoryDAO;
+    private ReservationDAO reservationDAO;
     private ScheduleService scheduleService;
 
     /**
@@ -76,6 +78,27 @@ public class InventoryController {
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Get all reservations for a specific campsite.
+     * @param id : id of the campsite whose reservations to get
+     * @return a json object of all reservations for this campsite
+     */
+    @GetMapping("/{id}/reservations")
+    public ResponseEntity<Reservation[]> getCampsiteReservations(@PathVariable int id) {
+        LOG.info("GET /campsites/" + id + "/reservations");
+        try {
+            Reservation[] reservationArray = reservationDAO.getCampsiteReservations(id);
+            if(reservationArray != null)
+                return new ResponseEntity<Reservation[]>(reservationArray, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
