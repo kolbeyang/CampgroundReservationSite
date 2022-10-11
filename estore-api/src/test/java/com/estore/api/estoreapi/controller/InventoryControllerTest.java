@@ -8,7 +8,9 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 
 import com.estore.api.estoreapi.persistence.InventoryDAO;
+import com.estore.api.estoreapi.persistence.ReservationDAO;
 import com.estore.api.estoreapi.model.Campsite;
+import com.estore.api.estoreapi.model.Reservation;
 import com.estore.api.estoreapi.model.ScheduleService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +29,7 @@ public class InventoryControllerTest {
     private InventoryController inventoryController;
     private InventoryDAO mockInventoryDAO;
     private ScheduleService mockScheduleService;
+    private ReservationDAO mockReservationDAO;
 
     /**
      * Before each test, create a new InventoryController object and inject
@@ -36,7 +39,8 @@ public class InventoryControllerTest {
     public void setupInventoryController() {
         mockInventoryDAO = mock(InventoryDAO.class);
         mockScheduleService = mock(ScheduleService.class);
-        inventoryController = new InventoryController(mockInventoryDAO, mockScheduleService);
+        mockReservationDAO = mock(ReservationDAO.class);
+        inventoryController = new InventoryController(mockInventoryDAO, mockScheduleService, mockReservationDAO);
     }
 
     @Test
@@ -285,4 +289,37 @@ public class InventoryControllerTest {
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
+
+    @Test
+    public void testGetCampsiteReservations() throws IOException {
+        Reservation[] reservations = new Reservation[2];
+        reservations[0] = new Reservation(1,12,100,200,"Billy");
+        reservations[1] = new Reservation(2, 12, 300, 400, "Bob");
+
+        when(mockReservationDAO.getCampsiteReservations(12)).thenReturn(reservations);
+
+        ResponseEntity<Reservation[]> response = inventoryController.getCampsiteReservations(12);
+
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(reservations,response.getBody());
+    }
+
+    @Test
+    public void testGetCampsiteReservationsFailed() throws IOException {
+        when(mockReservationDAO.getCampsiteReservations(12)).thenReturn(null);
+
+        ResponseEntity<Reservation[]> response = inventoryController.getCampsiteReservations(12);
+
+        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+    }
+
+    @Test
+    public void testGetCampsiteReservationsHandleException() throws IOException {
+        doThrow(new IOException()).when(mockReservationDAO.getCampsiteReservations(12));
+
+        ResponseEntity<Reservation[]> response = inventoryController.getCampsiteReservations(12);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
 }
+
