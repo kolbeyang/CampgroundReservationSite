@@ -3,7 +3,7 @@
     max-width: 350px;
     padding: 72px 54px;
     margin: auto;
-    margin-top: 32px;
+    margin-top: 10%;
     margin-bottom: 32px;
     row-gap: 20px;
     display: flexbox;
@@ -14,14 +14,15 @@
 
 button{
     width: auto;
-    margin-right: 10px;
+    width: 48%;
     font-size: 20px;
 }
 
 .buttons{
     margin-top: 20px;
-    display: grid;
+    display: flex;
+    justify-content: space-between;
+    
     width: 100%;
-    grid-template-columns: 1fr 1fr;
     
 }

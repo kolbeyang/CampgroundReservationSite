@@ -25,5 +25,5 @@ public class LoginRequest {
      * Getter
      * @return the psasword of the requset
      */
-    public String getPassword() {return this.getPassword();}
+    public String getPassword() {return this.password;}
 }

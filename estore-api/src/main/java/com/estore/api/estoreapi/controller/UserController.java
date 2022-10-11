@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.estore.api.estoreapi.model.AuthenticationService;
 import com.estore.api.estoreapi.model.LoginRequest;
 import com.estore.api.estoreapi.model.User;
+import com.estore.api.estoreapi.model.Reservation;
 import com.estore.api.estoreapi.persistence.UserDAO;
+import com.estore.api.estoreapi.persistence.ReservationDAO;
+
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -30,6 +33,7 @@ import java.util.Arrays;
 public class UserController {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDAO userDAO;
+    private ReservationDAO reservationDAO;
     private AuthenticationService authenticationService;
 
     /**
@@ -78,6 +82,29 @@ public class UserController {
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Get the reservations of a specific user
+     * @param username: the username of the user (functions as an id) 
+     * @return
+     */
+    @GetMapping("/{username}/reservations")
+    public ResponseEntity<Reservation[]> getUserReservations(@PathVariable String username) {
+        LOG.info("GET /users/" + username + "/reservations");
+        try {
+            // reservationDAO.getUserReservations(userID) will iterate through all reservations and return those with
+            // corresponding userID
+            Reservation[] reservationArray = reservationDAO.getUserReservations(username);
+            if(reservationArray != null)
+                return new ResponseEntity<Reservation[]>(reservationArray, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
@@ -135,14 +162,22 @@ public class UserController {
         }
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<String> userLogin(@RequestBody LoginRequest loginRequest) {
         LOG.info("POST /users/login");
-        System.out.println("User logged in!");
         try {
+            if (!userDAO.userExists(loginRequest.getUsername())) {
+                LOG.info("User does not exist");
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            if (authenticationService.userLoggedIn(loginRequest)) {
+                LOG.info("User already logged in");
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
             String token = authenticationService.userLogin(loginRequest);
+            System.out.println("token is " + token);
             if (token != null) {
-                return new ResponseEntity<>(token, HttpStatus.ACCEPTED);
+                return new ResponseEntity<String>(token, HttpStatus.ACCEPTED);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
