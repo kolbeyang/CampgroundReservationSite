@@ -16,7 +16,6 @@ public class Campsite {
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("rate") private double rate;
-    @JsonProperty("reservations") private ArrayList<Integer> reservations;
 
     /**
      * Constructor, sets private variables based on input
@@ -28,7 +27,6 @@ public class Campsite {
         this.id = id;
         this.name = name;
         this.rate = rate;
-        this.reservations = new ArrayList<Integer>();
     }
 
     /**
@@ -39,7 +37,6 @@ public class Campsite {
         this.id = id;
         this.name = "Unnamed Campsite";
         this.rate = 20.00;
-        this.reservations = new ArrayList<Integer>();
     }
 
     /**
@@ -51,7 +48,6 @@ public class Campsite {
         this.id = id;
         this.name = name;
         this.rate = 20.00;
-        this.reservations = new ArrayList<Integer>();
     }
 
     /**
@@ -75,11 +71,6 @@ public class Campsite {
      */
     public double getRate() {return rate;}
 
-    /**
-     * Getter
-     * @return the ArrayList of reservation ids
-     */
-    public ArrayList<Integer> getReservations() {return this.reservations;}
 
     /**
      * Sets the nightly rate of the Campsite
@@ -87,7 +78,6 @@ public class Campsite {
      */
     public void setRate(double rate) {this.rate = rate;}
 
-    public void addReservationId(int id) {this.reservations.add(id);}
 
     /**
      * Two campsites are equal iff their names are equal
@@ -118,4 +108,15 @@ public class Campsite {
         name = name.toLowerCase();
         return name.contains("campsite");
     }
+
+    /**
+     * Returns a boolean value based on whether the rate paramater is valid.
+     * Stubbed out
+     * @param value
+     * @return
+     */
+    public boolean isValidRate(Double value) {
+        return false;
+    }
+
 }
