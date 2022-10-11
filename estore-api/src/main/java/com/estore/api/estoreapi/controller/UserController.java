@@ -94,7 +94,7 @@ public class UserController {
      * @param username: the username of the user (functions as an id) 
      * @return
      */
-    @GetMapping("username")
+    @GetMapping("/{username}/reservations")
     public ResponseEntity<Reservation[]> getUserReservations(@PathVariable String username) {
         LOG.info("GET /users/" + username + "/reservations");
         try {
