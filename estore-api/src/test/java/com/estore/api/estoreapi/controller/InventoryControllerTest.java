@@ -77,7 +77,7 @@ public class InventoryControllerTest {
     public void testGetCampsiteHandleException() throws Exception { // createCampsite may throw IOException
         // Setup
         int campsiteId = 99;
-        // When getCampsite is called on the Mock Campsite DAO, throw an IOException
+        // When getCampsite is called on the Mock Campsite DAO, throw an IOExceptionfcreate
         doThrow(new IOException()).when(mockInventoryDAO).getCampsite(campsiteId);
 
         // Invoke
@@ -98,6 +98,8 @@ public class InventoryControllerTest {
         Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
         // when createCampsite is called, return true simulating successful
         // creation and save
+        Campsite[] campsiteArray = {};
+        when(mockInventoryDAO.getCampsites()).thenReturn(campsiteArray);
         when(mockInventoryDAO.createCampsite(campsite)).thenReturn(campsite);
 
         // Invoke
@@ -114,6 +116,8 @@ public class InventoryControllerTest {
         Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
         // when createCampsite is called, return false simulating failed
         // creation and save
+        Campsite[] campsiteArray = {campsite};
+        when(mockInventoryDAO.getCampsites()).thenReturn(campsiteArray);
         when(mockInventoryDAO.createCampsite(campsite)).thenReturn(null);
 
         // Invoke
@@ -129,6 +133,8 @@ public class InventoryControllerTest {
         Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
 
         // When createCampsite is called on the Mock Campsite DAO, throw an IOException
+        Campsite[] campsiteArray = {};
+        when(mockInventoryDAO.getCampsites()).thenReturn(campsiteArray);
         doThrow(new IOException()).when(mockInventoryDAO).createCampsite(campsite);
 
         // Invoke
@@ -315,7 +321,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetCampsiteReservationsHandleException() throws IOException {
-        doThrow(new IOException()).when(mockReservationDAO.getCampsiteReservations(12));
+        when(mockReservationDAO.getCampsiteReservations(12)).thenThrow(new IOException());
 
         ResponseEntity<Reservation[]> response = inventoryController.getCampsiteReservations(12);
 

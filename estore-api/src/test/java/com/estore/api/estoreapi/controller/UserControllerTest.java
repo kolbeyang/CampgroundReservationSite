@@ -1,6 +1,7 @@
 package com.estore.api.estoreapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -48,10 +49,11 @@ public class UserControllerTest {
         // Setup
         User user = new User("Billy", "1234", false);
         // When the same id is passed in, our mock User DAO will return the User object
-        when(mockUserDAO.getUser(user.getUsername())).thenReturn(user);
+        String username = user.getUsername();
+        doReturn(user).when(mockUserDAO).getUser(username);
 
         // Invoke
-        ResponseEntity<User> response = userController.getUser(user.getUsername());
+        ResponseEntity<User> response = userController.getUser(username);
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -64,7 +66,7 @@ public class UserControllerTest {
         String username = "Billy";
         // When the same id is passed in, our mock User DAO will return null, simulating
         // no user found
-        when(mockUserDAO.getUser(username)).thenReturn(null);
+        doReturn(null).when(mockUserDAO).getUser(username);
 
         // Invoke
         ResponseEntity<User> response = userController.getUser(username);
@@ -98,6 +100,8 @@ public class UserControllerTest {
         User user = new User("Billy", "1234", false);
         // when createUser is called, return true simulating successful
         // creation and save
+        User[] userArray = {};
+        when(mockUserDAO.getUsers()).thenReturn(userArray);
         when(mockUserDAO.createUser(user)).thenReturn(user);
 
         // Invoke
@@ -114,7 +118,8 @@ public class UserControllerTest {
         User user = new User("Billy", "1234", false);
         // when createUser is called, return false simulating failed
         // creation and save
-        when(mockUserDAO.createUser(user)).thenReturn(null);
+        User[] userArray = {user};
+        when(mockUserDAO.getUsers()).thenReturn(userArray);
 
         // Invoke
         ResponseEntity<User> response = userController.createUser(user);
@@ -129,7 +134,9 @@ public class UserControllerTest {
         User user = new User("Billy", "1234", false);
 
         // When createUser is called on the Mock User DAO, throw an IOException
-        doThrow(new IOException()).when(mockUserDAO).createUser(user);
+        User[] userArray = {};
+        when(mockUserDAO.getUsers()).thenReturn(userArray);
+        when(mockUserDAO.createUser(user)).thenThrow(new IOException());
 
         // Invoke
         ResponseEntity<User> response = userController.createUser(user);
@@ -282,7 +289,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetUserReservationsHandleException() throws IOException {
-        doThrow(new IOException()).when(mockReservationDAO.getUserReservations("Billy"));
+        doThrow(new IOException()).when(mockReservationDAO).getUserReservations("Billy");
 
         ResponseEntity<Reservation[]> response = userController.getUserReservations("Billy");
 

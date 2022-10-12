@@ -93,6 +93,8 @@ public class ReservationControllerTest {
         Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
         // when createReservation is called, return true simulating successful
         // creation and save
+        Reservation[] reservationArray = {};
+        when(mockReservationDAO.getReservations()).thenReturn(reservationArray);
         when(mockReservationDAO.createReservation(reservation)).thenReturn(reservation);
 
         // Invoke
@@ -109,6 +111,8 @@ public class ReservationControllerTest {
         Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
         // when createReservation is called, return false simulating failed
         // creation and save
+        Reservation[] reservationArray = {reservation};
+        when(mockReservationDAO.getReservations()).thenReturn(reservationArray);
         when(mockReservationDAO.createReservation(reservation)).thenReturn(null);
 
         // Invoke
@@ -124,6 +128,8 @@ public class ReservationControllerTest {
         Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
 
         // When createReservation is called on the Mock Reservation DAO, throw an IOException
+        Reservation[] reservationArray = {};
+        when(mockReservationDAO.getReservations()).thenReturn(reservationArray);
         doThrow(new IOException()).when(mockReservationDAO).createReservation(reservation);
 
         // Invoke
