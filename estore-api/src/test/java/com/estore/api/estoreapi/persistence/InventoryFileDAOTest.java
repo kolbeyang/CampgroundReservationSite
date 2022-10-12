@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -118,6 +119,28 @@ public class InventoryFileDAOTest {
     }
 
     @Test
+    public void testCampsiteNotFound(){
+        Campsite result = assertDoesNotThrow(() -> inventoryFileDAO.getCampsite(1000), "Unexpected exception thrown");
+        assertNull(result);
+    }
+
+    @Test
+    public void testDeleteCampsiteNotFound(){
+        Boolean result = assertDoesNotThrow(() -> inventoryFileDAO.deleteCampsite(1000), "Unexpected exception thrown");
+
+        assertFalse(result);
+        assertEquals(inventoryFileDAO.getCampsites().length,testCampsites.length);
+
+    }
+
+    @Test
+    public void testUpdateCampsiteNotFound(){
+        Campsite fakeCamp = new Campsite(999, "Stony Brooks", 45);
+        Campsite result = assertDoesNotThrow(() -> inventoryFileDAO.updateCampsite(fakeCamp), "fakeCamp should not exist" );
+        assertNull(result);
+    }   
+    
+    @Test
     public void testDeleteCampsite(){
         boolean result = assertDoesNotThrow( () -> inventoryFileDAO.deleteCampsite(1), "This ");
 
@@ -135,8 +158,6 @@ public class InventoryFileDAOTest {
         Campsite newCampsite = new Campsite(23, "Evererst Glades", 9.65);
 
         assertThrows(IOException.class, () -> inventoryFileDAO.createCampsite(newCampsite));
-        assertThrows(IOException.class, () -> inventoryFileDAO.updateCampsite(new Campsite(newCampsite.getId(),"Everest Glades", 9.65 )));
-        assertThrows(IOException.class, () -> inventoryFileDAO.deleteCampsite(newCampsite.getId()));
     }
 
     @Test

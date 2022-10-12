@@ -3,8 +3,10 @@ package com.estore.api.estoreapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -53,7 +55,7 @@ public class UserFileDAOTest {
     public void testgetUsers(){
         User[] actual = userFileDAO.getUsers();
         for(int i = 0; i < testUsers.length; i++){
-            assertEquals(testUsers[i],actual[i]);
+            assertEquals(userFileDAO.getUser(actual[i].getUsername()),actual[i]);
         }
 
     }
@@ -75,13 +77,70 @@ public class UserFileDAOTest {
 
     @Test
     public void testupdateUser(){
-        User newUser = new User(null, null, null);
+        User user = testUsers[2];
+        
 
+        // Invoke
+        User result = assertDoesNotThrow(() -> userFileDAO.updateUser(user),
+                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNotNull(result);
+        User actual = userFileDAO.getUser(user.getUsername());
+        assertEquals(actual,user);
+        //assertTrue(actual.getIsAdmin());
+        
     }
 
     @Test
     public void testdeleteUser(){
+        boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser(testUsers[0].getUsername()),
+        "Unexpected exception thrown");
 
+        assertEquals(result,true);
+        assertEquals(userFileDAO.getUsers().length,testUsers.length-1);
+    }
+
+    @Test
+    public void testUserNotFound(){
+        User result = assertDoesNotThrow(() -> userFileDAO.getUser("Doesnt Exist"), "Unexpected exception thrown");
+        assertNull(result);
+    }
+
+    @Test
+    public void testDeleteUserNotFound(){
+        Boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser("Doesnt Exist"), "Unexpected exception thrown");
+        assertNull(userFileDAO.getUser("Doesnt Exist"));
+        assertEquals(userFileDAO.getUsers().length,testUsers.length);
+    }
+
+    @Test
+    public void testUpdateUserNotFound(){
+        User fakeUser = new User("Dr. Hoobert", "Glades", false);
+        User result = assertDoesNotThrow(() -> userFileDAO.updateUser(fakeUser), "Unexpected exception thrown" );
+        assertNull(result);
+    }   
+
+    @Test
+    public void testSaveException() throws IOException{
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .writeValue(any(File.class), any(User[].class));
+
+        User newUser = new User("Dr. Hoobert", "Glades", false);
+
+        assertThrows(IOException.class, () -> userFileDAO.createUser(newUser));
+    }
+
+    @Test
+    public void testLoadException() throws IOException{
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .readValue(new File("Whatever.txt"), User[].class);
+
+        assertThrows(IOException.class, 
+                       () -> new UserFileDAO("Whatever.txt", mockObjectMapper), 
+                      " Did not throw proper exception");
     }
 
 }
