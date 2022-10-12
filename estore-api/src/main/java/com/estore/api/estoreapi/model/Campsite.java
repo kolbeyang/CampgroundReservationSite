@@ -100,7 +100,7 @@ public class Campsite {
         if (this == o) return true;
         if (o instanceof Campsite) {
             Campsite otherCampsite = (Campsite) o;
-            return this.name.equals(otherCampsite.name);
+            return this.name.toLowerCase().equals(otherCampsite.name.toLowerCase());
         }
         return false;
     }
@@ -110,6 +110,7 @@ public class Campsite {
      */
     @Override
     public String toString() {
+
         return String.format(STRING_FORMAT,id,name,rate);
     }
 
