@@ -1,5 +1,6 @@
 package com.estore.api.estoreapi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,7 @@ import com.estore.api.estoreapi.model.Campsite;
 class comestoreapiestoreapimodelCampsiteTest{
     Campsite test_site;
     @BeforeEach
-    public void setup() throws IllegalAccessException {
+    public void setup() throws IllegalArgumentException {
         test_site = new Campsite(7, "Test Campsite", 20.00);
     }
     @Test
@@ -27,6 +28,10 @@ class comestoreapiestoreapimodelCampsiteTest{
     @Test
     public void testgetRate() {
         assertEquals(test_site.getRate(), 20.00);
+    }
+    @Test
+    public void testsetName() {
+        
     }
 
 

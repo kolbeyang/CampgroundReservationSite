@@ -22,11 +22,11 @@ public class Campsite {
      * @param id the id of the campsite
      * @param name the name of the campsite
      * @param rate the cost of the campsite per night in dollars
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) throws IllegalAccessException {
+    public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) throws IllegalArgumentException {
         if(!isValidName(name)) {
-            throw new IllegalAccessException("<ERROR: Name must contain the word Campsite>");
+            throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
         }
         this.id = id;
         this.name = name;

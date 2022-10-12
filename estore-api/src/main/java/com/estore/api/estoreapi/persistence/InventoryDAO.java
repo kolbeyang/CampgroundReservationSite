@@ -35,9 +35,9 @@ public interface InventoryDAO {
      * @param campsite : a campsite object based directly on the input JSON data
      * @return the new campsite
      * @throws IOException
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
-    Campsite createCampsite(Campsite campsite) throws IOException, IllegalAccessException;
+    Campsite createCampsite(Campsite campsite) throws IOException, IllegalArgumentException;
 
     /**
      * Updates a campsite of the given id based on the input data

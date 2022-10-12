@@ -132,10 +132,10 @@ public class InventoryController {
      * returns status code of CONFLICT, CREATED, or INTERNAL_SERVER_ERROR
      * @param campsite : an object of the campsite to create
      * @return the new created campsite
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
      */
     @PostMapping("")
-    public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) throws IllegalAccessException {
+    public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) throws IllegalArgumentException {
         LOG.info("POST /campsites " + campsite);
         try {
             Campsite[] campsites = inventoryDAO.getCampsites();
