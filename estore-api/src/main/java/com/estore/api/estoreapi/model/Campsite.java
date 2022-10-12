@@ -22,11 +22,16 @@ public class Campsite {
      * @param id the id of the campsite
      * @param name the name of the campsite
      * @param rate the cost of the campsite per night in dollars
+     * @throws IllegalAccessException
      */
-    public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) {
+    public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) throws IllegalAccessException {
+        if(!isValidName(name)) {
+            throw new IllegalAccessException("<ERROR: Name must contain the word Campsite>");
+        }
         this.id = id;
         this.name = name;
         this.rate = rate;
+        
     }
     /**
      * Constructor for when a campsite name and rate aren't provided
@@ -62,7 +67,12 @@ public class Campsite {
      * Sets the name of the Campsite
      * @param name : the new name
      */
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        if(!isValidName(name)) {
+            throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
+        }
+        this.name = name;
+    }
     
     /**
      * @return the name of the campsite
@@ -109,7 +119,10 @@ public class Campsite {
      */
     public boolean isValidName(String name) {
         name = name.toLowerCase();
-        return name.contains("campsite");
+        if(name.contains("campsite")) {
+            return true;
+        }
+        return false;
     }
 
     /**

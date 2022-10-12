@@ -143,10 +143,11 @@ public class InventoryFileDAO implements InventoryDAO {
         }
     }
     /**
+     * @throws IllegalAccessException
      * @inheritDoc
      */
     @Override
-    public Campsite createCampsite(Campsite campsite) throws IOException {
+    public Campsite createCampsite(Campsite campsite) throws IOException, IllegalAccessException {
         synchronized(campsites) {
             Campsite newCampsite = new Campsite(nextId(),campsite.getName(),campsite.getRate());
             campsites.put(newCampsite.getId(),newCampsite);
