@@ -40,9 +40,10 @@ public class UserController {
      * Constructor for UserController
      * @param userDAO : the data access object for users
      */
-    public UserController(UserDAO userDAO, AuthenticationService authenticationService) {
+    public UserController(UserDAO userDAO, AuthenticationService authenticationService, ReservationDAO reservationDAO) {
         this.userDAO = userDAO;
         this.authenticationService = authenticationService;
+        this.reservationDAO = reservationDAO;
     }
 
     /**

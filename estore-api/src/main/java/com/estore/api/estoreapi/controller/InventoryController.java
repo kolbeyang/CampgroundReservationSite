@@ -36,9 +36,10 @@ public class InventoryController {
      * Constructor for InventoryController
      * @param inventoryDAO : the data access object for campsites
      */
-    public InventoryController(InventoryDAO inventoryDAO, ScheduleService scheduleService) {
+    public InventoryController(InventoryDAO inventoryDAO, ScheduleService scheduleService, ReservationDAO reservationDAO) {
         this.inventoryDAO = inventoryDAO;
         this.scheduleService = scheduleService;
+        this.reservationDAO = reservationDAO;
     }
 
     /**
@@ -135,6 +136,7 @@ public class InventoryController {
      */
     @PostMapping("")
     public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) {
+        System.out.println("InventoryController.createCampsite: creating campsite");
         LOG.info("POST /campsites " + campsite);
         try {
             Campsite[] campsites = inventoryDAO.getCampsites();
