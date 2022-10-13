@@ -26,5 +26,60 @@ import org.junit.jupiter.api.Test;
 
 @Tag("persistence")
 public class ReservationFileDAOTest {
+
+    @BeforeEach
+    public void setupreservationFileDAO(){
+        
+    }
+
+    @Test
+    public void testgetReservations(){
+
+    }
+
+    @Test
+    public void testfindReservation(){
+        
+    }
+
+    @Test
+    public void testcreateReservation(){
+        
+    }
+
+    @Test
+    public void testupdateReservation(){
+        
+    }
+
+    @Test
+    public void testdeleteReservation(){
+        
+    }
+
+    @Test
+    public void testdeleteReservationNotFound(){
+
+    }
+
+    @Test
+    public void testupdateReservationNotFound(){
+
+    }
+
+    @Test
+    public void testfindReservationNotFound(){
+
+    }
+
+    @Test
+    public void testSaveFailure(){
+
+    }
+
+    @Test
+    public void testLoadFailure(){
+
+    }
     
 }
