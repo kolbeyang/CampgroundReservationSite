@@ -1,6 +1,4 @@
 package com.estore.api.estoreapi.persistence;
-
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,13 +23,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+
+/**
+ * Tests the User File DAO class
+ */
 @Tag("persistence")
 public class UserFileDAOTest {
     UserFileDAO userFileDAO;
     ObjectMapper mockObjectMapper;
     User[] testUsers;
 
- 
+     /**
+     * Instantiates the value for Inventory File DAO class tests so that each one will be tested
+     * @throws IOException
+     */
     @BeforeEach
     public void setupuserFileDAO() throws IOException{
         mockObjectMapper = mock(ObjectMapper.class);
@@ -51,6 +56,9 @@ public class UserFileDAOTest {
     }
     
 
+    /**
+     * Tests getting the users list from the userFileDAO matches the test User list
+     */
     @Test
     public void testgetUsers(){
         User[] actual = userFileDAO.getUsers();
@@ -60,6 +68,10 @@ public class UserFileDAOTest {
 
     }
 
+
+    /**
+     * Tests that getting a specific user will match the corresponding User from the testUsers based on username
+     */
     @Test
     public void testgetUser(){
         for(int i = 0; i < testUsers.length; i++){
@@ -67,17 +79,26 @@ public class UserFileDAOTest {
         }
     }
 
+    /**
+     * Tests that creating a new valid user does not throw an IOException and that the newUser appears
+     * in the userFileDAO's user list
+     */
     @Test
-    public void testcreateUser() throws IOException{
+    public void testcreateUser(){
         User newUser = new User("Troy", "GoodFoodGuy", false);
-        userFileDAO.createUser(newUser);
+        assertDoesNotThrow(()->userFileDAO.createUser(newUser), "Something unexpected occurred");
         assertEquals(newUser, userFileDAO.getUser(newUser.getUsername()));
 
     }
 
+
+    /**
+     * Tests that updating an existing valud user does not throw an unexpected exception and that the 
+     * the updated isAdmin is correct
+     */
     @Test
     public void testupdateUser(){
-        User user = testUsers[2];
+        User user = new User(testUsers[2].getUsername(), testUsers[2].getPassword(), true);
         
 
         // Invoke
@@ -88,10 +109,16 @@ public class UserFileDAOTest {
         assertNotNull(result);
         User actual = userFileDAO.getUser(user.getUsername());
         assertEquals(actual,user);
-        //assertTrue(actual.getIsAdmin());
+        //For now this test not working is fine but later on we need to specify what changing the admin will 
+        //
+        assertTrue(actual.getIsAdmin());
         
     }
 
+    /**
+     * Tests that deleting an existing user does not throw any unexpected exceptions and that the
+     * userFileDAO user data structure is one less in length then the test users after deletion.
+     */
     @Test
     public void testdeleteUser(){
         boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser(testUsers[0].getUsername()),
@@ -101,12 +128,19 @@ public class UserFileDAOTest {
         assertEquals(userFileDAO.getUsers().length,testUsers.length-1);
     }
 
+    /**
+     * Tests that user FileDAO will return a null value if a searched username does not exist
+     */
     @Test
     public void testUserNotFound(){
         User result = assertDoesNotThrow(() -> userFileDAO.getUser("Doesnt Exist"), "Unexpected exception thrown");
         assertNull(result);
     }
 
+    /**
+     * Tests that user FileDAO will return a null value if attempting to delete an non-existant user. Also tests that the
+     * userFileDAO user data structure is one less in length then the test users after deletion.
+     */
     @Test
     public void testDeleteUserNotFound(){
         Boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser("Doesnt Exist"), "Unexpected exception thrown");
@@ -114,6 +148,10 @@ public class UserFileDAOTest {
         assertEquals(userFileDAO.getUsers().length,testUsers.length);
     }
 
+    /**
+     * Tests that the user FileDAO will not throw a exeption if a user that is not contained in the user FileDAO is attempted
+     * to be update. Also asserts that the resulting call to updateUser() will return a null value.
+     */
     @Test
     public void testUpdateUserNotFound(){
         User fakeUser = new User("Dr. Hoobert", "Glades", false);
@@ -121,6 +159,10 @@ public class UserFileDAOTest {
         assertNull(result);
     }   
 
+    /**
+     * Tests that the IOException is properly thrown when something in the process of creating a newUser goes wrong.
+     * @throws IOException
+     */
     @Test
     public void testSaveException() throws IOException{
         doThrow(new IOException())
@@ -132,6 +174,11 @@ public class UserFileDAOTest {
         assertThrows(IOException.class, () -> userFileDAO.createUser(newUser));
     }
 
+    /**
+     * Tests that the IOExcpetion is properly thrown when something in the process of creating the user File DAO object
+     * goes wrong
+     * @throws IOException
+     */
     @Test
     public void testLoadException() throws IOException{
         doThrow(new IOException())

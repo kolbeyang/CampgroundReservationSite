@@ -53,7 +53,7 @@ public class InventoryFileDAOTest {
 
 
             // When the object mapper is supposed to read from the file
-        // the mock object mapper will return the hero array above
+        // the mock object mapper will return the campsite array above
         when(mockObjectMapper
             .readValue(new File("doesnt_matter.txt"), Campsite[].class))
                 .thenReturn(testCampsites);
@@ -62,7 +62,10 @@ public class InventoryFileDAOTest {
     }
 
 
-    
+    /**
+     * Tests the getting a campsite from inventoryFileDAO will have all of the correct values
+     * compared to the testcampsites array
+     */
     @Test
     public void testgetCampsites() {
         // Invoke
@@ -75,6 +78,10 @@ public class InventoryFileDAOTest {
             assertEquals(campsites[i], testCampsites[i]);
     }
 
+    /**
+     * Ensures that the inventoryFileDAO's getCampsites returns the same value as the 
+     * testCampsite array
+     */
     @Test
     public void testgetCampsite(){
         Campsite[] campsites = inventoryFileDAO.getCampsites();
@@ -83,6 +90,11 @@ public class InventoryFileDAOTest {
        }
     }
 
+    /**
+     *
+     * Ensures that the inventoryFileDAO returns the correct campsites based on the 
+     * containsText keyword
+     */
     @Test
     public void testfindCampsites(){
         Campsite[] campsites  = inventoryFileDAO.getCampsites();
@@ -98,6 +110,10 @@ public class InventoryFileDAOTest {
     }
 
 
+    /**
+     * Tests that Creating a campsite creates is properly placed in the data
+     * @throws IOException
+     */
     @Test
     public void testcreateCampsites() throws IOException{
         Campsite newCampsite = new Campsite(4, "Warbling wonders", 34.54);
@@ -105,6 +121,9 @@ public class InventoryFileDAOTest {
         assertEquals(newCampsite, inventoryFileDAO.getCampsite(newCampsite.getId()));
     }
 
+     /**
+      * Tests that the update method in campsites works correctly
+      */
     @Test
     public void testupdateCampsite(){
         Campsite updateCampsite = new Campsite(3, "Worming Wonders", 34.54);
@@ -118,12 +137,20 @@ public class InventoryFileDAOTest {
 
     }
 
+    /**
+     * Test the case where an id with no campsite attributed to it is used in the call of
+     * getCampsite
+     */
     @Test
     public void testCampsiteNotFound(){
         Campsite result = assertDoesNotThrow(() -> inventoryFileDAO.getCampsite(1000), "Unexpected exception thrown");
         assertNull(result);
     }
 
+    /**
+     * Tests the case where an id no with campsite attributed is attempted to be deleted from the
+     * database
+     */
     @Test
     public void testDeleteCampsiteNotFound(){
         Boolean result = assertDoesNotThrow(() -> inventoryFileDAO.deleteCampsite(1000), "Unexpected exception thrown");
@@ -133,6 +160,10 @@ public class InventoryFileDAOTest {
 
     }
 
+    /**
+     * Tests the case where a campsite with an id that with no campsite attributed to it is attempted to be updated
+     * in the database
+     */
     @Test
     public void testUpdateCampsiteNotFound(){
         Campsite fakeCamp = new Campsite(999, "Stony Brooks", 45);
@@ -140,6 +171,9 @@ public class InventoryFileDAOTest {
         assertNull(result);
     }   
     
+    /**
+     * Tests the deletion of a campsite from the database using a id of a existing campsite
+     */
     @Test
     public void testDeleteCampsite(){
         boolean result = assertDoesNotThrow( () -> inventoryFileDAO.deleteCampsite(1), "This ");
@@ -149,6 +183,12 @@ public class InventoryFileDAOTest {
 
     }
 
+
+    /**
+     * Tests all cases where save() is used in the User File DAO class
+     * and throws a IOexception to test them
+     * @throws IOException
+     */
     @Test
     public void testSaveException() throws IOException{
         doThrow(new IOException())
@@ -160,6 +200,11 @@ public class InventoryFileDAOTest {
         assertThrows(IOException.class, () -> inventoryFileDAO.createCampsite(newCampsite));
     }
 
+    /**
+     * Tests the Inventory File DAO constructor's error handling when load throws a
+     * IOExcption
+     * @throws IOException
+     */
     @Test
     public void testLoadException() throws IOException{
 
