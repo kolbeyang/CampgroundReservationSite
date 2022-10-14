@@ -9,13 +9,17 @@ import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ViewCartComponent } from './view-cart/view-cart.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserLoginComponent,
     ProductDetailComponent,
-    HomePageComponent
+    HomePageComponent,
+    ViewCartComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

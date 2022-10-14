@@ -12,6 +12,7 @@ import com.estore.api.estoreapi.persistence.UserDAO;
 import com.estore.api.estoreapi.persistence.ReservationDAO;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.model.AuthenticationService;
+import com.estore.api.estoreapi.model.LoginRequest;
 import com.estore.api.estoreapi.model.Reservation;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -294,6 +295,86 @@ public class UserControllerTest {
         ResponseEntity<Reservation[]> response = userController.getUserReservations("Billy");
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+
+    @Test
+    public void testUserLogin() throws IOException {
+        String username = "Billy";
+        User user = new User(username, "1234", false);
+        LoginRequest loginRequest = new LoginRequest("Billy", "1234");
+
+        when(mockUserDAO.userExists(username)).thenReturn(true);
+        when(mockAuthenticationService.userLoggedIn(loginRequest)).thenReturn(false);
+        when(mockAuthenticationService.userLogin(loginRequest)).thenReturn("1016");
+
+        ResponseEntity<String> response = userController.userLogin(loginRequest);
+
+        assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
+
+    }
+
+    @Test
+    public void testUserLoginIncorrectPassword() throws IOException {
+        String username = "Billy";
+        User user = new User(username, "1234", false);
+        LoginRequest loginRequest = new LoginRequest("Billy", "uh oh");
+
+        when(mockUserDAO.userExists(username)).thenReturn(true);
+        when(mockAuthenticationService.userLoggedIn(loginRequest)).thenReturn(false);
+        when(mockAuthenticationService.userLogin(loginRequest)).thenReturn(null);
+
+        ResponseEntity<String> response = userController.userLogin(loginRequest);
+
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+
+    }
+
+    @Test
+    public void testUserLoginAlreadyLoggedIn() throws IOException {
+        String username = "Billy";
+        User user = new User(username, "1234", false);
+        LoginRequest loginRequest = new LoginRequest("Billy", "uh oh");
+
+        when(mockUserDAO.userExists(username)).thenReturn(true);
+        when(mockAuthenticationService.userLoggedIn(loginRequest)).thenReturn(true);
+        when(mockAuthenticationService.userLogin(loginRequest)).thenReturn("1016");
+
+        ResponseEntity<String> response = userController.userLogin(loginRequest);
+
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+
+    }
+
+    @Test
+    public void testUserLoginHandleException() throws IOException {
+        String username = "Billy";
+        User user = new User(username, "1234", false);
+        LoginRequest loginRequest = new LoginRequest("Billy", "uh oh");
+
+        when(mockUserDAO.userExists(username)).thenReturn(true);
+        when(mockAuthenticationService.userLoggedIn(loginRequest)).thenReturn(false);
+        when(mockAuthenticationService.userLogin(loginRequest)).thenThrow(new IOException());
+
+        ResponseEntity<String> response = userController.userLogin(loginRequest);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+    }
+
+    @Test
+    public void testUserLogout() throws IOException {
+        when(mockAuthenticationService.userLogout("1234")).thenReturn(true);
+        ResponseEntity response = userController.userLogout("1234");
+
+        assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
+    }
+
+    @Test
+    public void testUserLogoutFailed() throws IOException {
+        when(mockAuthenticationService.userLogout("1234")).thenReturn(false);
+        ResponseEntity response = userController.userLogout("1234");
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }
 

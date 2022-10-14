@@ -327,5 +327,41 @@ public class InventoryControllerTest {
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
+
+    @Test
+    public void testCreateReservation() throws IOException {
+
+        Reservation reservation = new Reservation(12,12,100,100, "Billy");
+        when(mockScheduleService.isValidReservation(reservation)).thenReturn(true);
+        when(mockScheduleService.createReservation(reservation)).thenReturn(reservation);
+
+        ResponseEntity<Reservation> response = inventoryController.createReservation(reservation);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    public void testCreateReservationFailed() throws IOException {
+
+        Reservation reservation = new Reservation(12,12,100,100, "Billy");
+        when(mockScheduleService.isValidReservation(reservation)).thenReturn(false);
+        when(mockScheduleService.createReservation(reservation)).thenReturn(reservation);
+
+        ResponseEntity<Reservation> response = inventoryController.createReservation(reservation);
+
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+    }
+
+    @Test
+    public void testCreateReservationHandleException() throws IOException {
+
+        Reservation reservation = new Reservation(12,12,100,100, "Billy");
+        when(mockScheduleService.isValidReservation(reservation)).thenThrow(new IOException());
+        when(mockScheduleService.createReservation(reservation)).thenReturn(reservation);
+
+        ResponseEntity<Reservation> response = inventoryController.createReservation(reservation);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 }
 
