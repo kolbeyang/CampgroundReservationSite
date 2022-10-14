@@ -40,6 +40,7 @@ public class UserFileDAOTest {
     @BeforeEach
     public void setupuserFileDAO() throws IOException{
         mockObjectMapper = mock(ObjectMapper.class);
+
         User user1 = new User("BillyBob", "1234", true);
         User user2 = new User("Michael", "2355", false);
         User user3 = new User("Kolbe", "8909", false);

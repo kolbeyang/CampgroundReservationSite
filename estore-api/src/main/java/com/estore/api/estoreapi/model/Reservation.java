@@ -76,4 +76,19 @@ public class Reservation {
     public String toString() {
         return String.format(STRING_FORMAT,id,startDate,endDate);
     }
+
+    /**
+     * Two reservations are equal iff their id are equal
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o instanceof Reservation) {
+            Reservation otherUser = (Reservation) o;
+            Integer int1 = this.id;
+            Integer int2 = otherUser.getId();
+            return int1.equals(int2);
+        }
+        return false;
+    }
 }
