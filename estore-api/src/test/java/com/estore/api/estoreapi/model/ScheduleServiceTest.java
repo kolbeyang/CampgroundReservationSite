@@ -40,4 +40,45 @@ public class ScheduleServiceTest {
         scheduleService = new ScheduleService(mockInventoryDAO, mockReservationDAO);
     }
 
+    @Test
+    public void testCreateReservation() throws IOException {
+        Reservation reservation1 = new Reservation(10,10,100,200,"Billy");
+        Reservation reservation2 = new Reservation(10,10,300,200,"Billy");
+
+        when(mockReservationDAO.createReservation(reservation1)).thenReturn(reservation1);
+        when(mockReservationDAO.createReservation(reservation2)).thenReturn(reservation2);
+
+        Reservation output1 = scheduleService.createReservation(reservation1);
+        Reservation output2 = scheduleService.createReservation(reservation2);
+
+        assertEquals(output1, reservation1);
+        assertEquals(output2, reservation2);
+    }
+
+    @Test
+    public void testIsValidReservation() throws IOException {
+        Reservation reservation1 = new Reservation(10,10,100,200,"Billy");
+        Reservation reservation2 = new Reservation(10,10,200,300,"Billy");
+
+        Reservation goodReservation = new Reservation(10,10,400,500,"Billy");
+        Reservation badReservation = new Reservation(10,10,150,500,"Billy");
+        Reservation differentReservation = new Reservation(10,12,150,500,"Billy");
+
+        Reservation[] reservations = {reservation1, reservation2};
+
+        Campsite campsite1 = new Campsite(10, "Foggy Valley", 10);
+        
+        when(mockInventoryDAO.getCampsite(10)).thenReturn(campsite1);
+        when(mockInventoryDAO.getCampsite(12)).thenReturn(null);
+        when(mockReservationDAO.getCampsiteReservations(10)).thenReturn(reservations);
+
+        Boolean goodIsValid = scheduleService.isValidReservation(goodReservation);
+        Boolean badIsValid = scheduleService.isValidReservation(badReservation);
+        Boolean differentIsValid = scheduleService.isValidReservation(differentReservation);
+
+        assertEquals(goodIsValid, true);
+        assertEquals(badIsValid, false);
+        assertEquals(differentIsValid, false);
+    }
+
 }
