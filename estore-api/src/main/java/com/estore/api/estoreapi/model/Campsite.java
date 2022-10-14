@@ -89,7 +89,11 @@ public class Campsite {
      * Sets the nightly rate of the Campsite
      * @param rate : the new rate
      */
-    public void setRate(double rate) {this.rate = rate;}
+    public void setRate(double rate) {
+        if(isValidRate(rate)){
+        this.rate = rate;
+        }
+    }
 
 
     /**
@@ -133,7 +137,11 @@ public class Campsite {
      * @return
      */
     public boolean isValidRate(Double value) {
-        return false;
+        if(value <= 0) {
+            return false;
+        }
+        return true;
+        
     }
 
 }

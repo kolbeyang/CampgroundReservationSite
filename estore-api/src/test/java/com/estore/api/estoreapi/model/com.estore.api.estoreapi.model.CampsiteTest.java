@@ -27,6 +27,14 @@ class comestoreapiestoreapimodelCampsiteTest{
     public void test_getRate() {
         assertEquals(test_site.getRate(), 20.00);
     }
+    @Test 
+    public void test_setRate() {
+        //setup
+        test_site.setRate(0.00);
+        assertEquals(test_site.getRate(), 20.00);
+        test_site.setRate(30.00);
+        assertEquals(test_site.getRate(), 30.00);
+    }
     @Test
     public void test_setName() {
         try{
@@ -41,20 +49,38 @@ class comestoreapiestoreapimodelCampsiteTest{
     }
     @Test
     public void test_Equals() {
+        //setup
         Campsite test_site2 = new Campsite(1, "Test Campsite", 20.00);
         Campsite test_site3 = new Campsite(2, "Hidden Valley Campsite", 20.00);
         Campsite test_site4 = new Campsite(3, "hidden valley campsite", 20.00);
+        Object random_object = new Object(); //Random object
 
+        //test
         assertEquals(test_site.equals(test_site2), true);
         assertEquals(test_site.equals(test_site3), false);
         assertEquals(test_site3.equals(test_site4), true);
+        assertEquals(test_site3.equals(random_object), false);
     }
 
     @Test
     public void test_toString() {
+        //setup
         String expected = "Campsite [id=7, name=Test Campsite, rate=20.00]";
 
+        //test
         assertEquals(expected, test_site.toString());
+    }
+    @Test
+    public void test_isValidRate() {
+        //setup
+        Double rate1 = 20.00;
+        Double rate2 = -5.00;
+        Double rate3 = 0.00;
+
+        //test
+        assertEquals(test_site.isValidRate(rate1), true);
+        assertEquals(test_site.isValidRate(rate2), false);
+        assertEquals(test_site.isValidRate(rate3), false);
     }
 
 
