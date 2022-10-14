@@ -37,6 +37,8 @@ public class ReservationFileDAOTest {
     ObjectMapper mockObjectMapper;
     Reservation[] testReservations;
     Campsite[] testCampsites;                              //Since reservations are based on campsite, it is best to include a mock testCampsites
+    User[] testUsers;
+
 
 
     /**
@@ -50,19 +52,29 @@ public class ReservationFileDAOTest {
         Campsite camp1 = new Campsite(1, "Lucky Meadows", 11.99);
         Campsite camp2 = new Campsite(2, "Eagle heights", 12.43);
         Campsite camp3 = new Campsite(3, "Stony Brooks", 14);
-        Reservation reserve1 = new Reservation(0, camp1.getId(), EPOCH + DAY,  EPOCH + (DAY * 2)); //A reservation that is from a Day in advance from 
-        Reservation reserve2 = new Reservation(1, camp2.getId(),EPOCH + DAY, EPOCH + (DAY*2) );
-        Reservation reserve3 = new Reservation(2, camp1.getId(), EPOCH + (DAY * 3), EPOCH + (DAY * 5));
+        User user1 = new User("BillyBob", "1234", true);
+        User user2 = new User("Michael", "2355", false);
+        User user3 = new User("Kolbe", "8909", false);
+        Reservation reserve1 = new Reservation(0, camp1.getId(), EPOCH + DAY,  EPOCH + (DAY * 2), user1.getUsername()); //A reservation that is from a Day in advance from 
+        Reservation reserve2 = new Reservation(1, camp2.getId(),EPOCH + DAY, EPOCH + (DAY*2), user1.getUsername() );
+        Reservation reserve3 = new Reservation(2, camp1.getId(), EPOCH + (DAY * 3), EPOCH + (DAY * 5), user3.getUsername());
 
         testCampsites = new Campsite[3];
         testReservations = new Reservation[3];
+        testUsers = new User[3];
+
         testCampsites[0] = camp1;
         testCampsites[1] = camp2;
         testCampsites[2] = camp3;
+        testUsers[0] = user1;
+        testUsers[1] = user2;
+        testUsers[2] = user3;
         testReservations[0] = reserve1;
         testReservations[1] = reserve2;
         testReservations[2] = reserve3;
     
+
+
         when(mockObjectMapper
             .readValue(new File("Whatever.txt"), Reservation[].class))
                 .thenReturn(testReservations);
@@ -104,7 +116,7 @@ public class ReservationFileDAOTest {
      */
     @Test
     public void testcreateReservation(){
-        Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8));
+        Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8), testUsers[2].getUsername());
         Reservation result = assertDoesNotThrow(() -> reservationFileDAO.createReservation(newReservation), "An unexpected exception occurred");
         assertEquals(newReservation, result);
 
@@ -140,7 +152,7 @@ public class ReservationFileDAOTest {
     */
     @Test
     public void testdeleteReservationNotFound(){
-        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY);
+        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY, testUsers[2].getUsername());
         boolean result =  assertDoesNotThrow(() -> reservationFileDAO.deleteReservation(fakeReserve.getId()), "An unexpected exception occurred");
         assertFalse(result);
     }
@@ -150,7 +162,7 @@ public class ReservationFileDAOTest {
      */
     @Test
     public void testupdateReservationNotFound(){
-        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY);
+        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY,testUsers[1].getUsername());
         Reservation result =  assertDoesNotThrow(() -> reservationFileDAO.updateReservation(fakeReserve), "An unexpected exception occurred");
         assertNull(result);
     }
@@ -170,7 +182,7 @@ public class ReservationFileDAOTest {
         .when(mockObjectMapper)
             .writeValue(any(File.class), any(Reservation[].class));
 
-    Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8));
+        Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8), testUsers[1].getUsername());
 
     assertThrows(IOException.class, () -> reservationFileDAO.createReservation(newReservation));
     }
