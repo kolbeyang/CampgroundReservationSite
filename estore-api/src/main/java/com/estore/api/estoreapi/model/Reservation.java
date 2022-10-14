@@ -11,14 +11,13 @@ public class Reservation {
     private static final Logger LOG = Logger.getLogger(Reservation.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Reservation [id=%d, startDate=%d, endDate=%d]";
+    static final String STRING_FORMAT = "Reservation [id=%d, campsiteId=%d, startDate=%d, endDate=%d, username=%s]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("campsiteId") private int campsiteId;
     // Dates stored as millisecond since 1970
     @JsonProperty("startDate") private long startDate;
     @JsonProperty("endDate") private long endDate;
-    @JsonProperty("price") private long price;
     @JsonProperty("username") private String username;
 
     /**
@@ -34,10 +33,6 @@ public class Reservation {
         this.startDate = startDate;
         this.endDate = endDate;
         this.username = username;
-
-        //TODO to get the price
-        //Campsite campsite = 
-        //this.price = (TimeUnit.MILLISECONDS.toDays(this.endDate) - TimeUnit.MILLISECONDS.toDays(this.startDate)) *  
     }
 
     /**
@@ -57,9 +52,20 @@ public class Reservation {
      * endDate must come after startDate
      * @param startDate : the new startDate
      * @param endDate : the new endDate
+     * //@throws Exception e if endDate is before the startDate
      */
     public void setDate(long startDate, long endDate) {
-        assert endDate > startDate : "Invalid dates";
+        // try
+        // {
+        //     if(endDate > startDate)
+        //     {
+        //         throw(new Exception("Invalid dates"));
+        //     }
+        // } catch (Exception e)
+        // {
+        //     e.getMessage();
+        // }
+
 
         this.startDate = startDate;
         this.endDate = endDate;
@@ -88,6 +94,21 @@ public class Reservation {
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT,id,startDate,endDate);
+        return String.format(STRING_FORMAT,id,campsiteId,startDate,endDate,username);
+    }
+
+    /**
+     * Two reservations are equal iff their id are equal
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o instanceof Reservation) {
+            Reservation otherUser = (Reservation) o;
+            Integer int1 = this.id;
+            Integer int2 = otherUser.getId();
+            return int1.equals(int2);
+        }
+        return false;
     }
 }
