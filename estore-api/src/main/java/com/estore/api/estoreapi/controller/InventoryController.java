@@ -136,7 +136,6 @@ public class InventoryController {
      * @throws IllegalArgumentException
      */
     @PostMapping("")
-    Authentication/Campsite_Testing
     public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) throws IllegalArgumentException {
         System.out.println("InventoryController.createCampsite: creating campsite");
         LOG.info("POST /campsites " + campsite);
