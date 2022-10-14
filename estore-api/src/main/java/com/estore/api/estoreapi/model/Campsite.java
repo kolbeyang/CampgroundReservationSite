@@ -26,7 +26,7 @@ public class Campsite {
      */
     public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) throws IllegalArgumentException {
         if(!isValidName(name)) {
-            throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
+            //throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
         }
         this.id = id;
         this.name = name;
@@ -69,7 +69,7 @@ public class Campsite {
      */
     public void setName(String name) {
         if(!isValidName(name)) {
-            throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
+            //throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
         }
         this.name = name;
     }
