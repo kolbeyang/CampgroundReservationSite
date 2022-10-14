@@ -11,14 +11,13 @@ public class Reservation {
     private static final Logger LOG = Logger.getLogger(Reservation.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Reservation [id=%d, startDate=%d, endDate=%d]";
+    static final String STRING_FORMAT = "Reservation [id=%d, campsiteId=%d, startDate=%d, endDate=%d, username=%s]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("campsiteId") private int campsiteId;
     // Dates stored as millisecond since 1970
     @JsonProperty("startDate") private long startDate;
     @JsonProperty("endDate") private long endDate;
-    @JsonProperty("price") private long price;
     @JsonProperty("username") private String username;
 
     /**
@@ -34,10 +33,6 @@ public class Reservation {
         this.startDate = startDate;
         this.endDate = endDate;
         this.username = username;
-
-        //TODO to get the price
-        //Campsite campsite = 
-        //this.price = (TimeUnit.MILLISECONDS.toDays(this.endDate) - TimeUnit.MILLISECONDS.toDays(this.startDate)) *  
     }
 
     /**
@@ -88,7 +83,7 @@ public class Reservation {
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT,id,startDate,endDate);
+        return String.format(STRING_FORMAT,id,campsiteId,startDate,endDate,username);
     }
 
     /**
