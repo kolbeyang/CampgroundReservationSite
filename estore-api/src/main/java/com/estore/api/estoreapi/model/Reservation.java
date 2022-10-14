@@ -52,9 +52,20 @@ public class Reservation {
      * endDate must come after startDate
      * @param startDate : the new startDate
      * @param endDate : the new endDate
+     * //@throws Exception e if endDate is before the startDate
      */
     public void setDate(long startDate, long endDate) {
-        assert endDate > startDate : "Invalid dates";
+        // try
+        // {
+        //     if(endDate > startDate)
+        //     {
+        //         throw(new Exception("Invalid dates"));
+        //     }
+        // } catch (Exception e)
+        // {
+        //     e.getMessage();
+        // }
+
 
         this.startDate = startDate;
         this.endDate = endDate;
