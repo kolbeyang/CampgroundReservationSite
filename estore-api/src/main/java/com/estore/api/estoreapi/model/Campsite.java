@@ -11,7 +11,7 @@ public class Campsite {
     private static final Logger LOG = Logger.getLogger(Campsite.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Campsite [id=%d, name=%s, rate=%f]";
+    static final String STRING_FORMAT = "Campsite [id=%d, name=%s, rate=%.2f]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
@@ -22,11 +22,16 @@ public class Campsite {
      * @param id the id of the campsite
      * @param name the name of the campsite
      * @param rate the cost of the campsite per night in dollars
+     * @throws IllegalArgumentException
      */
-    public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) {
+    public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) throws IllegalArgumentException {
+        if(!isValidName(name)) {
+            throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
+        }
         this.id = id;
         this.name = name;
         this.rate = rate;
+        
     }
     /**
      * Constructor for when a campsite name and rate aren't provided
@@ -62,7 +67,12 @@ public class Campsite {
      * Sets the name of the Campsite
      * @param name : the new name
      */
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        if(!isValidName(name)) {
+            throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
+        }
+        this.name = name;
+    }
     
     /**
      * @return the name of the campsite
@@ -79,7 +89,11 @@ public class Campsite {
      * Sets the nightly rate of the Campsite
      * @param rate : the new rate
      */
-    public void setRate(double rate) {this.rate = rate;}
+    public void setRate(double rate) {
+        if(isValidRate(rate)){
+        this.rate = rate;
+        }
+    }
 
 
     /**
@@ -90,7 +104,7 @@ public class Campsite {
         if (this == o) return true;
         if (o instanceof Campsite) {
             Campsite otherCampsite = (Campsite) o;
-            return this.name.equals(otherCampsite.name);
+            return this.name.toLowerCase().equals(otherCampsite.name.toLowerCase());
         }
         return false;
     }
@@ -100,6 +114,7 @@ public class Campsite {
      */
     @Override
     public String toString() {
+
         return String.format(STRING_FORMAT,id,name,rate);
     }
 
@@ -109,7 +124,10 @@ public class Campsite {
      */
     public boolean isValidName(String name) {
         name = name.toLowerCase();
-        return name.contains("campsite");
+        if(name.contains("campsite")) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -119,7 +137,11 @@ public class Campsite {
      * @return
      */
     public boolean isValidRate(Double value) {
-        return false;
+        if(value <= 0) {
+            return false;
+        }
+        return true;
+        
     }
 
 }

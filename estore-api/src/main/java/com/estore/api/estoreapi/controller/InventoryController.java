@@ -133,9 +133,11 @@ public class InventoryController {
      * returns status code of CONFLICT, CREATED, or INTERNAL_SERVER_ERROR
      * @param campsite : an object of the campsite to create
      * @return the new created campsite
+     * @throws IllegalArgumentException
      */
     @PostMapping("")
-    public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) {
+    Authentication/Campsite_Testing
+    public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) throws IllegalArgumentException {
         System.out.println("InventoryController.createCampsite: creating campsite");
         LOG.info("POST /campsites " + campsite);
         try {
