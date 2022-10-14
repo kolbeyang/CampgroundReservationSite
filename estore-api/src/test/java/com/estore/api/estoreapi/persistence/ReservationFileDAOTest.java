@@ -78,6 +78,17 @@ public class ReservationFileDAOTest {
     }
 
 
+    @Test
+    public void testgetUserReservationsArray(){
+        Reservation[] results =  reservationFileDAO.getUserReservations(fakeUsername);
+        assertEquals(testReservations.length,results.length);
+    }
+
+    @Test
+    public void testgetCampsiteReservationsArray(){
+        Reservation[] results = reservationFileDAO.getCampsiteReservations(testCampsites[1].getId());
+        assertEquals(testReservations[1], results[0]);
+    }
     
 
     /**
