@@ -4,7 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -12,16 +20,21 @@ import org.junit.jupiter.api.Test;
 
 import com.estore.api.estoreapi.model.AuthenticationService;
 import com.estore.api.estoreapi.model.LoginRequest;
+import com.estore.api.estoreapi.persistence.InventoryFileDAO;
 import com.estore.api.estoreapi.persistence.UserDAO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Tag("Model-tier")
 class comestoreapiestoreapimodelAuthenticationServiceTest{
     AuthenticationService test_service;
+    private UserDAO mockUserDAO;
     UserDAO test_UserDAO;
     int test_seed;
     User user;
@@ -29,10 +42,12 @@ class comestoreapiestoreapimodelAuthenticationServiceTest{
 
     @BeforeEach
     public void setup(){
-    
-    test_service = new AuthenticationService(test_UserDAO);
-    user = new User("Billy", "BillyRox", false);
-    admin = new User("Boss Man", "BossRox", true);
+        
+        mockUserDAO = mock(UserDAO.class);
+        user = new User("Billy", "BillyRox", false);
+        admin = new User("Boss Man", "BossRox", true);
+        test_service = new AuthenticationService(mockUserDAO);
+
     }
 
     @Test
@@ -90,6 +105,9 @@ class comestoreapiestoreapimodelAuthenticationServiceTest{
     @Test //doesn't pass curently
     public void testIsAdminToken() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
         //setup
+        when(mockUserDAO.getUser("Billy")).thenReturn(user);
+        when(mockUserDAO.getUser("Boss Man")).thenReturn(admin);
+
         Method method = AuthenticationService.class.getDeclaredMethod("startSession", User.class);
         method.setAccessible(true);
 
@@ -111,6 +129,8 @@ class comestoreapiestoreapimodelAuthenticationServiceTest{
         //setup
         LoginRequest request1 = new LoginRequest("Billy", "BillyRox");
         LoginRequest request2 = new LoginRequest("Sally", "SallyRox");//User that doesn't exist
+        when(mockUserDAO.userExists("Billy")).thenReturn(true);
+        when(mockUserDAO.userExists("Boss Man")).thenReturn(false);
 
         //invoke
         Boolean result1 = test_service.userExists(request1);
@@ -128,6 +148,8 @@ class comestoreapiestoreapimodelAuthenticationServiceTest{
         //setup
         LoginRequest request1 = new LoginRequest("Billy", "BillyRox");
         LoginRequest request2 = new LoginRequest("Boss Man", "Wrong_Password");
+        when(mockUserDAO.getUser("Billy")).thenReturn(user);
+        when(mockUserDAO.getUser("Boss Man")).thenReturn(admin);
         //LoginRequest request3 = new LoginRequest("Sally", "SallyRox");//User that doesn't exist (Will break code in current form)
 
         //invoke
@@ -150,6 +172,8 @@ class comestoreapiestoreapimodelAuthenticationServiceTest{
         //setup
         LoginRequest request1 = new LoginRequest("Billy", "BillyRox");
         LoginRequest request2 = new LoginRequest("Boss Man", "Wrong_Password");
+        when(mockUserDAO.getUser("Billy")).thenReturn(user);
+        when(mockUserDAO.getUser("Boss Man")).thenReturn(admin);
         //LoginRequest request3 = new LoginRequest("Sally", "SallyRox");//User that doesn't exist (Will break code in current form)
 
         //invoke
