@@ -39,17 +39,17 @@ export class UserLoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login() {
+  login(response: any) {
     this.loggedIn = true;
+    this.token = response.headers.get('token');
+    console.log(response.headers.get('username'));
   }
 
   onLogin(loginForm: NgForm) {
-    console.log(this.model);
     this.errorMessage = '';
     this.loggedIn = true;
     this.loginService.login(this.model).subscribe(
-      token => {this.token = token
-                this.login()},
+      response => { console.log("Token: " + response.headers.get('token')); this.login(response)},
       (error) => this.handleLoginError(error));
     loginForm.reset();
 

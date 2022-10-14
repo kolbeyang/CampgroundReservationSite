@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -176,9 +177,14 @@ public class UserController {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
             String token = authenticationService.userLogin(loginRequest);
+            HttpHeaders tokenHeaders = new HttpHeaders();
+            tokenHeaders.add("token",token);
+            tokenHeaders.add("isAdmin", String.valueOf(authenticationService.isAdminToken(token)));
+            tokenHeaders.add("username", loginRequest.getUsername());
+
             System.out.println("token is " + token);
             if (token != null) {
-                return new ResponseEntity<String>(token, HttpStatus.ACCEPTED);
+                return new ResponseEntity<String>("Dummy Text",tokenHeaders, HttpStatus.ACCEPTED);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }

@@ -13,6 +13,8 @@ import { LoginRequest } from './loginRequest';
 export class LoginService {
 
   private loginURL = 'http://localhost:8080/users'
+  private token = "";
+  private isAdmin = null;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' , observe: 'response'})
@@ -21,20 +23,27 @@ export class LoginService {
   constructor(
     private http: HttpClient) { }
 
-  signUp(user: User): Observable<User> {
-    console.log("Sending post request for Signup")
-    return this.http.post<User>(this.loginURL, user, this.httpOptions).pipe(
-      catchError(this.handleError<User>('signUp', user))
-    );
-    
+
+  adminLoggedIn(): any {
+    return this.isAdmin;
   }
 
-  login(loginRequest: LoginRequest): Observable<string> {
-    console.log("Sending post requset fo Login")
-    return this.http.post<string>(this.loginURL + "/login", loginRequest, this.httpOptions).pipe(
-      catchError(this.handleError<string>('login', ""))
+  signUp(user: User): Observable<any> {
+    console.log("Sending post request for Signup")
+    return this.http.post<any>(this.loginURL, user, this.httpOptions).pipe(
+      catchError(this.handleError<any>('signUp', ""))
     );
-  
+  }
+
+  login(loginRequest: LoginRequest): Observable<any> {
+    console.log("Sending post requset fo Login")
+    return this.http.post<any>(this.loginURL + "/login", loginRequest, this.httpOptions).pipe(
+      catchError(this.handleError<User>('login', new User("", "", false)))
+    );
+  }
+
+  userLoggedIn() {
+    return !( this.token === "");
   }
 
     /**
