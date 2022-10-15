@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from './user';
 import { LoginRequest } from './loginRequest';
+import { LoginResponse } from './loginResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -13,37 +14,55 @@ import { LoginRequest } from './loginRequest';
 export class LoginService {
 
   private loginURL = 'http://localhost:8080/users'
-  private token = "";
-  private isAdmin = null;
+  private loginResponse: LoginResponse;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' , observe: 'response'})
   };
 
   constructor(
-    private http: HttpClient) { }
-
-
-  adminLoggedIn(): any {
-    return this.isAdmin;
+    private http: HttpClient) {
+    this.loginResponse = <LoginResponse>{};
   }
 
-  signUp(user: User): Observable<any> {
+  isLoggedIn() {
+    console.log(this.loginResponse.token)
+    return !( this.loginResponse.token === undefined);
+  }
+
+  adminLoggedIn(): any {
+    return this.loginResponse.isAdmin;
+  }
+
+  getToken(): String {
+    return this.loginResponse.token;
+  }
+
+  signUpRequest(user: User): Observable<any> {
     console.log("Sending post request for Signup")
     return this.http.post<any>(this.loginURL, user, this.httpOptions).pipe(
       catchError(this.handleError<any>('signUp', ""))
     );
   }
 
-  login(loginRequest: LoginRequest): Observable<any> {
+  login(loginResponse: LoginResponse) {
+    this.loginResponse = loginResponse;
+    console.log("LoginService: the token is " + this.getToken())
+  }
+
+  loginRequest(loginRequest: LoginRequest): Observable<LoginResponse> {
     console.log("Sending post requset fo Login")
-    return this.http.post<any>(this.loginURL + "/login", loginRequest, this.httpOptions).pipe(
-      catchError(this.handleError<User>('login', new User("", "", false)))
+    let response: LoginResponse;
+    return this.http.post<LoginResponse>(this.loginURL + "/login", loginRequest, this.httpOptions).pipe(
+      catchError(this.handleError<LoginResponse>('login', new LoginResponse("", "", false)))
     );
   }
 
-  userLoggedIn() {
-    return !( this.token === "");
+  logoutRequest() {
+    console.log("Preparing to log out");
+    this.http.post(this.loginURL + "/logout", this.getToken(), this.httpOptions).subscribe(
+      response => console.log("Logout successful"),
+    );
   }
 
     /**

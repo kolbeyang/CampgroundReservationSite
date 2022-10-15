@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.estore.api.estoreapi.model.AuthenticationService;
 import com.estore.api.estoreapi.model.LoginRequest;
+import com.estore.api.estoreapi.model.LoginResponse;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.model.Reservation;
 import com.estore.api.estoreapi.persistence.UserDAO;
@@ -165,7 +166,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> userLogin(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> userLogin(@RequestBody LoginRequest loginRequest) {
         LOG.info("POST /users/login");
         try {
             if (!userDAO.userExists(loginRequest.getUsername())) {
@@ -177,14 +178,12 @@ public class UserController {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
             String token = authenticationService.userLogin(loginRequest);
-            HttpHeaders tokenHeaders = new HttpHeaders();
-            tokenHeaders.add("token",token);
-            tokenHeaders.add("isAdmin", String.valueOf(authenticationService.isAdminToken(token)));
-            tokenHeaders.add("username", loginRequest.getUsername());
 
             System.out.println("token is " + token);
             if (token != null) {
-                return new ResponseEntity<String>("Dummy Text",tokenHeaders, HttpStatus.ACCEPTED);
+
+                LoginResponse loginResponse = new LoginResponse(loginRequest.getUsername(), token, authenticationService.isAdminToken(token));
+                return new ResponseEntity<LoginResponse>(loginResponse, HttpStatus.ACCEPTED);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
@@ -194,7 +193,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<String> userLogout(@RequestBody String token) {
         Boolean successful = authenticationService.userLogout(token);
 

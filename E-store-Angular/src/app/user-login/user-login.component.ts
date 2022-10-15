@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { LoginService } from '../login.service';
 import { User } from '../user';
 import { AppRoutingModule } from '../app-routing.module';
+import { LoginResponse } from '../loginResponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -12,11 +14,10 @@ import { AppRoutingModule } from '../app-routing.module';
 export class UserLoginComponent implements OnInit {
 
   model = new User("","", false);
-  token = "";
   errorMessage = '';
   loggedIn = false;
 
-  constructor(private loginService: LoginService, private appRoutingModule : AppRoutingModule ) { 
+  constructor(private loginService: LoginService, private appRoutingModule : AppRoutingModule, private router: Router ) { 
   }
   
   handleLoginError(error: any) {
@@ -39,17 +40,18 @@ export class UserLoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(response: any) {
+  login(loginResponse: LoginResponse) {
     this.loggedIn = true;
-    this.token = response.headers.get('token');
-    console.log(response.headers.get('username'));
+    this.loginService.login(loginResponse);
+    this.errorMessage = "Log out to switch users"
+    this.router.navigate(['/home']);
   }
 
   onLogin(loginForm: NgForm) {
     this.errorMessage = '';
     this.loggedIn = true;
-    this.loginService.login(this.model).subscribe(
-      response => { console.log("Token: " + response.headers.get('token')); this.login(response)},
+    this.loginService.loginRequest(this.model).subscribe(
+      response => {this.login(response)},
       (error) => this.handleLoginError(error));
     loginForm.reset();
 
@@ -59,7 +61,7 @@ export class UserLoginComponent implements OnInit {
   onSignup(loginForm: NgForm) {
     console.log(this.model);
     this.errorMessage = '';
-    this.loginService.signUp(this.model).subscribe(
+    this.loginService.signUpRequest(this.model).subscribe(
       null,
       (error) => this.handleSignupError(error)
     );

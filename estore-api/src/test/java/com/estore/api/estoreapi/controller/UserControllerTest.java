@@ -13,6 +13,7 @@ import com.estore.api.estoreapi.persistence.ReservationDAO;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.model.AuthenticationService;
 import com.estore.api.estoreapi.model.LoginRequest;
+import com.estore.api.estoreapi.model.LoginResponse;
 import com.estore.api.estoreapi.model.Reservation;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -307,7 +308,7 @@ public class UserControllerTest {
         when(mockAuthenticationService.userLoggedIn(loginRequest)).thenReturn(false);
         when(mockAuthenticationService.userLogin(loginRequest)).thenReturn("1016");
 
-        ResponseEntity<String> response = userController.userLogin(loginRequest);
+        ResponseEntity<LoginResponse> response = userController.userLogin(loginRequest);
 
         assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
 
@@ -323,7 +324,7 @@ public class UserControllerTest {
         when(mockAuthenticationService.userLoggedIn(loginRequest)).thenReturn(false);
         when(mockAuthenticationService.userLogin(loginRequest)).thenReturn(null);
 
-        ResponseEntity<String> response = userController.userLogin(loginRequest);
+        ResponseEntity<LoginResponse> response = userController.userLogin(loginRequest);
 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 
@@ -339,7 +340,7 @@ public class UserControllerTest {
         when(mockAuthenticationService.userLoggedIn(loginRequest)).thenReturn(true);
         when(mockAuthenticationService.userLogin(loginRequest)).thenReturn("1016");
 
-        ResponseEntity<String> response = userController.userLogin(loginRequest);
+        ResponseEntity<LoginResponse> response = userController.userLogin(loginRequest);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
 
@@ -355,7 +356,7 @@ public class UserControllerTest {
         when(mockAuthenticationService.userLoggedIn(loginRequest)).thenReturn(false);
         when(mockAuthenticationService.userLogin(loginRequest)).thenThrow(new IOException());
 
-        ResponseEntity<String> response = userController.userLogin(loginRequest);
+        ResponseEntity<LoginResponse> response = userController.userLogin(loginRequest);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 
