@@ -19,6 +19,7 @@ public class Reservation {
     @JsonProperty("startDate") private long startDate;
     @JsonProperty("endDate") private long endDate;
     @JsonProperty("username") private String username;
+    @JsonProperty("paid") private boolean paid;  /* Indicates the status of the reservation (paid vs unpaid) */
 
     /**
      * Constructor sets private variables based on input
@@ -26,6 +27,7 @@ public class Reservation {
      * @param campsiteId : the id of the Campsite
      * @param startDate : the beginning time of the reservation in milliseconds since 1970
      * @param endDate : the end time of the reservation in milliseconds since 1970
+     * @param paid : the status of the reservation. When created it is unpaid, so set to false. When the user checks out, updated to paid.
      */
     public Reservation(@JsonProperty("id") int id, @JsonProperty("campsiteId") int campsiteId, @JsonProperty("startDate") long startDate, @JsonProperty("endDate") long endDate, @JsonProperty("username") String username) {
         this.id = id;
@@ -33,6 +35,7 @@ public class Reservation {
         this.startDate = startDate;
         this.endDate = endDate;
         this.username = username;
+        this.paid = false;
     }
 
     /**
@@ -88,6 +91,18 @@ public class Reservation {
      * @return the time this reservation ends
      */
     public long getEndDate() {return this.endDate;}
+
+    /**
+     * Getter
+     * @return boolean indicating if the reservation is paid for
+     */
+    public boolean isPaid() {return this.paid;}
+
+    /**
+     * Setter
+     */
+    public void setPaid() {this.paid = true;}
+
 
     /**
      * Returns a string representation of this reservation

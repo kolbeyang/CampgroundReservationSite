@@ -93,17 +93,18 @@ public class UserController {
     }
 
     /**
-     * Get the reservations of a specific user
+     * Get the reservations of a specific user, either the cart or the reservations that have been paid for.
      * @param username: the username of the user (functions as an id) 
+     * @param paid: boolean indicates whether to get the unpaid reservations (cart) or paid
      * @return
      */
     @GetMapping("/{username}/reservations")
-    public ResponseEntity<Reservation[]> getUserReservations(@PathVariable String username) {
-        LOG.info("GET /users/" + username + "/reservations");
+    public ResponseEntity<Reservation[]> getUserReservations(@PathVariable String username, @RequestParam boolean paid) {
+        LOG.info("GET /users/" + username + "/reservations/?paid="+paid);
         try {
             // reservationDAO.getUserReservations(userID) will iterate through all reservations and return those with
-            // corresponding userID
-            Reservation[] reservationArray = reservationDAO.getUserReservations(username);
+            // corresponding username and with a matching paid status (true or false)
+            Reservation[] reservationArray = reservationDAO.getUserReservations(username, paid);
             if(reservationArray != null)
                 return new ResponseEntity<Reservation[]>(reservationArray, HttpStatus.OK);
             else

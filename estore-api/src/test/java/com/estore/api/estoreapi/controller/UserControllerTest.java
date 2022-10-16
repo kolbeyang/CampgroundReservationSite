@@ -272,9 +272,9 @@ public class UserControllerTest {
         reservations[0] = new Reservation(1,12,100,200,"Billy");
         reservations[1] = new Reservation(2, 12, 300, 400, "Billy");
 
-        when(mockReservationDAO.getUserReservations("Billy")).thenReturn(reservations);
+        when(mockReservationDAO.getUserReservations("Billy", false)).thenReturn(reservations);
 
-        ResponseEntity<Reservation[]> response = userController.getUserReservations("Billy");
+        ResponseEntity<Reservation[]> response = userController.getUserReservations("Billy", false);
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
         assertEquals(reservations,response.getBody());
@@ -282,18 +282,18 @@ public class UserControllerTest {
 
     @Test
     public void testGetUserReservationsFailed() throws IOException {
-        when(mockReservationDAO.getUserReservations("Billy")).thenReturn(null);
+        when(mockReservationDAO.getUserReservations("Billy", false)).thenReturn(null);
 
-        ResponseEntity<Reservation[]> response = userController.getUserReservations("Billy");
+        ResponseEntity<Reservation[]> response = userController.getUserReservations("Billy", false);
 
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
 
     @Test
     public void testGetUserReservationsHandleException() throws IOException {
-        doThrow(new IOException()).when(mockReservationDAO).getUserReservations("Billy");
+        doThrow(new IOException()).when(mockReservationDAO).getUserReservations("Billy", false);
 
-        ResponseEntity<Reservation[]> response = userController.getUserReservations("Billy");
+        ResponseEntity<Reservation[]> response = userController.getUserReservations("Billy", false);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }

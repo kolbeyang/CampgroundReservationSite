@@ -80,7 +80,7 @@ public class ReservationFileDAOTest {
 
     @Test
     public void testgetUserReservationsArray(){
-        Reservation[] results =  reservationFileDAO.getUserReservations(fakeUsername);
+        Reservation[] results =  reservationFileDAO.getUserReservations(fakeUsername, false);
         assertEquals(testReservations.length,results.length);
     }
 

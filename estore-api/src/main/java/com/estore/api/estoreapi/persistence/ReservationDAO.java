@@ -29,7 +29,7 @@ public interface ReservationDAO {
      * @return an array of this user's reservations
      * @throws IOException
      */
-    Reservation[] getUserReservations(String username) throws IOException;
+    Reservation[] getUserReservations(String username, boolean paid) throws IOException;
 
     //TODO NEW
     /**

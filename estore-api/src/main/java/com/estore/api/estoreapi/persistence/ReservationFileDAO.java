@@ -68,13 +68,15 @@ public class ReservationFileDAO implements ReservationDAO {
 
     /**
      * Returns an array of all reservations of a specified user
+     * @param username The username of the user whose reservations to get
+     * @param paid A boolean indicating whether to search for paid or unpaid reservations
      * @return an array of the reservations of a specified user
      */
-    private Reservation[] getUserReservationsArray(String username) {
+    private Reservation[] getUserReservationsArray(String username, boolean paid) {
         ArrayList<Reservation> userReservations = new ArrayList<>();
 
         for(Reservation reservation : reservations.values()) {
-            if(reservation.getUsername().equals(username))
+            if(reservation.getUsername().equals(username) && reservation.isPaid() == paid)
                 userReservations.add(reservation);
         }
 
@@ -163,9 +165,9 @@ public class ReservationFileDAO implements ReservationDAO {
      * @inheritDoc
      */
     @Override
-    public Reservation[] getUserReservations(String username) {
+    public Reservation[] getUserReservations(String username, boolean paid) {
         synchronized(reservations) {
-            return getUserReservationsArray(username);
+            return getUserReservationsArray(username, paid);
         }
     }
     /**
