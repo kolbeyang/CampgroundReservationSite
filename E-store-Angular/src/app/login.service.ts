@@ -15,6 +15,7 @@ export class LoginService {
 
   private loginURL = 'http://localhost:8080/users'
   private loginResponse: LoginResponse;
+  private loggedIn;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' , observe: 'response'})
@@ -23,11 +24,12 @@ export class LoginService {
   constructor(
     private http: HttpClient) {
     this.loginResponse = <LoginResponse>{};
+    this.loggedIn = false;
   }
 
   isLoggedIn() {
     console.log(this.loginResponse.token)
-    return !( this.loginResponse.token === undefined);
+    return this.loggedIn;
   }
 
   adminLoggedIn(): any {
@@ -45,8 +47,13 @@ export class LoginService {
     );
   }
 
+  logout() {
+    this.loggedIn = false;
+  }
+
   login(loginResponse: LoginResponse) {
     this.loginResponse = loginResponse;
+    this.loggedIn = true;
     console.log("LoginService: the token is " + this.getToken())
   }
 
