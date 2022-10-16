@@ -1,5 +1,5 @@
-<h2>Campsite Products</h2>
 <ul class="products">
+  <h2>Campsite Products</h2>
   <li *ngFor="let product of products">
     <button [class.selected]="product === selectedProduct" type="button" (click)="onSelect(product)">
       <span class="name">{{product.name}}</span>
@@ -15,14 +15,27 @@
     <label for="product-name">Campsite name: </label>
     <span class ="rate">{{selectedProduct.name}}</span>
 
-    <!-- <input id="product-name" [(ngModel)]="selectedProduct.name" placeholder="name"> -->
   </div>
 
   <div>
     <label for="product-rate">Campsite rate: </label>
-    <span class ="rate">{{selectedProduct.rate}}</span>
+    <span class ="rate">${{selectedProduct.rate}}/Night</span>
+  </div>
 
-    <!-- <input id="product-rate" [(ngModel)]="selectedProduct.rate" placeholder="raye"> -->
+  <div>
+    Start Date:
+    <input type="Date"> 
+  </div>
+  <div>
+    End Date:
+    <input type="Date">
+  </div>
+
+  <div>
+    Add to cart:
+    <button type="button">
+      <span>Add to cart</span>
+    </button>
   </div>
 </div>
 
