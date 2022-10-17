@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.naming.spi.ResolveResult;
@@ -14,7 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.estore.api.estoreapi.model.Campsite;
 import com.estore.api.estoreapi.model.Reservation;
+import com.estore.api.estoreapi.persistence.InventoryDAO;
 
 /**
  * The Inventory Data Access Object
@@ -26,7 +29,9 @@ public class ReservationFileDAO implements ReservationDAO {
     Map<Integer,Reservation> reservations;  
     private ObjectMapper objectMapper; 
     private static int nextId; 
-    private String filename;    
+    private String filename;   
+    
+    private InventoryDAO inventoryDAO;
 
     /**
      * Constructor
@@ -185,7 +190,18 @@ public class ReservationFileDAO implements ReservationDAO {
     @Override
     public Reservation createReservation(Reservation reservation) throws IOException {
         synchronized(reservations) {
-            Reservation newReservation = new Reservation(nextId(),reservation.getCampsiteId(),reservation.getStartDate(), reservation.getEndDate(), reservation.getUsername());
+            /* Determines the price of the reservation */
+            double price;
+            
+            Campsite campsite = inventoryDAO.getCampsite(reservation.getCampsiteId());
+            double rate = campsite.getRate();
+
+            double num_days = TimeUnit.MILLISECONDS.toDays(reservation.getEndDate()) - TimeUnit.MILLISECONDS.toDays(reservation.getStartDate());
+            price = Math.round(num_days * rate * 100.0) / 100;
+
+            /* Creates and adds reservation to persistence with determined price */
+
+            Reservation newReservation = new Reservation(nextId(),reservation.getCampsiteId(),reservation.getStartDate(), reservation.getEndDate(), reservation.getUsername(), price);
             reservations.put(newReservation.getId(),newReservation);
             save(); // may throw an IOException
             return newReservation;
