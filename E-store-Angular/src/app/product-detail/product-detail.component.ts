@@ -5,6 +5,8 @@ import { LoginService } from '../login.service';
 import { User } from '../user';
 import { Location } from '@angular/common';
 import { Campsite } from '../Campsite';
+import { ReservationService } from '../reservation.service';
+import { DeclarationListEmitMode } from '@angular/compiler';
 
 
 
@@ -15,7 +17,11 @@ import { Campsite } from '../Campsite';
 })
 export class ProductDetailComponent implements OnInit {
 
-  constructor(private productService: ProductService, private loginService: LoginService, private location : Location) { 
+  constructor(
+    private productService: ProductService, 
+    private loginService: LoginService,
+    private reservationService: ReservationService,
+    private location : Location) { 
     
   }
 
@@ -70,8 +76,13 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  createReservation():void{
-
+  createReservation(start: string, end: string):void{
+    console.log("Start value" + start);
+    console.log("End Value" + end);
+    let startDate = new Date(start);
+    let endDate = new Date(end);
+    console.log("Start Date:" + startDate);
+    console.log("End Date:" + endDate);
   }
 
   isLoggedIn(): boolean{

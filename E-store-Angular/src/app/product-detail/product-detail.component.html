@@ -33,6 +33,18 @@
       <label for="product-rate">Campsite rate: </label>
       <span class ="rate">${{selectedProduct.rate}}/Night</span>
     </div>
+
+    <div>
+      <label for="reservation-start">Start Date:</label>
+      <input type="Date" #StartDate>
+    </div>
+    <div>
+      <label for="reservation-end">End Date:</label>
+      <input type="Date" #EndDate>
+    </div>
+    <div>
+      <button type="button"(click)="createReservation(StartDate.value, EndDate.value)">Make Reservation</button>
+    </div>
   </div>
 
   <div *ngIf="this.isAdmin()">
@@ -56,7 +68,7 @@
   <div>
     <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name"/>
     <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
-    <input id="Campsite-id" #NewCampsiteid   placeholder="Campsite id">
+    <input id="Campsite-id"   #NewCampsiteid   placeholder="Campsite id">
     <button type="Button" (click)="createProduct(NewCampsiteid.value, NewCampsiteName.value, NewCampsiteRate.value)">Create New Campsite</button>
   </div>
 </div>
