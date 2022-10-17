@@ -3,6 +3,7 @@ import { Product } from '../Product';
 import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
 import { User } from '../user';
+import { Location } from '@angular/common';
 
 
 
@@ -13,7 +14,9 @@ import { User } from '../user';
 })
 export class ProductDetailComponent implements OnInit {
 
-  constructor(private productService: ProductService, private loginService: LoginService) { }
+  constructor(private productService: ProductService, private loginService: LoginService, private location : Location) { 
+    
+  }
 
   products: Product[] = [];
   selectedProduct?:Product;
@@ -40,15 +43,28 @@ export class ProductDetailComponent implements OnInit {
   }
 
   editProduct(): void{
-
+  
+      if (this.selectedProduct) {
+        this.productService.updateProduct(this.selectedProduct)
+        .subscribe(() => this.goBack());
+      }
+    
   }
+
+
+  goBack(): void {
+    this.location.back();
+  }
+
+
 
   createProduct():void{
 
   }
 
-  deleteProduct():void{
-
+  deleteProduct(product: Product):void{
+      this.products = this.products.filter(h => h !== product);
+      this.productService.deleteProduct(product.id).subscribe();
   }
 
   createReservation():void{
@@ -60,6 +76,7 @@ export class ProductDetailComponent implements OnInit {
   }
   
   isAdmin(): boolean{
+    console.log(this.loginService.adminLoggedIn());
     return this.loginService.adminLoggedIn();
   }
 
