@@ -41,7 +41,7 @@ public class ReservationControllerTest {
     @Test
     public void testGetReservation() throws IOException {  // getReservation may throw IOException
         // Setup
-        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
+        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy", 0);
         // When the same id is passed in, our mock Reservation DAO will return the Reservation object
         when(mockReservationDAO.getReservation(reservation.getId())).thenReturn(reservation);
 
@@ -90,7 +90,7 @@ public class ReservationControllerTest {
     @Test
     public void testCreateReservation() throws IOException {  // createReservation may throw IOException
         // Setup
-        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
+        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy", 0);
         // when createReservation is called, return true simulating successful
         // creation and save
         Reservation[] reservationArray = {};
@@ -108,7 +108,7 @@ public class ReservationControllerTest {
     @Test
     public void testCreateReservationFailed() throws IOException {  // createReservation may throw IOException
         // Setup
-        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
+        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy", 0);
         // when createReservation is called, return false simulating failed
         // creation and save
         Reservation[] reservationArray = {reservation};
@@ -125,7 +125,7 @@ public class ReservationControllerTest {
     @Test
     public void testCreateReservationHandleException() throws IOException {  // createReservation may throw IOException
         // Setup
-        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
+        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy", 0);
 
         // When createReservation is called on the Mock Reservation DAO, throw an IOException
         Reservation[] reservationArray = {};
@@ -142,7 +142,7 @@ public class ReservationControllerTest {
     @Test
     public void testUpdateReservation() throws IOException { // updateReservation may throw IOException
         // Setup
-        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
+        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy", 0);
         // when updateReservation is called, return true simulating successful
         // update and save
         when(mockReservationDAO.updateReservation(reservation)).thenReturn(reservation);
@@ -160,7 +160,7 @@ public class ReservationControllerTest {
     @Test
     public void testUpdateReservationFailed() throws IOException { // updateReservation may throw IOException
         // Setup
-        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
+        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy", 0);
         // when updateReservation is called, return true simulating successful
         // update and save
         when(mockReservationDAO.updateReservation(reservation)).thenReturn(null);
@@ -175,7 +175,7 @@ public class ReservationControllerTest {
     @Test
     public void testUpdateReservationHandleException() throws IOException { // updateReservation may throw IOException
         // Setup
-        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy");
+        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy", 0);
         // When updateReservation is called on the Mock Reservation DAO, throw an IOException
         doThrow(new IOException()).when(mockReservationDAO).updateReservation(reservation);
 
@@ -190,8 +190,8 @@ public class ReservationControllerTest {
     public void testGetReservationes() throws IOException { // getReservationes may throw IOException
         // Setup
         Reservation[] reservations = new Reservation[2];
-        reservations[0] = new Reservation(12, 12, 100, 200, "Billy");
-        reservations[1] = new Reservation(13, 12, 400, 500, "Bob");
+        reservations[0] = new Reservation(12, 12, 100, 200, "Billy", 0);
+        reservations[1] = new Reservation(13, 12, 400, 500, "Bob", 0);
         // When getReservationes is called return the reservations created above
         when(mockReservationDAO.getReservations()).thenReturn(reservations);
 

@@ -269,8 +269,8 @@ public class UserControllerTest {
     @Test
     public void testGetUserReservations() throws IOException {
         Reservation[] reservations = new Reservation[2];
-        reservations[0] = new Reservation(1,12,100,200,"Billy");
-        reservations[1] = new Reservation(2, 12, 300, 400, "Billy");
+        reservations[0] = new Reservation(1,12,100,200,"Billy", 0);
+        reservations[1] = new Reservation(2, 12, 300, 400, "Billy", 0);
 
         when(mockReservationDAO.getUserReservations("Billy", false)).thenReturn(reservations);
 

@@ -52,9 +52,9 @@ public class ReservationFileDAOTest {
         Campsite camp2 = new Campsite(2, "Eagle heights", 12.43);
         Campsite camp3 = new Campsite(3, "Stony Brooks", 14);
         
-        Reservation reserve1 = new Reservation(0, camp1.getId(), EPOCH + DAY,  EPOCH + (DAY * 2), fakeUsername); //A reservation that is from a Day in advance from 
-        Reservation reserve2 = new Reservation(1, camp2.getId(),EPOCH + DAY, EPOCH + (DAY*2), fakeUsername );
-        Reservation reserve3 = new Reservation(2, camp1.getId(), EPOCH + (DAY * 3), EPOCH + (DAY * 5), fakeUsername);
+        Reservation reserve1 = new Reservation(0, camp1.getId(), EPOCH + DAY,  EPOCH + (DAY * 2), fakeUsername, 0); //A reservation that is from a Day in advance from 
+        Reservation reserve2 = new Reservation(1, camp2.getId(),EPOCH + DAY, EPOCH + (DAY*2), fakeUsername, 0 );
+        Reservation reserve3 = new Reservation(2, camp1.getId(), EPOCH + (DAY * 3), EPOCH + (DAY * 5), fakeUsername, 0);
 
         testCampsites = new Campsite[3];
         testReservations = new Reservation[3];
@@ -123,7 +123,7 @@ public class ReservationFileDAOTest {
      */
     @Test
     public void testcreateReservation(){
-        Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8), fakeUsername);
+        Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8), fakeUsername, 0);
         Reservation result = assertDoesNotThrow(() -> reservationFileDAO.createReservation(newReservation), "An unexpected exception occurred");
         assertEquals(newReservation, result);
 
@@ -159,7 +159,7 @@ public class ReservationFileDAOTest {
     */
     @Test
     public void testdeleteReservationNotFound(){
-        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY, fakeUsername);
+        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY, fakeUsername, 0);
         boolean result =  assertDoesNotThrow(() -> reservationFileDAO.deleteReservation(fakeReserve.getId()), "An unexpected exception occurred");
         assertFalse(result);
     }
@@ -169,7 +169,7 @@ public class ReservationFileDAOTest {
      */
     @Test
     public void testupdateReservationNotFound(){
-        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY,fakeUsername);
+        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY,fakeUsername, 0);
         Reservation result =  assertDoesNotThrow(() -> reservationFileDAO.updateReservation(fakeReserve), "An unexpected exception occurred");
         assertNull(result);
     }
@@ -189,7 +189,7 @@ public class ReservationFileDAOTest {
         .when(mockObjectMapper)
             .writeValue(any(File.class), any(Reservation[].class));
 
-        Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8), fakeUsername);
+        Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8), fakeUsername, 0);
 
     assertThrows(IOException.class, () -> reservationFileDAO.createReservation(newReservation));
     }
