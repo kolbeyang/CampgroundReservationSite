@@ -41,7 +41,7 @@
       <div>
         <label for="Campsite-name">Campsite name: </label>
         <input id="Campsite-name" [(ngModel)]="selectedProduct.name" placeholder="Campsite name"/>
-        <input id="Campsite-name" [(ngModel)]="selectedProduct.rate" placeholder="Campsite Rate">
+        <input id="Campsite-rate" [(ngModel)]="selectedProduct.rate" placeholder="Campsite Rate">
         <button type="Button" (click)="editProduct()">Save Changes</button>
         <button type="button" (click)="deleteProduct(selectedProduct)"delete>Delete</button>
         <!-- <button type="button" (click)="editProduct()">save</button> -->
@@ -50,3 +50,13 @@
 
 </div>
 
+
+<div *ngIf="this.isAdmin()">
+  <h2>Create New Product</h2>
+  <div>
+    <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name"/>
+    <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
+    <input id="Campsite-id" #NewCampsiteid   placeholder="Campsite id">
+    <button type="Button" (click)="createProduct(NewCampsiteid.value, NewCampsiteName.value, NewCampsiteRate.value)">Create New Campsite</button>
+  </div>
+</div>

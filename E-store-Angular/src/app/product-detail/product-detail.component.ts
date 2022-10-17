@@ -4,6 +4,7 @@ import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
 import { User } from '../user';
 import { Location } from '@angular/common';
+import { Campsite } from '../Campsite';
 
 
 
@@ -29,14 +30,7 @@ export class ProductDetailComponent implements OnInit {
     this.selectedProduct = product;
   }
 
-  onSelectAdmin(product:Product): void {
-    console.log('This was clicked')
-    console.log(this.isAdmin());
-    console.log(this.isLoggedIn());
-    if(this.isAdmin()){
-      this.selectedProduct = product;
-    }
-  }
+
 
   getProducts(): void{
     this.productService.getProducts().subscribe(products => this.products = products);
@@ -52,21 +46,29 @@ export class ProductDetailComponent implements OnInit {
     
   }
 
-
-  goBack(): void {
-    this.location.back();
-  }
-
-
-
-  createProduct():void{
-
+  createProduct(id: string, name: string, rate: string):void{
+    let idnum = new Number(id);
+    let ratenume = new Number(id);
+    let campsite = new Campsite(name, idnum.valueOf(), ratenume.valueOf()); 
+    this.productService.addProduct(campsite).subscribe(campsite => {
+      this.products.push(campsite);
+    });
   }
 
   deleteProduct(product: Product):void{
-      this.products = this.products.filter(h => h !== product);
-      this.productService.deleteProduct(product.id).subscribe();
+    this.products = this.products.filter(h => h !== product);
+    this.productService.deleteProduct(product.id).subscribe();
+}
+
+  onSelectAdmin(product:Product): void {
+    console.log('Admin Clicked to view some products')
+    console.log(this.isAdmin());
+    console.log(this.isLoggedIn());
+    if(this.isAdmin()){
+      this.selectedProduct = product;
+    }
   }
+
 
   createReservation():void{
 

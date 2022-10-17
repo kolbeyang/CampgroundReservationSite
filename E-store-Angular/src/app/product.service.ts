@@ -41,6 +41,11 @@ export class ProductService {
     );
   }
 
+  addProduct(campsite: Campsite){
+    return this.http.post<Campsite>(this.productUrl, campsite, this.httpOptions).pipe(     
+    catchError(this.handleError<any>('addCampsite')));
+  }
+
   
   log(arg0: string): void {
 
