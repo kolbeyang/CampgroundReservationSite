@@ -1,3 +1,4 @@
+<div *ngIf="this.isLoggedIn() && !this.isAdmin()">
 <ul class="products">
   <h2>Campsite Products</h2>
   <li *ngFor="let product of products">
@@ -6,6 +7,7 @@
     </button>
   </li>
 </ul>
+</div>
 
 <div *ngIf="this.isAdmin()">
 <ul class="products">
@@ -19,21 +21,7 @@
 </div>
 
 <div *ngIf="selectedProduct">
-  <div *ngIf="this.isAdmin()">
-    <h2>{{selectedProduct.name | uppercase}} Details</h2>
-    <div>id: {{selectedProduct.id}}</div>
-  
-    <div>
-      <label for="product-name">Campsite wooww: </label>
-      <span class ="rate">{{selectedProduct.name}}</span>
-    </div>
-    <div>
-      <label for="product-rate">Campsite rate: </label>
-      <span class ="rate">${{selectedProduct.rate}}/Night</span>
-    </div>
-  </div>
-
-  <div *ngIf="!this.isAdmin()">
+  <div *ngIf="this.isLoggedIn() && !this.isAdmin()">
     <h2>{{selectedProduct.name | uppercase}} Details</h2>
     <div>id: {{selectedProduct.id}}</div>
   
@@ -45,6 +33,18 @@
       <label for="product-rate">Campsite rate: </label>
       <span class ="rate">${{selectedProduct.rate}}/Night</span>
     </div>
+  </div>
+
+  <div *ngIf="this.isAdmin()">
+      <h2>{{selectedProduct.name | uppercase}} Details</h2>
+      <div><span>id: </span>{{selectedProduct.id}}</div>
+      <div>
+        <label for="Campsite-name">Campsite name: </label>
+        <input id="Campsite-name" [(ngModel)]="selectedProduct.name" placeholder="Campsite name"/>
+        <input id="Campsite-name" [(ngModel)]="selectedProduct.rate" placeholder="Campsite Rate">
+        <button type="button" (click)="deleteProduct(selectedProduct)"delete>Delete</button>
+        <!-- <button type="button" (click)="editProduct()">save</button> -->
+      </div>
   </div>
 
 </div>
