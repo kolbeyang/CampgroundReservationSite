@@ -30,8 +30,13 @@ class comestoreapiestoreapimodelCampsiteTest{
     @Test 
     public void test_setRate() {
         //setup
+        try{
         test_site.setRate(0.00);
-        assertEquals(test_site.getRate(), 20.00);
+        }
+        catch(IllegalArgumentException e) {
+            assertEquals(test_site.getRate(), 20.00);
+        }
+        //assertEquals(test_site.getRate(), 20.00);
         test_site.setRate(30.00);
         assertEquals(test_site.getRate(), 30.00);
     }

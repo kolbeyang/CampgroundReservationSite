@@ -28,6 +28,9 @@ public class Campsite {
         if(!isValidName(name)) {
             //throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
         }
+        else if(!isValidRate(rate)) {
+            throw new IllegalArgumentException("<ERROR: Invalid Rate");
+        }
         this.id = id;
         this.name = name;
         this.rate = rate;
@@ -90,10 +93,12 @@ public class Campsite {
      * @param rate : the new rate
      */
     public void setRate(double rate) {
-        if(isValidRate(rate)){
+        if(!isValidRate(rate)){
+                throw new IllegalArgumentException("<ERROR: Invalid Rate");
+        }
         this.rate = rate;
         }
-    }
+    
 
 
     /**
