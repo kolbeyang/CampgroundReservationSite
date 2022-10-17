@@ -42,6 +42,7 @@
         <label for="Campsite-name">Campsite name: </label>
         <input id="Campsite-name" [(ngModel)]="selectedProduct.name" placeholder="Campsite name"/>
         <input id="Campsite-name" [(ngModel)]="selectedProduct.rate" placeholder="Campsite Rate">
+        <button type="Button" (click)="editProduct()">Save Changes</button>
         <button type="button" (click)="deleteProduct(selectedProduct)"delete>Delete</button>
         <!-- <button type="button" (click)="editProduct()">save</button> -->
       </div>

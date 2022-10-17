@@ -12,6 +12,7 @@ export class ProductService {
 
   private productUrl = 'http://localhost:8080/campsites'
 
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -35,22 +36,33 @@ export class ProductService {
     const url = `${this.productUrl}/${id}`;
 
     return this.http.delete<Campsite>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted hero id=${id}`)),
+      tap(_ => this.log(`deleted Campsite id=${id}`)),
       catchError(this.handleError<Campsite>('deleteCampsite'))
     );
   }
 
   
   log(arg0: string): void {
-    throw new Error('Method not implemented.');
-  }
-  handleError<T>(arg0: string): (err: any, caught: Observable<Object>) => import("rxjs").ObservableInput<any> {
-    throw new Error('Method not implemented.');
-  }
-  
 
-  //addProduct(name: string, id: number, rate: number): Observable<Campsite>{
-    //const campsite = of(Campsite);
-    //return campsite;
-  //}
+  }
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   *
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+   private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+}
 }

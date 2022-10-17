@@ -43,10 +43,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   editProduct(): void{
-  
+
+      console.log("This ran" + this.selectedProduct);
       if (this.selectedProduct) {
         this.productService.updateProduct(this.selectedProduct)
-        .subscribe(() => this.goBack());
+        .subscribe();
       }
     
   }
