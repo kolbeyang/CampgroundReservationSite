@@ -174,10 +174,13 @@ public class UserController {
                 LOG.info("User does not exist");
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+            //This section prohibits a user from being logged in twice
+            /* 
             if (authenticationService.userLoggedIn(loginRequest)) {
                 LOG.info("User already logged in");
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
+            */
             String token = authenticationService.userLogin(loginRequest);
 
             System.out.println("token is " + token);
