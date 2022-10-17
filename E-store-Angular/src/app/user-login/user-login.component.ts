@@ -18,6 +18,8 @@ export class UserLoginComponent implements OnInit {
   loggedIn = false;
 
   constructor(private loginService: LoginService, private appRoutingModule : AppRoutingModule, private router: Router ) { 
+    this.loggedIn = loginService.isLoggedIn();
+    if (this.loggedIn) this.errorMessage = "Log out to switch users";
   }
   
   handleLoginError(error: any) {
@@ -41,15 +43,14 @@ export class UserLoginComponent implements OnInit {
   }
 
   login(loginResponse: LoginResponse) {
+    console.log("user-login.component: user is logged in");
     this.loggedIn = true;
     this.loginService.login(loginResponse);
-    this.errorMessage = "Log out to switch users"
     this.router.navigate(['/home']);
   }
 
   onLogin(loginForm: NgForm) {
     this.errorMessage = '';
-    this.loggedIn = true;
     this.loginService.loginRequest(this.model).subscribe(
       response => {this.login(response)},
       (error) => this.handleLoginError(error));
