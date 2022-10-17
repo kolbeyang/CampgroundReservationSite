@@ -18,7 +18,7 @@ export class UserLoginComponent implements OnInit {
   loggedIn = false;
 
   constructor(private loginService: LoginService, private appRoutingModule : AppRoutingModule, private router: Router ) { 
-    this.loggedIn = loginService.isLoggedIn();
+    this.loggedIn = loginService.loginInfo.loggedIn;
     if (this.loggedIn) this.errorMessage = "Log out to switch users";
   }
   

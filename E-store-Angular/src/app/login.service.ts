@@ -8,14 +8,20 @@ import { User } from './user';
 import { LoginRequest } from './loginRequest';
 import { LoginResponse } from './loginResponse';
 
+export interface LoginInfo {
+  loggedIn:boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginService {
 
   private loginURL = 'http://localhost:8080/users'
   private loginResponse: LoginResponse;
-  private loggedIn;
+  public loggedIn;
+  loginInfo: LoginInfo = {loggedIn : false};
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' , observe: 'response'})
@@ -25,6 +31,7 @@ export class LoginService {
     private http: HttpClient) {
     this.loginResponse = <LoginResponse>{};
     this.loggedIn = false;
+    this.loginInfo.loggedIn = this.loggedIn;
   }
 
   isLoggedIn() {
@@ -40,6 +47,10 @@ export class LoginService {
     return this.loginResponse.token;
   }
 
+  getLoginInfo() {
+    return this.loginInfo;
+  }
+
   signUpRequest(user: User): Observable<any> {
     console.log("Sending post request for Signup")
     return this.http.post<any>(this.loginURL, user, this.httpOptions).pipe(
@@ -49,11 +60,13 @@ export class LoginService {
 
   logout() {
     this.loggedIn = false;
+    this.loginInfo.loggedIn = false;
   }
 
   login(loginResponse: LoginResponse) {
     this.loginResponse = loginResponse;
     this.loggedIn = true;
+    this.loginInfo.loggedIn = true;
     console.log("LoginService: the token is " + this.getToken())
   }
 
@@ -67,8 +80,9 @@ export class LoginService {
 
   logoutRequest() {
     console.log("Preparing to log out");
+    this.logout();
     this.http.post(this.loginURL + "/logout", this.getToken(), this.httpOptions).subscribe(
-      response => console.log("Logout successful"),
+      response => {console.log("Logout successful")},
     );
   }
 

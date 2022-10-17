@@ -2,8 +2,9 @@
   <a class = "title">{{title}}</a>
   <nav class = "button-box">
     <a class = "nav-button" routerLink="/home">Home</a>
-    <a class = "nav-button" routerLink="/cart">Cart</a>
-    <a class = "nav-button" routerLink="/login">Login</a>
+    <a *ngIf="loginInfo.loggedIn" class = "nav-button" routerLink="/cart">Cart</a>
+    <a *ngIf="!loginInfo.loggedIn" class = "nav-button" routerLink="/login">Login</a>
+    <button *ngIf="loginInfo.loggedIn"  class = "nav-button" (click)="logout()">Logout</button>
   </nav>
 </div>
 <router-outlet></router-outlet>
