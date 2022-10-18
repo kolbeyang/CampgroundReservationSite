@@ -11,7 +11,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { HomePageComponent } from './home-page/home-page.component';
 import { ViewCartComponent } from './view-cart/view-cart.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ViewReservationsComponent } from './view-reservations/view-reservations/view-reservations.component';
+import { ViewReservationsComponent } from './view-reservations/view-reservations.component';
 
 @NgModule({
   declarations: [
