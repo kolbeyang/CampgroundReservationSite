@@ -13,7 +13,7 @@ import { DeclarationListEmitMode } from '@angular/compiler';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css']
+  styleUrls: ['../app.component.css','./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
 
