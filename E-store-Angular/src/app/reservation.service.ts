@@ -22,7 +22,7 @@ export class ReservationService {
     private http: HttpClient) { }
 
     /** GET reservations from the server */
-    getHeroes(): Observable<Reservation[]> {
+    getReservations(): Observable<Reservation[]> {
       return this.http.get<Reservation[]>(this.reservationURL)
         .pipe(
           tap(_ => this.log('fetched reservations')),
@@ -31,7 +31,7 @@ export class ReservationService {
     }
 
     /** GET reservation by id. Return `undefined` when id not found */
-    getHeroNo404<Data>(id: number): Observable<Reservation> {
+    getReservationNo404<Data>(id: number): Observable<Reservation> {
       const url = `${this.reservationURL}/?id=${id}`;
       return this.http.get<Reservation[]>(url)
         .pipe(
@@ -45,7 +45,7 @@ export class ReservationService {
     }
 
     /** GET reservation by id. Will 404 if id not found */
-    getHero(id: number): Observable<Reservation> {
+    getReservation(id: number): Observable<Reservation> {
       const url = `${this.reservationURL}/${id}`;
       return this.http.get<Reservation>(url).pipe(
         tap(_ => this.log(`fetched reservation id=${id}`)),
