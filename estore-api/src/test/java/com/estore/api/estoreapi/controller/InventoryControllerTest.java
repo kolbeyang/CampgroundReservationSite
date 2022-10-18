@@ -152,7 +152,7 @@ public class InventoryControllerTest {
         // update and save
         when(mockInventoryDAO.updateCampsite(campsite)).thenReturn(campsite);
         ResponseEntity<Campsite> response = inventoryController.updateCampsite(campsite);
-        campsite.setName("Bolt");
+        campsite.setName("Bolt Campsite");
 
         // Invoke
         response = inventoryController.updateCampsite(campsite);
