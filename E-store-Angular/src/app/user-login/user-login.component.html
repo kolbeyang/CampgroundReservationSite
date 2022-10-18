@@ -1,6 +1,6 @@
 <html>
     <div class = "background">
-        <div class = "login-box">
+        <div class = "card">
             <h2>Login</h2>
             <div
                 *ngIf="errorMessage!=''"
@@ -14,7 +14,7 @@
                     required
                     placeholder="Username"
                     [(ngModel)]="model.username" name="username">
-                <input type="text" 
+                <input type="password" 
                     class="form-control" 
                     id="password" 
                     required

@@ -1,12 +1,12 @@
 package com.estore.api.estoreapi.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import com.estore.api.estoreapi.model.Campsite;
+
 
 @Tag("Model-tier")
 class comestoreapiestoreapimodelCampsiteTest{

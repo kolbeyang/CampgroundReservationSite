@@ -13,7 +13,7 @@ import { DeclarationListEmitMode } from '@angular/compiler';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css']
+  styleUrls: ['../app.component.css','./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
 
@@ -81,8 +81,10 @@ export class ProductDetailComponent implements OnInit {
     console.log("End Value" + end);
     let startDate = new Date(start);
     let endDate = new Date(end);
-    console.log("Start Date:" + startDate);
-    console.log("End Date:" + endDate);
+    console.log("Start Date:" + startDate.getTime());
+    console.log("End Date:" + endDate.getTime());
+
+
   }
 
   isLoggedIn(): boolean{
