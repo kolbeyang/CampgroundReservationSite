@@ -1,15 +1,8 @@
 package com.estore.api.estoreapi.model;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Component;
-
-import com.estore.api.estoreapi.persistence.InventoryDAO;
-import com.estore.api.estoreapi.persistence.ReservationDAO;
 import com.estore.api.estoreapi.persistence.UserDAO;
 
 /**

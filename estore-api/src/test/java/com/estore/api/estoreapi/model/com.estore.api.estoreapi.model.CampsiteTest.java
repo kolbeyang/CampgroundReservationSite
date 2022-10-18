@@ -1,12 +1,12 @@
 package com.estore.api.estoreapi.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import com.estore.api.estoreapi.model.Campsite;
+
 
 @Tag("Model-tier")
 class comestoreapiestoreapimodelCampsiteTest{
@@ -14,6 +14,26 @@ class comestoreapiestoreapimodelCampsiteTest{
     @BeforeEach
     public void setup() throws IllegalArgumentException {
         test_site = new Campsite(7, "Test Campsite", 20.00);
+    }
+    @Test
+    public void Constructor() throws IllegalArgumentException {
+        Campsite test_site;
+        Campsite test_site2;
+        try{
+            test_site = new Campsite(6, "Test", 5.00);
+            
+        }
+        catch(IllegalArgumentException e){
+        test_site = new Campsite(6, "Test Campsite", 5.00);
+        }
+        try{
+            test_site2 = new Campsite(6, "Test Campsite", -5.00);
+        }
+        catch(IllegalArgumentException e) {
+            test_site2 = new Campsite(6, "Test Campsite", 5.00);
+        }
+        assertEquals(test_site.equals(test_site2), true);
+
     }
     @Test
     public void test_getId() {
@@ -61,6 +81,7 @@ class comestoreapiestoreapimodelCampsiteTest{
         Object random_object = new Object(); //Random object
 
         //test
+        assertEquals(test_site.equals(test_site), true);
         assertEquals(test_site.equals(test_site2), true);
         assertEquals(test_site.equals(test_site3), false);
         assertEquals(test_site3.equals(test_site4), true);
