@@ -37,7 +37,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-
   getProducts(): void{
     this.productService.getProducts().subscribe(products => this.products = products);
   }
@@ -83,8 +82,6 @@ export class ProductDetailComponent implements OnInit {
     let endDate = new Date(end);
     console.log("Start Date:" + startDate.getTime());
     console.log("End Date:" + endDate.getTime());
-
-
   }
 
   isLoggedIn(): boolean{
@@ -95,9 +92,5 @@ export class ProductDetailComponent implements OnInit {
     console.log(this.loginService.adminLoggedIn());
     return this.loginService.adminLoggedIn();
   }
-
-
-  
-
 
 }
