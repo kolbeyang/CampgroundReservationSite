@@ -7,6 +7,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { User } from './user';
 import { LoginRequest } from './loginRequest';
 import { LoginResponse } from './loginResponse';
+import { Reservation } from './Reservation';
+
 
 export interface LoginInfo {
   loggedIn:boolean;
@@ -110,6 +112,22 @@ export class LoginService {
       response => {console.log("Logout successful")},
     );
   }
+
+
+  /// UserController Methods ///
+
+  /**
+   * Get the unpaid reservations of a user (the cart)
+   * @param username the username of the user
+   * @returns Array of reservations
+   */
+  getCart(username: string): Observable<Reservation[]> {
+    const url = `${this.loginURL}/${username}/reservations/?paid=${false}`;
+    return this.http.get<Reservation[]>(url).pipe(
+      tap(_ => this.log('fetched cart')), catchError(this.handleError<Reservation[]>('getCart', []))
+    );
+  }
+
 
     /**
    * Handle Http operation that failed.
