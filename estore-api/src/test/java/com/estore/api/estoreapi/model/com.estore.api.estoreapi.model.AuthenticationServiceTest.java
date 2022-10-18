@@ -1,35 +1,23 @@
 package com.estore.api.estoreapi.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
-
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import com.estore.api.estoreapi.model.AuthenticationService;
-import com.estore.api.estoreapi.model.LoginRequest;
-import com.estore.api.estoreapi.persistence.InventoryFileDAO;
 import com.estore.api.estoreapi.persistence.UserDAO;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
+
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Tag("Model-tier")
 class comestoreapiestoreapimodelAuthenticationServiceTest{
@@ -116,10 +104,12 @@ class comestoreapiestoreapimodelAuthenticationServiceTest{
         String token2 = (String)method.invoke(test_service, admin);
         Boolean result1 = test_service.isAdminToken(token1); //User token
         Boolean result2 = test_service.isAdminToken(token2); //Admin token
+        Boolean result3 = test_service.isAdminToken("1000"); //Arbitrary token that isn't in tokens
 
         //test
-        assertEquals(false, result1);
-        assertEquals(true, result2);
+        assertEquals(result1, false);
+        assertEquals(result2, true);
+        assertEquals(result3, null);
         
         
 
