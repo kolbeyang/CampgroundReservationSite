@@ -76,7 +76,7 @@ export class ReservationService {
       );
     }
 
-  /** PUT: update the hero on the server */
+  /** PUT: update the reservation on the server */
   updateReservation(reservation: Reservation): Observable<any> {
     return this.http.put(this.reservationURL, reservation, this.httpOptions).pipe(
       tap(_ => this.log(`updated reservation id=${reservation.id}`)),

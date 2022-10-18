@@ -18,6 +18,10 @@ input:focus {
   outline: #3E602E auto 10px;
 }
 
+li {
+  list-style : none;
+}
+
 .card{
   max-width: 350px;
   padding: 72px 54px;

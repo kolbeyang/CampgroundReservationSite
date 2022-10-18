@@ -117,6 +117,27 @@ public class UserController {
     }
 
     /**
+     * Get the reservations of a specific user, either the cart or the reservations that have been paid for.
+     * @param username: the username of the user (functions as an id) 
+     * @param paid: boolean indicates whether to get the unpaid reservations (cart) or paid
+     * @return
+     */
+    @GetMapping("/{username}/cart")
+    public ResponseEntity<Double> getCartTotal(@PathVariable String username) {
+        LOG.info("GET /users/" + username + "/cart");
+        try {
+            // reservationDAO.getCartTotal(username) will iterate through all reservations and return the total of the 
+            // prices of those with corresponding username and paid status false
+            double total = reservationDAO.getCartTotal(username);
+            return new ResponseEntity<Double>(total, HttpStatus.OK);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Creates a user based on the input if a user of the same name has not yet been created
      * returns status code of CONFLICT, CREATED, or INTERNAL_SERVER_ERROR
      * @param user : an object of the user to create

@@ -7,8 +7,11 @@ import { Location } from '@angular/common';
 import { Campsite } from '../Campsite';
 import { ReservationService } from '../reservation.service';
 import { DeclarationListEmitMode } from '@angular/compiler';
+import { Observable, Subject } from 'rxjs';
 
-
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,28 +20,35 @@ import { DeclarationListEmitMode } from '@angular/compiler';
 })
 export class ProductDetailComponent implements OnInit {
 
+  products$!: Observable<Campsite[]>;
+  private searchTerms = new Subject<string>();
+  selectedProduct?:Product;
+
   constructor(
     private productService: ProductService, 
     private loginService: LoginService,
     private reservationService: ReservationService,
-    private location : Location) { 
-    
+    private location : Location) {
   }
-
-  products: Product[] = [];
-  selectedProduct?:Product;
   
   ngOnInit(): void {
-    this.getProducts();
+
+    this.products$ = this.productService.searchProducts("");
   }
 
   onSelect(product: Product): void {
     this.selectedProduct = product;
   }
 
-
+  /*
   getProducts(): void{
-    this.productService.getProducts().subscribe(products => this.products = products);
+    this.productService.searchProducts("").subscribe(products => this.products$ = products);
+  }
+*/
+  // Push a search term into the observable stream.
+  search(term: string): void {
+    console.log("searching");
+    this.products$ = this.productService.searchProducts(term);
   }
 
   editProduct(): void{
@@ -56,13 +66,13 @@ export class ProductDetailComponent implements OnInit {
     let ratenume = new Number(id);
     let campsite = new Campsite(name, idnum.valueOf(), ratenume.valueOf()); 
     this.productService.addProduct(campsite).subscribe(campsite => {
-      this.products.push(campsite);
+      this.search("");
     });
   }
 
   deleteProduct(product: Product):void{
-    this.products = this.products.filter(h => h !== product);
-    this.productService.deleteProduct(product.id).subscribe();
+    //this.products = this.products.filter(h => h !== product);
+    this.productService.deleteProduct(product.id).subscribe(() => this.search(""));
 }
 
   onSelectAdmin(product:Product): void {
@@ -89,7 +99,6 @@ export class ProductDetailComponent implements OnInit {
   }
   
   isAdmin(): boolean{
-    console.log(this.loginService.adminLoggedIn());
     return this.loginService.adminLoggedIn();
   }
 

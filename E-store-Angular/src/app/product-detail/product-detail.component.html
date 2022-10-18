@@ -2,7 +2,10 @@
 <ul class="card">
   <h2 *ngIf="!this.isAdmin()">Campsite Products</h2>
   <h2 *ngIf="this.isAdmin()">Campsite Products Admin View</h2>
-  <li *ngFor="let product of products">
+
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <li *ngFor="let product of products$ | async">
     <button *ngIf="!this.isAdmin()" [class.selected]="product === selectedProduct" type="button" (click)="onSelect(product)">
       <span class="name">{{product.name}}</span>
     </button>
