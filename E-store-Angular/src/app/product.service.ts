@@ -20,8 +20,8 @@ export class ProductService {
   constructor(
     private http: HttpClient) { }
 
-  getProducts(): Observable<Product[]>{
-    return this.http.get<Product[]>(this.productUrl)
+  getProducts(): Observable<Campsite[]>{
+    return this.http.get<Campsite[]>(this.productUrl)
   } 
 
   updateProduct(product: Product): Observable<any> {
@@ -31,6 +31,22 @@ export class ProductService {
     );
     
   }
+
+    /* GET products whose name contains search term */
+    searchProducts(term: string): Observable<Campsite[]> {
+      console.log("Product Service term " + term );
+
+      if (term === "") {
+        // if not search term, return empty hero array.
+        return this.getProducts();
+      }
+      return this.http.get<Campsite[]>(`${this.productUrl}/?name=${term}`).pipe(
+        tap(x => x.length ?
+           this.log(`found campsites matching "${term}"`) :
+           this.log(`no campsites matching "${term}"`)),
+        catchError(this.handleError<Campsite[]>('searchCampsites', []))
+      );
+    }
 
   deleteProduct(id: number): Observable<Campsite> {
     const url = `${this.productUrl}/${id}`;
