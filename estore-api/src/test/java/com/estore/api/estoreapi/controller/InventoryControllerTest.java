@@ -44,7 +44,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testGetCampsite() throws IOException, IllegalArgumentException {  // getCampsite may throw IOException
+    public void testGetCampsite() throws IOException {  // getCampsite may throw IOException
         // Setup
         Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // When the same id is passed in, our mock Campsite DAO will return the Campsite object
@@ -59,7 +59,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testGetCampsiteNotFound() throws Exception, IllegalArgumentException { // createCampsite may throw IOException
+    public void testGetCampsiteNotFound() throws Exception { // createCampsite may throw IOException
         // Setup
         int campsiteId = 99;
         // When the same id is passed in, our mock Campsite DAO will return null, simulating
@@ -74,7 +74,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testGetCampsiteHandleException() throws Exception, IllegalArgumentException{ // createCampsite may throw IOException
+    public void testGetCampsiteHandleException() throws Exception{ // createCampsite may throw IOException
         // Setup
         int campsiteId = 99;
         // When getCampsite is called on the Mock Campsite DAO, throw an IOExceptionfcreate
@@ -93,7 +93,7 @@ public class InventoryControllerTest {
      ****************************************************************/
 
     @Test
-    public void testCreateCampsite() throws IOException, IllegalArgumentException {  // createCampsite may throw IOException
+    public void testCreateCampsite() throws IOException {  // createCampsite may throw IOException
         // Setup
         Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // when createCampsite is called, return true simulating successful
@@ -111,7 +111,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testCreateCampsiteFailed() throws IOException, IllegalArgumentException{  // createCampsite may throw IOException
+    public void testCreateCampsiteFailed() throws IOException{  // createCampsite may throw IOException
         // Setup
         Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // when createCampsite is called, return false simulating failed
@@ -128,7 +128,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testCreateCampsiteHandleException() throws IOException, IllegalArgumentException {  // createCampsite may throw IOException
+    public void testCreateCampsiteHandleException() throws IOException {  // createCampsite may throw IOException
         // Setup
         Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
 
@@ -145,7 +145,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testUpdateCampsite() throws IOException, IllegalArgumentException { // updateCampsite may throw IOException
+    public void testUpdateCampsite() throws IOException { // updateCampsite may throw IOException
         // Setup
         Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // when updateCampsite is called, return true simulating successful
@@ -163,7 +163,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testUpdateCampsiteFailed() throws IOException, IllegalArgumentException { // updateCampsite may throw IOException
+    public void testUpdateCampsiteFailed() throws IOException { // updateCampsite may throw IOException
         // Setup
         Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // when updateCampsite is called, return true simulating successful
@@ -178,7 +178,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testUpdateCampsiteHandleException() throws IOException, IllegalArgumentException { // updateCampsite may throw IOException
+    public void testUpdateCampsiteHandleException() throws IOException { // updateCampsite may throw IOException
         // Setup
         Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // When updateCampsite is called on the Mock Campsite DAO, throw an IOException
@@ -192,7 +192,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testGetCampsitees() throws IOException, IllegalArgumentException { // getCampsitees may throw IOException
+    public void testGetCampsitees() throws IOException { // getCampsitees may throw IOException
         // Setup
         Campsite[] campsites = new Campsite[2];
         campsites[0] = new Campsite(99,"Foggy Valley Campsite", 13.20);
@@ -222,7 +222,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testSearchCampsitees() throws IOException, IllegalArgumentException { // findCampsitees may throw IOException
+    public void testSearchCampsitees() throws IOException { // findCampsitees may throw IOException
         // Setup
         String searchString = "all";
         Campsite[] campsites = new Campsite[2];
