@@ -13,8 +13,11 @@ import { Router } from '@angular/router';
 })
 export class UserLoginComponent implements OnInit {
 
+  // Used in the NgForm
   model = new User("","", false);
+  // Error displays if this is not empty
   errorMessage = '';
+  //If this is true, the login and signup buttons do not work
   loggedIn = false;
 
   constructor(private loginService: LoginService, private appRoutingModule : AppRoutingModule, private router: Router ) { 

@@ -34,23 +34,44 @@ export class LoginService {
     this.loginInfo.loggedIn = this.loggedIn;
   }
 
+  /**
+   * Getter
+   * @returns Whether there is a user that is logged in
+   */
   isLoggedIn() {
     console.log(this.loginResponse.token)
     return this.loggedIn;
   }
 
+  /**
+   * Getter
+   * @returns Whether the user who is logged in is an admin
+   */
   adminLoggedIn(): any {
     return this.loginResponse.isAdmin;
   }
 
+  /**
+   * undefined if there is no user logged in
+   * @returns Returns the token of the user who is logged in
+   */
   getToken(): String {
     return this.loginResponse.token;
   }
 
+  /**
+   * Returns an object that shows whether a user is loggedIn or not
+   * @returns logged in or not
+   */
   getLoginInfo() {
     return this.loginInfo;
   }
 
+  /**
+   * Sends a signUp requset to the backend
+   * @param user The user object with a username and password
+   * @returns an observable
+   */
   signUpRequest(user: User): Observable<any> {
     console.log("Sending post request for Signup")
     return this.http.post<any>(this.loginURL, user, this.httpOptions).pipe(
@@ -58,6 +79,10 @@ export class LoginService {
     );
   }
 
+  /**
+   * Called the logoutRequest method
+   * KNOWN ISSUE does not depend on a successful logout request in the backend
+   */
   logout() {
     this.loggedIn = false;
     this.loginInfo.loggedIn = false;
