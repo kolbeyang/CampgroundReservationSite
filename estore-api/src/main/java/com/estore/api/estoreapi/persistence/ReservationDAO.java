@@ -22,16 +22,22 @@ public interface ReservationDAO {
      */
     Reservation getReservation(int id) throws IOException;
 
-    //TODO NEW
     /**
      * Getter
-     * @param userID : the id of the user whose reservations to get
+     * @param username : the username of the user whose reservations to get
      * @return an array of this user's reservations
      * @throws IOException
      */
     Reservation[] getUserReservations(String username, boolean paid) throws IOException;
 
-    //TODO NEW
+    /**
+     * Getter
+     * @param username the username of the user whose cart total to get
+     * @return a double that is the total of the prices of the users unpaid reservations
+     * @throws IOException
+     */
+    double getCartTotal(String username) throws IOException;
+
     /**
      * Getter
      * @param id : the id of the campsite whose reservations to get

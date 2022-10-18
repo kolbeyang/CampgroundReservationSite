@@ -46,7 +46,7 @@ public class InventoryControllerTest {
     @Test
     public void testGetCampsite() throws IOException {  // getCampsite may throw IOException
         // Setup
-        Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
+        Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // When the same id is passed in, our mock Campsite DAO will return the Campsite object
         when(mockInventoryDAO.getCampsite(campsite.getId())).thenReturn(campsite);
 
@@ -74,7 +74,7 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testGetCampsiteHandleException() throws Exception { // createCampsite may throw IOException
+    public void testGetCampsiteHandleException() throws Exception{ // createCampsite may throw IOException
         // Setup
         int campsiteId = 99;
         // When getCampsite is called on the Mock Campsite DAO, throw an IOExceptionfcreate
@@ -95,7 +95,7 @@ public class InventoryControllerTest {
     @Test
     public void testCreateCampsite() throws IOException {  // createCampsite may throw IOException
         // Setup
-        Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
+        Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // when createCampsite is called, return true simulating successful
         // creation and save
         Campsite[] campsiteArray = {};
@@ -111,9 +111,9 @@ public class InventoryControllerTest {
     }
 
     @Test
-    public void testCreateCampsiteFailed() throws IOException {  // createCampsite may throw IOException
+    public void testCreateCampsiteFailed() throws IOException{  // createCampsite may throw IOException
         // Setup
-        Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
+        Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // when createCampsite is called, return false simulating failed
         // creation and save
         Campsite[] campsiteArray = {campsite};
@@ -130,7 +130,7 @@ public class InventoryControllerTest {
     @Test
     public void testCreateCampsiteHandleException() throws IOException {  // createCampsite may throw IOException
         // Setup
-        Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
+        Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
 
         // When createCampsite is called on the Mock Campsite DAO, throw an IOException
         Campsite[] campsiteArray = {};
@@ -147,12 +147,12 @@ public class InventoryControllerTest {
     @Test
     public void testUpdateCampsite() throws IOException { // updateCampsite may throw IOException
         // Setup
-        Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
+        Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // when updateCampsite is called, return true simulating successful
         // update and save
         when(mockInventoryDAO.updateCampsite(campsite)).thenReturn(campsite);
         ResponseEntity<Campsite> response = inventoryController.updateCampsite(campsite);
-        campsite.setName("Bolt");
+        campsite.setName("Bolt Campsite");
 
         // Invoke
         response = inventoryController.updateCampsite(campsite);
@@ -165,7 +165,7 @@ public class InventoryControllerTest {
     @Test
     public void testUpdateCampsiteFailed() throws IOException { // updateCampsite may throw IOException
         // Setup
-        Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
+        Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // when updateCampsite is called, return true simulating successful
         // update and save
         when(mockInventoryDAO.updateCampsite(campsite)).thenReturn(null);
@@ -180,7 +180,7 @@ public class InventoryControllerTest {
     @Test
     public void testUpdateCampsiteHandleException() throws IOException { // updateCampsite may throw IOException
         // Setup
-        Campsite campsite = new Campsite(99,"Foggy Valley", 13.20);
+        Campsite campsite = new Campsite(99,"Foggy Valley Campsite", 13.20);
         // When updateCampsite is called on the Mock Campsite DAO, throw an IOException
         doThrow(new IOException()).when(mockInventoryDAO).updateCampsite(campsite);
 
@@ -195,8 +195,8 @@ public class InventoryControllerTest {
     public void testGetCampsitees() throws IOException { // getCampsitees may throw IOException
         // Setup
         Campsite[] campsites = new Campsite[2];
-        campsites[0] = new Campsite(99,"Foggy Valley", 13.20);
-        campsites[1] = new Campsite(100,"Sunshine Falls", 15.20);
+        campsites[0] = new Campsite(99,"Foggy Valley Campsite", 13.20);
+        campsites[1] = new Campsite(100,"Sunshine Falls Campsite", 15.20);
         // When getCampsitees is called return the campsites created above
         when(mockInventoryDAO.getCampsites()).thenReturn(campsites);
 
@@ -226,8 +226,8 @@ public class InventoryControllerTest {
         // Setup
         String searchString = "all";
         Campsite[] campsites = new Campsite[2];
-        campsites[0] = new Campsite(99,"Foggy Valley", 13.20);
-        campsites[1] = new Campsite(100,"Sunshine Falls", 15.20);
+        campsites[0] = new Campsite(99,"Foggy Valley Campsite", 13.20);
+        campsites[1] = new Campsite(100,"Sunshine Falls Campsite", 15.20);
         // When findCampsitees is called with the search string, return the two
         /// campsites above
         when(mockInventoryDAO.findCampsites(searchString)).thenReturn(campsites);

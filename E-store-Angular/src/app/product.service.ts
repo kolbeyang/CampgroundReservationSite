@@ -26,7 +26,7 @@ export class ProductService {
 
   updateProduct(product: Product): Observable<any> {
     return this.http.put(this.productUrl, product, this.httpOptions).pipe(
-      tap(_ => this.log(`updated hero id=${product.id}`)),
+      tap(_ => this.log(`updated campsite id=${product.id}`)),
       catchError(this.handleError<any>('updateCampsite'))
     );
     

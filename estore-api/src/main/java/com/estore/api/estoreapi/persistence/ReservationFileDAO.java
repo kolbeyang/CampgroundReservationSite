@@ -179,6 +179,22 @@ public class ReservationFileDAO implements ReservationDAO {
      * @inheritDoc
      */
     @Override
+    public double getCartTotal(String username) {
+        synchronized(reservations) {
+            Reservation[] unpaidReservations = getUserReservations(username, false);
+
+            double total = 0;
+            for(Reservation reservation: unpaidReservations) {
+                total += reservation.getPrice();
+            }
+
+            return Math.round(total * 100.0) / 100; // should round to two decimal points
+        }
+    }
+    /**
+     * @inheritDoc
+     */
+    @Override
     public Reservation[] getCampsiteReservations(int id) {
         synchronized(reservations) {
             return getCampsiteReservationsArray(id);

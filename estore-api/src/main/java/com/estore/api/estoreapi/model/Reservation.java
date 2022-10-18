@@ -59,7 +59,7 @@ public class Reservation {
      * Getter
      * @return Price of the reservation (using the campsite rate from when the reservation was created)
      */
-    public double get_price(){return price;}
+    public double getPrice(){return price;}
 
     /**
      * Sets the startDate and endDate
