@@ -330,7 +330,7 @@ public class UserControllerTest {
 
     }
 
-    @Test
+    /* @Test
     public void testUserLoginAlreadyLoggedIn() throws IOException {
         String username = "Billy";
         User user = new User(username, "1234", false);
@@ -344,7 +344,7 @@ public class UserControllerTest {
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
 
-    }
+    } */
 
     @Test
     public void testUserLoginHandleException() throws IOException {

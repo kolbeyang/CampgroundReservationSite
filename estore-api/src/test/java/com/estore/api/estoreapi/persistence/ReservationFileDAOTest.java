@@ -122,7 +122,7 @@ public class ReservationFileDAOTest {
      * Tests that the new Reservation created in the fileDAO exists 
      */
     @Test
-    public void testcreateReservation(){
+    public void testcreateReservation() throws Exception{
         Reservation newReservation = new Reservation(3, testCampsites[0].getId(), EPOCH + (DAY* 7), EPOCH + (DAY* 8), fakeUsername, 0);
         Reservation result = assertDoesNotThrow(() -> reservationFileDAO.createReservation(newReservation), "An unexpected exception occurred");
         assertEquals(newReservation, result);
