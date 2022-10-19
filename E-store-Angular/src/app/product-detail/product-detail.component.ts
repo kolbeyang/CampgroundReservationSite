@@ -110,10 +110,10 @@ export class ProductDetailComponent implements OnInit {
 
     let camp = new Campsite(site.name, site.id, site.rate);
 
-    let reserve = new Reservation(3, camp.id, Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
+    let reserve = new Reservation(3, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
     
     //calling to reservation service add reservation 
-    this.reservationService.addReservation(reserve);//.subscribe(() => this.search(""));
+    this.reservationService.addReservation(reserve).subscribe();//reservation =>{this.search("")
     
   }
 

@@ -23,6 +23,10 @@ export class ViewCartComponent implements OnInit {
 
   }
 
+  getReservations(): void{
+    this.loginService.getUnPaidReservations(this.loginService.getUserName()).subscribe(reservations => this.reservations = reservations);
+  }
+
   isLoggedIn(): boolean{
     return this.loginService.isLoggedIn();
   }

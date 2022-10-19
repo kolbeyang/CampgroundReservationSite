@@ -13,7 +13,7 @@ import { Reservation } from './Reservation';
 })
 export class ReservationService {
 
-  private reservationURL = 'http://localhost:8080/reservation';
+  private reservationURL = 'http://localhost:8080/reservations';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
