@@ -54,17 +54,23 @@ export class ReservationService {
     }
 
     
-
-  
+    /*
+    addProduct(campsite: Campsite){
+      return this.http.post<Campsite>(this.productUrl, campsite, this.httpOptions).pipe(     
+      catchError(this.handleError<any>('addCampsite')));
+    }
+    */
     //////// Save methods //////////
 
     /** POST: add a new reservation to the server */
+    
     addReservation(reservation: Reservation): Observable<Reservation> {
       return this.http.post<Reservation>(this.reservationURL, reservation, this.httpOptions).pipe(
         tap((newReservation: Reservation) => this.log(`added reservation w/ id=${newReservation.id}`)),
         catchError(this.handleError<Reservation>('addReservation'))
       );
     }
+    //
 
     /** DELETE: delete the reservation from the server */
     deleteReservation(id: number): Observable<Reservation> {

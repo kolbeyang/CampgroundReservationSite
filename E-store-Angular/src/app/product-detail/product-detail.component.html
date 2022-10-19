@@ -39,7 +39,8 @@
       <input type="Date" #EndDate>
     </div>
     <div>
-      <button type="button"(click)="createReservation(StartDate.value, EndDate.value)">Make Reservation</button>
+      <!-- calling to createReservvation once this button is pressed-->
+      <button type="button"(click)="createReservation(StartDate.value, EndDate.value, selectedProduct)">Make Reservation</button>
     </div>
   </div>
 
