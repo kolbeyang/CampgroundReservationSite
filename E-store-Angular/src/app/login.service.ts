@@ -129,6 +129,18 @@ export class LoginService {
   }
 
 
+  /**
+   * Get the unpaid reservations of a user (the cart)
+   * @param username the username of the user
+   * @returns Array of reservations
+   */
+   getPaidReservations(username: string): Observable<Reservation[]> {
+    const url = `${this.loginURL}/${username}/reservations/?paid=${true}`;
+    return this.http.get<Reservation[]>(url).pipe(
+      tap(_ => this.log('fetched paid reservations')), catchError(this.handleError<Reservation[]>('getCart', []))
+    );
+  }
+
     /**
    * Handle Http operation that failed.
    * Let the app continue.
