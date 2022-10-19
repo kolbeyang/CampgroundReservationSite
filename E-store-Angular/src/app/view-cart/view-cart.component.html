@@ -1,5 +1,17 @@
-<div class = "reservation">
-    <ul *ngIf="this.isAdmin()" let reservation of Reservations>
-        
-    </ul>
-</div>
+<h1> Current Cart:         </h1>
+
+ <div class = "reservation">
+     <ul *ngIf="this.isAdmin()" let reservation of Reservations>
+
+     </ul>
+ </div>
+
+ <div class = "checkout">
+     <ul *ngIf="this.isAdmin()" let reservation of Reservations>
+     </ul>
+     <h1>Checkout</h1>
+
+     <h3>Total Price:     </h3>
+     <button onclick="x">Make Payment</button>
+     <p></p>
+ </div>

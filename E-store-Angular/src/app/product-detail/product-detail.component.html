@@ -62,6 +62,11 @@
 <div *ngIf="this.isAdmin()" class = "card">
   <h2>Create New Product</h2>
     <div>
+          <div 
+            *ngIf="errorMessage!=''"
+            class = "alert">
+            {{errorMessage}}
+          </div>
       <div
       *ngIf="errorMessage!=''"
       class = "alert">

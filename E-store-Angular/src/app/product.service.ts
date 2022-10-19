@@ -50,7 +50,8 @@ export class ProductService {
         // if not search term, return empty hero array.
         return this.getProducts();
       }
-      return this.http.get<Campsite[]>(`${this.productUrl}/?name=${term}`).pipe(
+
+      return this.http.get<Campsite[]>(`${this.productUrl}/?name=${term.toLowerCase()}`).pipe(
         tap(x => x.length ?
            this.log(`found campsites matching "${term}"`) :
            this.log(`no campsites matching "${term}"`)),

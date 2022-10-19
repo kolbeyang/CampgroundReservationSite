@@ -1,41 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
 import { User } from './user';
 import { LoginRequest } from './loginRequest';
 import { LoginResponse } from './loginResponse';
 import { Reservation } from './Reservation';
-
-
 export interface LoginInfo {
   loggedIn:boolean;
 }
-
 @Injectable({
   providedIn: 'root'
 })
-
 export class LoginService {
-
   private loginURL = 'http://localhost:8080/users'
   private loginResponse: LoginResponse;
   public loggedIn;
   loginInfo: LoginInfo = {loggedIn : false};
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' , observe: 'response'})
   };
-
   constructor(
     private http: HttpClient) {
     this.loginResponse = <LoginResponse>{};
     this.loggedIn = false;
     this.loginInfo.loggedIn = this.loggedIn;
   }
-
   /**
    * Getter
    * @returns Whether there is a user that is logged in
@@ -44,11 +34,9 @@ export class LoginService {
     console.log(this.loginResponse.token)
     return this.loggedIn;
   }
-
   getUserName(){
     return this.loginResponse.username;
   }
-
   /**
    * Getter
    * @returns Whether the user who is logged in is an admin
@@ -56,7 +44,6 @@ export class LoginService {
   adminLoggedIn(): any {
     return this.loginResponse.isAdmin;
   }
-
   /**
    * undefined if there is no user logged in
    * @returns Returns the token of the user who is logged in
@@ -64,7 +51,6 @@ export class LoginService {
   getToken(): String {
     return this.loginResponse.token;
   }
-
   /**
    * Returns an object that shows whether a user is loggedIn or not
    * @returns logged in or not
@@ -72,7 +58,6 @@ export class LoginService {
   getLoginInfo() {
     return this.loginInfo;
   }
-
   /**
    * Sends a signUp requset to the backend
    * @param user The user object with a username and password
@@ -84,7 +69,6 @@ export class LoginService {
       catchError(this.handleError<any>('signUp', ""))
     );
   }
-
   /**
    * Called the logoutRequest method
    * KNOWN ISSUE does not depend on a successful logout request in the backend
@@ -93,14 +77,12 @@ export class LoginService {
     this.loggedIn = false;
     this.loginInfo.loggedIn = false;
   }
-
   login(loginResponse: LoginResponse) {
     this.loginResponse = loginResponse;
     this.loggedIn = true;
     this.loginInfo.loggedIn = true;
     console.log("LoginService: the token is " + this.getToken())
   }
-
   loginRequest(loginRequest: LoginRequest): Observable<LoginResponse> {
     console.log("Sending post requset fo Login")
     let response: LoginResponse;
@@ -108,7 +90,6 @@ export class LoginService {
       catchError(this.handleError<LoginResponse>('login', new LoginResponse("", "", false)))
     );
   }
-
   logoutRequest() {
     console.log("Preparing to log out");
     this.logout();
@@ -116,10 +97,7 @@ export class LoginService {
       response => {console.log("Logout successful")},
     );
   }
-
-
   /// UserController Methods ///
-
   /**
    * Get the unpaid reservations of a user (the cart)
    * @param username the username of the user
@@ -129,8 +107,8 @@ export class LoginService {
     const url = `${this.loginURL}/${username}/reservations/?paid=${false}`;
     return this.http.get<Reservation[]>(url).pipe(
       tap(_ => this.log('fetched cart')), catchError(this.handleError<Reservation[]>('getCart', []))
-    );
-  }
+     );
+   }
 
   getCartTotal(username: string): Observable<any> {
     const url = `${this.loginURL}/${username}/total`;
@@ -140,8 +118,8 @@ export class LoginService {
   }
 
 
-  /**
-   * Get the unpaid reservations of a user (the cart)
+   /**
+    * Get the unpaid reservations of a user (the cart)
    * @param username the username of the user
    * @returns Array of reservations
    */
@@ -151,7 +129,6 @@ export class LoginService {
       tap(_ => this.log('fetched paid reservations')), catchError(this.handleError<Reservation[]>('getCart', []))
     );
   }
-
     /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -172,8 +149,6 @@ export class LoginService {
         return throwError(() => error);
       };
     }
-
   private log(message: string) {
-
   }
 }
