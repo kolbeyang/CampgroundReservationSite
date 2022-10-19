@@ -20,7 +20,7 @@ export class ViewCartComponent implements OnInit {
   reservations: Reservation[] = [];
 
   ngOnInit(): void {
-
+    this.getReservations();
   }
 
   getReservations(): void{
