@@ -34,6 +34,7 @@ export class ProductService {
 
     /* GET products whose name contains search term */
     searchProducts(term: string): Observable<Campsite[]> {
+      term = term.toLowerCase();
       console.log("Product Service term " + term );
 
       if (term === "") {
