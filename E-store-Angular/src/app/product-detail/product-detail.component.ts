@@ -23,6 +23,7 @@ export class ProductDetailComponent implements OnInit {
   products$!: Observable<Campsite[]>;
   private searchTerms = new Subject<string>();
   selectedProduct?:Product;
+  errorMessage = '';
 
   constructor(
     private productService: ProductService, 
@@ -49,7 +50,7 @@ export class ProductDetailComponent implements OnInit {
   // Push a search term into the observable stream.
   search(term: string): void {
     console.log("searching");
-    this.products$ = this.productService.searchProducts(term);
+    this.products$ = this.productService.searchProducts(term.toLowerCase());
   }
 
   editProduct(): void{
@@ -66,9 +67,20 @@ export class ProductDetailComponent implements OnInit {
     let idnum = new Number(id);
     let ratenume = new Number(id);
     let campsite = new Campsite(name, idnum.valueOf(), ratenume.valueOf()); 
-    this.productService.addProduct(campsite).subscribe(campsite => {
-      this.search("");
-    });
+    console.log("Attempt to create Product with: " + name);
+    console.log("Does name contain campsite:" + name.toLowerCase().includes('campsites'));
+    console.log('Does name.trim() give a empty value' + name.trim() === '');
+
+    if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
+      this.errorMessage = 'Invalid Campsite Name, Try Again';
+      console.log("Error message was written");
+    }
+    else{
+      this.productService.addProduct(campsite).subscribe(campsite => {
+        this.search("");
+      });
+    }
+
   }
 
   deleteProduct(product: Product):void{

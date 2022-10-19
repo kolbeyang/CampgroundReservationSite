@@ -45,6 +45,10 @@ export class LoginService {
     return this.loggedIn;
   }
 
+  getUserName(){
+    return this.loginResponse.username;
+  }
+
   /**
    * Getter
    * @returns Whether the user who is logged in is an admin
@@ -125,6 +129,13 @@ export class LoginService {
     const url = `${this.loginURL}/${username}/reservations/?paid=${false}`;
     return this.http.get<Reservation[]>(url).pipe(
       tap(_ => this.log('fetched cart')), catchError(this.handleError<Reservation[]>('getCart', []))
+    );
+  }
+
+  getCartTotal(username: string): Observable<Reservation[]> {
+    const url = `${this.loginURL}/${username}/total`;
+    return this.http.get<Reservation[]>(url).pipe(
+      tap(_ => this.log('fetched cart total')), catchError(this.handleError<Reservation[]>('getCartTotal', []))
     );
   }
 

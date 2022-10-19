@@ -61,7 +61,12 @@
 
 <div *ngIf="this.isAdmin()" class = "card">
   <h2>Create New Product</h2>
-  <div>
+    <div>
+      <div
+      *ngIf="errorMessage!=''"
+      class = "alert">
+      {{errorMessage}}
+   </div>
     <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name"/>
     <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
     <input id="Campsite-id"   #NewCampsiteid   placeholder="Campsite id">

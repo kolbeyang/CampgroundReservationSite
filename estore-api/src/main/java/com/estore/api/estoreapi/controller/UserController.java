@@ -98,13 +98,14 @@ public class UserController {
      * @param paid: boolean indicates whether to get the unpaid reservations (cart) or paid
      * @return
      */
-    @GetMapping("/{username}/reservations")
+    @GetMapping("/{username}/reservations/")
     public ResponseEntity<Reservation[]> getUserReservations(@PathVariable String username, @RequestParam boolean paid) {
         LOG.info("GET /users/" + username + "/reservations/?paid="+paid);
         try {
             // reservationDAO.getUserReservations(userID) will iterate through all reservations and return those with
             // corresponding username and with a matching paid status (true or false)
             Reservation[] reservationArray = reservationDAO.getUserReservations(username, paid);
+            System.out.println("getUserReservations: length of reservationArray" + reservationArray.length);
             if(reservationArray != null)
                 return new ResponseEntity<Reservation[]>(reservationArray, HttpStatus.OK);
             else
@@ -122,9 +123,9 @@ public class UserController {
      * @param paid: boolean indicates whether to get the unpaid reservations (cart) or paid
      * @return
      */
-    @GetMapping("/{username}/cart")
+    @GetMapping("/{username}/total")
     public ResponseEntity<Double> getCartTotal(@PathVariable String username) {
-        LOG.info("GET /users/" + username + "/cart");
+        LOG.info("GET /users/" + username + "/total");
         try {
             // reservationDAO.getCartTotal(username) will iterate through all reservations and return the total of the 
             // prices of those with corresponding username and paid status false
