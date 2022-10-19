@@ -45,6 +45,7 @@ export class ProductDetailComponent implements OnInit {
     this.productService.searchProducts("").subscribe(products => this.products$ = products);
   }
 */
+
   // Push a search term into the observable stream.
   search(term: string): void {
     console.log("searching");
