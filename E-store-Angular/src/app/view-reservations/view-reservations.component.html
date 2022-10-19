@@ -5,10 +5,10 @@
         
       <li *ngFor="let reservation of reservations">
 
-          <span class="campsiteId">{{reservation.campsiteId}}</span>
-          <span class="campsiteName">campsiteName</span>
-          <span class="startDate">{{getStartDate(reservation)}}}</span>
-          <span class="endDate">{{getEndDate(reservation)}}}</span>
+          <span class="campsiteId">  {{reservation.campsiteId}}  </span>
+          <span class="campsiteName">CAMPSITENAME  |  </span>
+          <span class="startDate">START DATE: {{getStartDate(reservation).getMonth()}}/{{getStartDate(reservation).getDate()}}/{{getStartDate(reservation).getFullYear()}},  </span>
+          <span class="endDate">END DATE: {{getEndDate(reservation).getMonth()}}/{{getEndDate(reservation).getDate()}}/{{getEndDate(reservation).getFullYear()}}  </span>
 
       </li>
     </ul>

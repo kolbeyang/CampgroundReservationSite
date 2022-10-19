@@ -62,6 +62,10 @@ export class ViewReservationsComponent implements OnInit {
     const endDate = new Date(milliseconds);
     return endDate;
   }
+
+  //getCampsiteName(id: number): string {
+    //return this.productService.getProduct(id).name;
+  //}
   
 }
       

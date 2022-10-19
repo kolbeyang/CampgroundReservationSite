@@ -110,7 +110,7 @@ export class LoginService {
      );
    }
 
-  getCartTotal(username: string): Observable<any> {
+  getCartTotal(username: string): any {
     const url = `${this.loginURL}/${username}/total`;
     return this.http.get<Reservation[]>(url).pipe(
       tap(_ => this.log('fetched cart total')), catchError(this.handleError<Reservation[]>('getCartTotal', []))
