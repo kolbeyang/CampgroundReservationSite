@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ResolvedReflectiveFactory } from '@angular/core';
 import { LoginService } from '../login.service';
 import { ProductService } from '../product.service';
 import { ReservationService } from '../reservation.service';
 import { Reservation} from '../Reservation';
 import { Observable, Subject } from 'rxjs';
 import { Product } from '../Product';
+import { Campsite } from '../Campsite';
 import { User } from '../user';
 
 
@@ -49,6 +50,18 @@ export class ViewReservationsComponent implements OnInit {
   getReservations(): void{
     this.loginService.getPaidReservations(this.loginService.getUserName()).subscribe(reservations => this.reservations = reservations);
   }
-      
 
+  getStartDate(reservation: Reservation): Date {
+    const milliseconds = reservation.startDate;
+    const startDate = new Date(milliseconds);
+    return startDate;
+  }
+
+  getEndDate(reservation: Reservation): Date {
+    const milliseconds = reservation.endDate;
+    const endDate = new Date(milliseconds);
+    return endDate;
+  }
+  
 }
+      

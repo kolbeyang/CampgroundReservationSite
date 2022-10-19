@@ -6,9 +6,12 @@
       <li *ngFor="let reservation of reservations">
 
           <span class="campsiteId">{{reservation.campsiteId}}</span>
+          <span class="campsiteName">campsiteName</span>
+          <span class="startDate">{{getStartDate(reservation)}}}</span>
+          <span class="endDate">{{getEndDate(reservation)}}}</span>
 
       </li>
     </ul>
-    </div>
+</div>
 
 

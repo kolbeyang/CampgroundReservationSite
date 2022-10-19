@@ -24,6 +24,15 @@ export class ProductService {
     return this.http.get<Campsite[]>(this.productUrl)
   } 
 
+  /** GET campsite by id. Will 404 if id not found */
+  getProduct(id: number): Observable<Campsite> {
+    const url = `${this.productUrl}/${id}`;
+    return this.http.get<Campsite>(url).pipe(
+      tap(_ => this.log(`fetched hero id=${id}`)),
+      catchError(this.handleError<Campsite>(`getProduct id=${id}`))
+    );
+  }
+
   updateProduct(product: Product): Observable<any> {
     return this.http.put(this.productUrl, product, this.httpOptions).pipe(
       tap(_ => this.log(`updated campsite id=${product.id}`)),
