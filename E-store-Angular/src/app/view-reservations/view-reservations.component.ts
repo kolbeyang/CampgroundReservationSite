@@ -12,13 +12,14 @@ import { User } from '../user';
 @Component({
   selector: 'app-view-reservations',
   templateUrl: './view-reservations.component.html',
-  styleUrls: ['./view-reservations.component.css']
+  styleUrls: ['../app.component.css','./view-reservations.component.css']
 })
 export class ViewReservationsComponent implements OnInit {
 
   /** For when we implement owner/user able to edit/delete reservations */
   reservations$!: Observable<Reservation[]>;
   selectedReservation?:Reservation;
+  reservations:Reservation[] = [];
   
   reservation?: Reservation;
 
@@ -29,7 +30,7 @@ export class ViewReservationsComponent implements OnInit {
 
   // Need to be able to access username
   ngOnInit(): void {
-    this.reservations$ = this.loginService.getPaidReservations("spider");
+    this.getReservations();
   }
 
   onSelect(reservation: Reservation): void {
@@ -44,5 +45,10 @@ export class ViewReservationsComponent implements OnInit {
     console.log(this.loginService.adminLoggedIn());
     return this.loginService.adminLoggedIn();
   }
+
+  getReservations(): void{
+    this.loginService.getPaidReservations(this.loginService.getUserName()).subscribe(reservations => this.reservations = reservations);
+  }
+      
 
 }

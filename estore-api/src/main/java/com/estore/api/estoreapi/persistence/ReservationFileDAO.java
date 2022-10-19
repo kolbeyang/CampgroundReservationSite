@@ -81,8 +81,10 @@ public class ReservationFileDAO implements ReservationDAO {
         ArrayList<Reservation> userReservations = new ArrayList<>();
 
         for(Reservation reservation : reservations.values()) {
+            System.out.println(reservation.getUsername() + " " + reservation.isPaid() + " " + reservation.getId());
             if(reservation.getUsername().equals(username) && reservation.isPaid() == paid)
                 userReservations.add(reservation);
+                
         }
 
         Reservation[] userReservationsArray = new Reservation[userReservations.size()];

@@ -45,6 +45,10 @@ export class LoginService {
     return this.loggedIn;
   }
 
+  getUserName(){
+    return this.loginResponse.username;
+  }
+
   /**
    * Getter
    * @returns Whether the user who is logged in is an admin
