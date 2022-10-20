@@ -256,6 +256,25 @@ public class ReservationFileDAO implements ReservationDAO {
             return reservation;
         }
     }
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Reservation[] payCart(String username) throws IOException {
+        synchronized(reservations) {
+            Reservation[] reservations = getUserReservations(username, false);
+            ArrayList<Reservation> paidReservations = new ArrayList<>();
+            for(Reservation reservation : reservations) {
+                Reservation paidReservation = payReservation(reservation.getId());
+                paidReservations.add(paidReservation);
+            }
+            
+            Reservation[] paidReservationsArray = new Reservation[paidReservations.size()];
+            paidReservations.toArray(paidReservationsArray);
+
+            return paidReservationsArray;
+        }
+    }
 
     /**
      * @inheritDoc

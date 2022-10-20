@@ -5,7 +5,7 @@
         
       <li *ngFor="let reservation of reservations$ | async">
           <span class="campsiteId">  {{reservation.campsiteId}}  </span>
-          <span class="campsiteName">CAMPSITENAME  |  </span>
+          <span class="campsiteName">  CampsiteNaem  |  </span>
           <span class="startDate">START DATE: {{getStartDate(reservation).getMonth()}}/{{getStartDate(reservation).getDate()}}/{{getStartDate(reservation).getFullYear()}},  </span>
           <span class="endDate">END DATE: {{getEndDate(reservation).getMonth()}}/{{getEndDate(reservation).getDate()}}/{{getEndDate(reservation).getFullYear()}}  </span>
         <button type="button" (click)="deleteReservation(reservation)">
