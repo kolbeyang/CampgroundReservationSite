@@ -1,4 +1,4 @@
-# E-Store: Letworth State E-store
+# E-Store: Letchworth Campgrounds E-store
 # Modify this document to expand any and all sections that are applicable for a better understanding from your users/testers/collaborators (remove this comment and other instructions areas for your FINAL release)
 
 An online E-store system built in Java 8=>11 and ___ _replace with other platform requirements_ ___
@@ -22,9 +22,12 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 ## How to run it
 
 1. Clone the repository and go to the root directory.
-2. Execute `mvn compile exec:java`
-3. Open in your browser `http://localhost:8080/`
-4. Have a command prompt ready to run cURL commands
+2. Go to estore-api directory
+3. Execute `mvn compile exec:java`
+4. Go to E-store-Angular directory
+5. Run 'npm install' and then 'npm start'
+6. Open in your browser `http://localhost:8080/`
+7. Have a command prompt ready to run cURL commands
 
 ## Known bugs and disclaimers
 (It may be the case that your implementation is not perfect.)
@@ -37,8 +40,7 @@ If any shortcomings, make clear what these are and where they are located.
 
 ## How to test it
 
-No unit tests were used for this version. Instead cURL commands were used to test the 
-functionality of the code:
+Run 'mvn clean test' from the estore-api directory
 
 ### For Windows:
 
