@@ -99,7 +99,7 @@ public class InventoryFileDAOTest {
     public void testfindCampsites(){
         Campsite[] campsites  = inventoryFileDAO.getCampsites();
         Campsite[] containsTxt = new Campsite[campsites.length];
-        Campsite[] allCampsites = inventoryFileDAO.findCampsites("s");
+        Campsite[] allCampsites = inventoryFileDAO.findCampsites("S");
         for(int i = 0; i < campsites.length; i++){
             containsTxt[i] = campsites[i];
             assertEquals(containsTxt[i], inventoryFileDAO.findCampsites(campsites[i].getName())[0]);
