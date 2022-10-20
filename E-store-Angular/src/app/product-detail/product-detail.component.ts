@@ -12,6 +12,7 @@ import { Observable, Subject } from 'rxjs';
 import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
+import { Reservation } from '../Reservation';
 
 @Component({
   selector: 'app-product-detail',
@@ -63,6 +64,20 @@ export class ProductDetailComponent implements OnInit {
     
   }
 
+  deleteProduct(product: Product):void{
+    //this.products = this.products.filter(h => h !== product);
+    this.productService.deleteProduct(product.id).subscribe(() => this.search(""));
+}
+
+  onSelectAdmin(product:Product): void {
+    console.log('Admin Clicked to view some products')
+    console.log(this.isAdmin());
+    console.log(this.isLoggedIn());
+    if(this.isAdmin()){
+      this.selectedProduct = product;
+    }
+  }
+
   createProduct(id: string, name: string, rate: string):void{
     let idnum = new Number(id);
     let ratenume = new Number(id);
@@ -83,29 +98,26 @@ export class ProductDetailComponent implements OnInit {
 
   }
 
-  deleteProduct(product: Product):void{
-    //this.products = this.products.filter(h => h !== product);
-    this.productService.deleteProduct(product.id).subscribe(() => this.search(""));
-}
-
-  onSelectAdmin(product:Product): void {
-    console.log('Admin Clicked to view some products')
-    console.log(this.isAdmin());
-    console.log(this.isLoggedIn());
-    if(this.isAdmin()){
-      this.selectedProduct = product;
-    }
-  }
-
-
-  createReservation(start: string, end: string):void{
+  createReservation(start: string, end: string, site: Product):void{
     console.log("Start value" + start);
     console.log("End Value" + end);
+
     let startDate = new Date(start);
     let endDate = new Date(end);
+
     console.log("Start Date:" + startDate.getTime());
     console.log("End Date:" + endDate.getTime());
+
+    let camp = new Campsite(site.name, site.id, site.rate);
+
+    let reserve = new Reservation(3, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
+    
+    //calling to reservation service add reservation 
+    this.reservationService.addReservation(reserve).subscribe();//reservation =>{this.search("")
+    
   }
+
+
 
   isLoggedIn(): boolean{
     return this.loginService.isLoggedIn();

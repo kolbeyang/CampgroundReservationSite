@@ -1,4 +1,17 @@
 <h1> Current Cart:         </h1>
+<div>
+    <ul class="card">
+      <h2 *ngIf="!this.isAdmin()">Unpaid Reservations</h2>
+      <h2 *ngIf="this.isAdmin()">Not Done</h2>
+        
+      <li *ngFor="let reservation of reservations">
+
+          <span class="campsiteId">{{reservation.campsiteId}}</span>
+
+      </li>
+    </ul>
+    </div>
+
 
  <div class = "reservation">
      <ul *ngIf="this.isAdmin()" let reservation of Reservations>

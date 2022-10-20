@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from './Product';
 import { Campsite } from './Campsite';
+import { Reservation } from './Reservation';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -43,7 +44,7 @@ export class ProductService {
 
     /* GET products whose name contains search term */
     searchProducts(term: string): Observable<Campsite[]> {
-      term = term.toLowerCase();
+      term = term.toLowerCase().trim();
       console.log("Product Service term " + term );
 
       if (term === "") {
@@ -51,7 +52,7 @@ export class ProductService {
         return this.getProducts();
       }
 
-      return this.http.get<Campsite[]>(`${this.productUrl}/?name=${term.toLowerCase()}`).pipe(
+      return this.http.get<Campsite[]>(`${this.productUrl}/?name=${term.toLowerCase().trim()}`).pipe(
         tap(x => x.length ?
            this.log(`found campsites matching "${term}"`) :
            this.log(`no campsites matching "${term}"`)),
@@ -72,7 +73,6 @@ export class ProductService {
     return this.http.post<Campsite>(this.productUrl, campsite, this.httpOptions).pipe(     
     catchError(this.handleError<any>('addCampsite')));
   }
-
   
   log(arg0: string): void {
 

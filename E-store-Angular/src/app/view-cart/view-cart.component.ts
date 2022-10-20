@@ -20,7 +20,11 @@ export class ViewCartComponent implements OnInit {
   reservations: Reservation[] = [];
 
   ngOnInit(): void {
+    this.getReservations();
+  }
 
+  getReservations(): void{
+    this.loginService.getUnPaidReservations(this.loginService.getUserName()).subscribe(reservations => this.reservations = reservations);
   }
 
   isLoggedIn(): boolean{
