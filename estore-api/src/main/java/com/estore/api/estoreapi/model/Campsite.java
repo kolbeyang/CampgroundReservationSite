@@ -92,7 +92,13 @@ public class Campsite {
      * Sets the nightly rate of the Campsite
      * @param rate : the new rate
      */
-    public void setRate(double rate) {this.rate = rate;}
+    public void setRate(double rate) {
+        if(!isValidRate(rate)){
+            throw new IllegalArgumentException("<ERROR: Invalid Rate");
+        }
+        this.rate = rate;
+        }
+    
 
 
     /**
