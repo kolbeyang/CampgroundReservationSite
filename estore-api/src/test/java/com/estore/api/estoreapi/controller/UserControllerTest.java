@@ -279,6 +279,26 @@ public class UserControllerTest {
         assertEquals(HttpStatus.OK,response.getStatusCode());
         assertEquals(reservations,response.getBody());
     }
+    @Test
+    public void testPayCart() throws IOException {
+        Reservation[] reservations = new Reservation[2];
+        reservations[0] = new Reservation(1,12,100,200,"Billy", false, 0);
+        reservations[1] = new Reservation(2, 12, 300, 400, "Billy",false, 0);
+
+        //when(userController.payCart("Billy")).thenReturn(reservations);
+        when(userController.payCart("Shrek")).thenReturn(null); 
+        doThrow(new IOException()).when(mockReservationDAO).payCart("Jon");
+
+        ResponseEntity<Reservation[]> result1 = userController.payCart("Billy");
+        ResponseEntity<Reservation[]> result2 = userController.payCart("Shrek");
+        ResponseEntity<Reservation[]> result3 = userController.payCart("Jon");
+
+        //assertEquals(reservations, result1);
+        //assertEquals(HttpStatus.OK, result1.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, result2.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result3.getStatusCode());
+        
+    }
 
     /* @Test
     public void testGetUserReservationsFailed() throws IOException {
