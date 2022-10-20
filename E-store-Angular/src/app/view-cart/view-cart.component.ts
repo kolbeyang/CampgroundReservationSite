@@ -12,7 +12,6 @@ import { Campsite } from '../Campsite';
 })
 export class ViewCartComponent implements OnInit {
 
-  private campsiteNames: Record<number,string> = {};
 
   constructor(private loginService: LoginService, 
     private productService: ProductService, 
@@ -27,13 +26,6 @@ export class ViewCartComponent implements OnInit {
     this.getReservations();
   }
 
-  getCampsiteNames(): void {
-    this.reservations.forEach(reservation => {
-        this.campsiteNames[reservation.id] = this.getCampsiteName(reservation.campsiteId);
-      }  
-    )
-  }
-
   getCampsiteName(campsiteId: number) : string {
     for (var campsite of this.campsites) {
       if (campsite.id === campsiteId) {
@@ -46,12 +38,34 @@ export class ViewCartComponent implements OnInit {
 
   getCampsites(): void{
     this.productService.getProducts()
-      .subscribe(campsites => {this.campsites = campsites; this.getCampsiteNames();});
+      .subscribe(campsites => {this.campsites = campsites;});
   }
 
   getReservations(): void{
     this.loginService.getUnPaidReservations(this.loginService.getUserName())
       .subscribe(reservations => {this.reservations = reservations; this.getCampsites();});
+  }
+
+  getStartDate(reservation: Reservation): Date {
+    const milliseconds = reservation.startDate;
+    const startDate = new Date(milliseconds);
+    return startDate;
+  }
+
+  getEndDate(reservation: Reservation): Date {
+    const milliseconds = reservation.endDate;
+    const endDate = new Date(milliseconds);
+    return endDate;
+  }
+
+  calculateTotalPrice() {
+    let output = 0;
+    
+    for (var reservation of this.reservations) {
+      output += reservation.price;
+    } 
+
+    return output;
   }
 
   isLoggedIn(): boolean{
@@ -61,6 +75,10 @@ export class ViewCartComponent implements OnInit {
   isAdmin(): boolean{
     console.log(this.loginService.adminLoggedIn());
     return this.loginService.adminLoggedIn();
+  }
+
+  deleteReservation(reservation: Reservation):void {
+    this.reservationService.deleteReservation(reservation.id).subscribe(() => this.getReservations());
   }
 
 }
