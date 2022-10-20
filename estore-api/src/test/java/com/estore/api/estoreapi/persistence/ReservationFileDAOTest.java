@@ -182,6 +182,13 @@ public class ReservationFileDAOTest {
         assertTrue(result2.isPaid());
         assertNull(result1);
     }
+    @Test
+    public void testPayCart() throws IOException {
+        Reservation[] paid = reservationFileDAO.payCart(fakeUsername);
+        assertEquals(testReservations[0], paid[0]);//Asserts that all test reservation were added to paidReservationArray by payCart method
+        assertEquals(testReservations[1], paid[1]);
+        assertEquals(testReservations[2], paid[2]);
+    }
 
     /**
      * Tests the case where an non existent reservation is updated
