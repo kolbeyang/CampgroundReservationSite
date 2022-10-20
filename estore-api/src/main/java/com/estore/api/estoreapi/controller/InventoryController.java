@@ -156,6 +156,22 @@ public class InventoryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping("/reserve")
+    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
+        LOG.info("POST /campsites " + reservation);
+        try {
+            if (scheduleService.isValidReservation(reservation)) {
+                Reservation created = scheduleService.createReservation(reservation);
+                return new ResponseEntity<Reservation>(created, HttpStatus.CREATED);
+            } else {
+                //Invalid
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     /**
      * Updates the campsite with the input id to match the input data
