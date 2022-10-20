@@ -17,8 +17,9 @@ import { User } from '../user';
 })
 export class ViewReservationsComponent implements OnInit {
 
-  /** For when we implement owner/user able to edit/delete reservations */
-  reservations:Reservation[] = [];
+  reservations$!: Observable<Reservation[]>;
+  //reservations:Reservation[] = [];
+  adminReservations:Reservation[] = [];
   reservation?: Reservation;
   campsites:Campsite[] = [];
 
@@ -30,8 +31,8 @@ export class ViewReservationsComponent implements OnInit {
 
   // Need to be able to access username
   ngOnInit(): void {
-    this.getReservations();
-    //this.getCampsites();
+    this.reservations$ = this.loginService.getPaidReservations(this.loginService.getUserName());
+    //this.getAdminReservations(); // will want to display by campsite maybe?
   }
 
   // onSelect(reservation: Reservation): void {
@@ -48,8 +49,12 @@ export class ViewReservationsComponent implements OnInit {
   }
 
   getReservations(): void{
-    this.loginService.getPaidReservations(this.loginService.getUserName()).subscribe(reservations => this.reservations = reservations);
+    this.reservations$ = this.loginService.getPaidReservations(this.loginService.getUserName());;
   }
+
+  // getAdminReservations(): void {
+  //   this.reservationService.getReservations().subscribe(reservations => this.adminReservations = reservations);
+  // }
 
   getStartDate(reservation: Reservation): Date {
     const milliseconds = reservation.startDate;
@@ -63,12 +68,9 @@ export class ViewReservationsComponent implements OnInit {
     return endDate;
   }
 
-  // getCampsites(): string {
-  //   for(let reservation of this.reservations)
-  //   {
-
-  //   }
-  // }
+  deleteReservation(reservation: Reservation):void {
+    this.reservationService.deleteReservation(reservation.id).subscribe(() => this.getReservations());
+  }
   
 }
       
