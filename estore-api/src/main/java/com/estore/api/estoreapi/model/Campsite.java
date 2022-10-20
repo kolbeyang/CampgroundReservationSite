@@ -24,6 +24,7 @@ public class Campsite {
      * @param rate the cost of the campsite per night in dollars
      * @throws IllegalArgumentException
      */
+    
     public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) throws IllegalArgumentException {
         if(!isValidName(name)) {
             throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
