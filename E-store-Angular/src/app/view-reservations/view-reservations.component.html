@@ -1,7 +1,7 @@
 <div>
     <ul class="card">
       <h2 *ngIf="!this.isAdmin()">Paid Reservations</h2>
-      <h2 *ngIf="this.isAdmin()">Not Done</h2>
+      <h2 *ngIf="this.isAdmin()">No Reservations for Admin</h2>
         
       <li *ngFor="let reservation of reservations">
           <div class = "card">

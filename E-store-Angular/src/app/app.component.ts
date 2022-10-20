@@ -22,6 +22,11 @@ export class AppComponent implements OnInit{
     this.loginService.logoutRequest();
     this.router.navigate(['/login']);
   }
+
+  isAdmin(): boolean{
+    console.log(this.loginService.adminLoggedIn());
+    return this.loginService.adminLoggedIn();
+  }
   
 
   title = 'Letchworth Campgrounds';

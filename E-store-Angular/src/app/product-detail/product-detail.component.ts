@@ -111,21 +111,34 @@ export class ProductDetailComponent implements OnInit {
   }
 
   createReservation(start: string, end: string, site: Product):void{
-    console.log("Start value" + start);
-    console.log("End Value" + end);
-
+    // console.log("Start value" + start);
+    // console.log("End Value" + end);
+    let currentDate = new Date();
     let startDate = new Date(start);
     let endDate = new Date(end);
 
-    console.log("Start Date:" + startDate.getTime());
-    console.log("End Date:" + endDate.getTime());
+    // console.log("Start Date:" + startDate.getTime());
+    // console.log("End Date:" + endDate.getTime());
+    this.errorMessage = '';
+    if(startDate.getTime() < currentDate.getTime()){
+      this.errorMessage = 'Cannot Create Reservation in the past'
+    }
+    else if(endDate.getFullYear() > currentDate.getFullYear()){
+      this.errorMessage = 'Cannot Book Reservations outside of this year';
+    }
+    else if(endDate.getTime() <= startDate.getTime()){
+      this.errorMessage = 'Invalid Reservation Time';
+    }
+    else{
+      let camp = new Campsite(site.name, site.id, site.rate);
 
-    let camp = new Campsite(site.name, site.id, site.rate);
+      let reserve = new Reservation(1001, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
+      
+      //calling to reservation service add reservation 
+      this.reservationService.addReservation(reserve).subscribe();//reservation =>{this.search("")
+    }
 
-    let reserve = new Reservation(1001, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
-    
-    //calling to reservation service add reservation 
-    this.reservationService.addReservation(reserve).subscribe();//reservation =>{this.search("")
+
     
   }
 

@@ -19,6 +19,11 @@
 <div *ngIf="selectedProduct" class = "card">
   <div *ngIf="this.isLoggedIn() && !this.isAdmin()">
     <h2>{{selectedProduct.name | uppercase}} Details</h2>
+    <div 
+    *ngIf="errorMessage!=''"
+    class = "alert">
+    {{errorMessage}}
+  </div>
     <div>id: {{selectedProduct.id}}</div>
   
     <div>

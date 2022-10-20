@@ -2,8 +2,8 @@
   <a class = "title">{{title}}</a>
   <nav class = "button-box">
     <a class = "nav-button" routerLink="/home">Home</a>
-    <a *ngIf="loginInfo.loggedIn" class = "nav-button" routerLink="/cart">Cart</a>
-    <a *ngIf="loginInfo.loggedIn" class = "nav-button" routerLink="/reservations">Reservation</a>
+    <a *ngIf="loginInfo.loggedIn && !isAdmin()" class = "nav-button" routerLink="/cart">Cart</a>
+    <a *ngIf="loginInfo.loggedIn && !isAdmin()" class = "nav-button" routerLink="/reservations">Reservation</a>
     <a *ngIf="!loginInfo.loggedIn" class = "nav-button" routerLink="/login">Login</a>
     <button *ngIf="loginInfo.loggedIn"  class = "nav-button" (click)="logout()">Logout</button>
   </nav>
