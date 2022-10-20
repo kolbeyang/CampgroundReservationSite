@@ -1,0 +1,17 @@
+
+
+
+button{
+    width: auto;
+    width: 48%;
+    font-size: 20px;
+}
+
+.buttons{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    
+    width: 100%;
+    
+}

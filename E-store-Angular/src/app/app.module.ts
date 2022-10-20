@@ -4,11 +4,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { ViewCartComponent } from './view-cart/view-cart.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ViewReservationsComponent } from './view-reservations/view-reservations.component';
+import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    ProductDetailComponent,
+    HomePageComponent,
+    ViewCartComponent,
+    UserProfileComponent,
+    ViewReservationsComponent,
+    ReservationDetailComponent
   ],
   imports: [
     BrowserModule,

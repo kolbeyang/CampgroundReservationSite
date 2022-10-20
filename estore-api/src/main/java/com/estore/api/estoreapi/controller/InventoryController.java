@@ -31,8 +31,10 @@ public class InventoryController {
      * Constructor for InventoryController
      * @param inventoryDAO : the data access object for campsites
      */
-    public InventoryController(InventoryDAO inventoryDAO) {
+    public InventoryController(InventoryDAO inventoryDAO, ScheduleService scheduleService, ReservationDAO reservationDAO) {
         this.inventoryDAO = inventoryDAO;
+        this.scheduleService = scheduleService;
+        this.reservationDAO = reservationDAO;
     }
 
     /**
@@ -80,6 +82,27 @@ public class InventoryController {
     }
 
     /**
+     * Get all reservations for a specific campsite.
+     * @param id : id of the campsite whose reservations to get
+     * @return a json object of all reservations for this campsite
+     */
+    @GetMapping("/{id}/reservations")
+    public ResponseEntity<Reservation[]> getCampsiteReservations(@PathVariable int id) {
+        LOG.info("GET /campsites/" + id + "/reservations");
+        try {
+            Reservation[] reservationArray = reservationDAO.getCampsiteReservations(id);
+            if(reservationArray != null)
+                return new ResponseEntity<Reservation[]>(reservationArray, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Searches through all the campsites and finds only those whose name contains the input string
      * returns a status code of OK or INTERNAL_SERVER_ERROR
      * requests of the form /campsites/?name=____
@@ -105,9 +128,11 @@ public class InventoryController {
      * returns status code of CONFLICT, CREATED, or INTERNAL_SERVER_ERROR
      * @param campsite : an object of the campsite to create
      * @return the new created campsite
+     * @throws IllegalArgumentException
      */
     @PostMapping("")
-    public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) {
+    public ResponseEntity<Campsite> createCampsite(@RequestBody Campsite campsite) throws IllegalArgumentException {
+        System.out.println("InventoryController.createCampsite: creating campsite");
         LOG.info("POST /campsites " + campsite);
         try {
             Campsite[] campsites = inventoryDAO.getCampsites();

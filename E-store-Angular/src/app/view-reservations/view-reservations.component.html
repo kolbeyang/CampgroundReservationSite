@@ -1,0 +1,20 @@
+<div>
+    <ul class="card">
+      <h2 *ngIf="!this.isAdmin()">Paid Reservations</h2>
+      <h2 *ngIf="this.isAdmin()">No Reservations for Admin</h2>
+        
+      <li *ngFor="let reservation of reservations">
+          <div class = "card">
+            <span class="campsiteId">  {{reservation.campsiteId}}  </span>
+            <span class="campsiteName"> {{getCampsiteName(reservation.campsiteId)}} </span>
+            <span class="startDate">START DATE: {{getStartDate(reservation).getMonth() + 1}}/{{getStartDate(reservation).getDate() + 1}}/{{getStartDate(reservation).getFullYear()}},  </span>
+            <span class="endDate">END DATE: {{getEndDate(reservation).getMonth() + 1}}/{{getEndDate(reservation).getDate() + 1}}/{{getEndDate(reservation).getFullYear()}}  </span>
+          <button type="button" (click)="deleteReservation(reservation)">
+            <span class="name">Remove</span>
+          </button>
+        </div>
+      </li>
+    </ul>
+</div>
+
+

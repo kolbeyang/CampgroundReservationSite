@@ -63,9 +63,11 @@ public class InventoryFileDAO implements InventoryDAO {
      */
     private Campsite[] getCampsitesArray(String containsText) { // if containsText == null, no filter
         ArrayList<Campsite> campsiteArrayList = new ArrayList<>();
+        System.out.println("getCampsitesArray: containsText " + containsText);
 
         for (Campsite campsite : campsites.values()) {
-            if (containsText == null || campsite.getName().contains(containsText)) {
+            if (containsText == null || containsText == " " || campsite.getName().toLowerCase().contains(containsText)) {
+                System.out.println("getCampsitesArray: found a campsite that matched search criterea");
                 campsiteArrayList.add(campsite);
             }
         }
@@ -143,10 +145,11 @@ public class InventoryFileDAO implements InventoryDAO {
         }
     }
     /**
+     * @throws IllegalArgumentException
      * @inheritDoc
      */
     @Override
-    public Campsite createCampsite(Campsite campsite) throws IOException {
+    public Campsite createCampsite(Campsite campsite) throws IOException, IllegalArgumentException {
         synchronized(campsites) {
             Campsite newCampsite = new Campsite(nextId(),campsite.getName(),campsite.getRate());
             campsites.put(newCampsite.getId(),newCampsite);
