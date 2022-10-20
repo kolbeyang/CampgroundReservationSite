@@ -16,7 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Arrays;
 import com.estore.api.estoreapi.persistence.InventoryDAO;
+import com.estore.api.estoreapi.persistence.ReservationDAO;
 import com.estore.api.estoreapi.model.Campsite;
+import com.estore.api.estoreapi.model.Reservation;
+import com.estore.api.estoreapi.model.ScheduleService;
 
 /**
  * Inventory Controller handles requests for all Campsites.
@@ -26,6 +29,8 @@ import com.estore.api.estoreapi.model.Campsite;
 public class InventoryController {
     private static final Logger LOG = Logger.getLogger(InventoryController.class.getName());
     private InventoryDAO inventoryDAO;
+    private ReservationDAO reservationDAO;
+    private ScheduleService scheduleService;
 
     /**
      * Constructor for InventoryController

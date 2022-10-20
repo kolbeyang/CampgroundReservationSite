@@ -45,18 +45,19 @@ public class Reservation {
      * @return the id of this Reservation
      */
     public int getId() {return id;}
-
+    
+    /**
+     * Getter
+     * @return username of the user whose reservation this is
+     */
+    public String getUsername() {return username;}
     /**
      * Getter
      * @return Price of the reservation (using the campsite rate from when the reservation was created)
      */
     public double getPrice(){return price;}
 
-    /**
-     * Getter
-     * @return Price of the reservation (using the campsite rate from when the reservation was created)
-     */
-    public double getPrice(){return price;}
+    
 
     /**
      * Sets the startDate and endDate
@@ -86,7 +87,7 @@ public class Reservation {
      * Getter
      * @return the campsiteID of the campsite this reservation belongs to
      */
-    public long getCampsiteId() {return this.campsiteId;}
+    public int getCampsiteId() {return this.campsiteId;}
 
     /**
      * Getter
