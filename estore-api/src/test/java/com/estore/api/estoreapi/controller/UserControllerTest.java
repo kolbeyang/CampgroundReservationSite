@@ -299,6 +299,16 @@ public class UserControllerTest {
     }
 
     @Test
+    public void testGetCartTotal() throws IOException {
+        doThrow(new IOException()).when(mockReservationDAO).getCartTotal("Billy");
+
+        ResponseEntity<Double> response = userController.getCartTotal("Billy");
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+    }
+
+    @Test
     public void testUserLogin() throws IOException {
         String username = "Billy";
         User user = new User(username, "1234", false);

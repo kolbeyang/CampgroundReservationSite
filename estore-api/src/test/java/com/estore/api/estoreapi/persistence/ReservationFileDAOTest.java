@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -55,8 +56,8 @@ public class ReservationFileDAOTest {
         Reservation reserve1 = new Reservation(0, camp1.getId(), EPOCH + DAY,  EPOCH + (DAY * 2), fakeUsername,false, 1 ); //A reservation that is from a Day in advance from 
         Reservation reserve2 = new Reservation(1, camp2.getId(),EPOCH + DAY, EPOCH + (DAY*2), fakeUsername, false, 2 );
         Reservation reserve3 = new Reservation(2, camp1.getId(), EPOCH + (DAY * 3), EPOCH + (DAY * 5), fakeUsername, false, 3);
-        Reservation reserve4 = new Reservation(1, camp1.getId(), EPOCH + (DAY * 6), EPOCH + (DAY * 7), fakeUsername, false, 0);
-        Reservation reserve5 = new Reservation(0, camp1.getId(), EPOCH + (DAY * 8), EPOCH + (DAY * 9), fakeUsername, false, 0);
+        //Reservation reserve4 = new Reservation(3, camp1.getId(), EPOCH + (DAY * 6), EPOCH + (DAY * 7), fakeUsername, false, 0);
+        //Reservation reserve5 = new Reservation(4, camp1.getId(), EPOCH + (DAY * 8), EPOCH + (DAY * 9), fakeUsername, false, 0);
 
         testCampsites = new Campsite[3];
         testReservations = new Reservation[3];
@@ -170,6 +171,16 @@ public class ReservationFileDAOTest {
         Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY, fakeUsername, false, 0);
         boolean result =  assertDoesNotThrow(() -> reservationFileDAO.deleteReservation(fakeReserve.getId()), "An unexpected exception occurred");
         assertFalse(result);
+    }
+
+    @Test
+    public void testPayReservation() throws IOException {
+        Reservation result1 = reservationFileDAO.payReservation(4);
+        Reservation result2 = reservationFileDAO.payReservation(2);
+
+        assertEquals(testReservations[2], result2);
+        assertTrue(result2.isPaid());
+        assertNull(result1);
     }
 
     /**
