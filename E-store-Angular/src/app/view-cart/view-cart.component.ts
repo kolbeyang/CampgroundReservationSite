@@ -77,6 +77,10 @@ export class ViewCartComponent implements OnInit {
     return this.loginService.adminLoggedIn();
   }
 
+  purchase(): void {
+    this.loginService.purchaseCart(this.loginService.getUserName()).subscribe(response => this.reservations = []);
+  }
+
   deleteReservation(reservation: Reservation):void {
     this.reservationService.deleteReservation(reservation.id).subscribe(() => this.getReservations());
   }

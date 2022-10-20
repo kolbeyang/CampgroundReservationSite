@@ -3,10 +3,9 @@
       <h2>Shopping Cart</h2>
       <li *ngFor="let reservation of reservations" >
         <div class = "card">
-            <span class="campsiteId">  {{reservation.campsiteId}}  </span>
             <span class="campsiteName"> {{getCampsiteName(reservation.campsiteId)}} </span>
-            <span class="startDate">START DATE: {{getStartDate(reservation).getMonth()}}/{{getStartDate(reservation).getDate()}}/{{getStartDate(reservation).getFullYear()}},  </span>
-            <span class="endDate">END DATE: {{getEndDate(reservation).getMonth()}}/{{getEndDate(reservation).getDate()}}/{{getEndDate(reservation).getFullYear()}}  </span>
+            <span class="startDate">START DATE: {{getStartDate(reservation).getMonth() + 1}}/{{getStartDate(reservation).getDate() + 1}}/{{getStartDate(reservation).getFullYear()}},  </span>
+            <span class="endDate">END DATE: {{getEndDate(reservation).getMonth() + 1}}/{{getEndDate(reservation).getDate() + 1}}/{{getEndDate(reservation).getFullYear()}}  </span>
             <span> PRICE: {{reservation.price}}</span>
             <button type="button" (click)="deleteReservation(reservation)">
                 <span class="name">Remove</span>
@@ -19,7 +18,7 @@
 <div class = "card">
     <h1>Checkout</h1>
 
-    <h3>Total Price:   {{calculateTotalPrice()}}  </h3>
-    <button>Make Payment</button>
+    <h3>Total Price: ${{calculateTotalPrice()}}  </h3>
+    <button (click) = "purchase()">Make Payment</button>
     <p></p>
 </div>
