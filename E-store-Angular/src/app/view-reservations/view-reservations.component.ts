@@ -18,11 +18,10 @@ import { User } from '../user';
 export class ViewReservationsComponent implements OnInit {
 
   /** For when we implement owner/user able to edit/delete reservations */
-  reservations$!: Observable<Reservation[]>;
-  selectedReservation?:Reservation;
   reservations:Reservation[] = [];
-  
   reservation?: Reservation;
+  campsites:Campsite[] = [];
+
 
 
   constructor(private loginService: LoginService, 
@@ -32,11 +31,12 @@ export class ViewReservationsComponent implements OnInit {
   // Need to be able to access username
   ngOnInit(): void {
     this.getReservations();
+    //this.getCampsites();
   }
 
-  onSelect(reservation: Reservation): void {
-    this.selectedReservation = reservation;
-  }
+  // onSelect(reservation: Reservation): void {
+  //   this.selectedReservation = reservation;
+  // }
 
   isLoggedIn(): boolean{
     return this.loginService.isLoggedIn();
@@ -63,9 +63,12 @@ export class ViewReservationsComponent implements OnInit {
     return endDate;
   }
 
-  //getCampsiteName(id: number): string {
-    //return this.productService.getProduct(id).name;
-  //}
+  // getCampsites(): string {
+  //   for(let reservation of this.reservations)
+  //   {
+
+  //   }
+  // }
   
 }
       

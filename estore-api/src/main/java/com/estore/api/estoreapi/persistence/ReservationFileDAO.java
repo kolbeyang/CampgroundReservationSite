@@ -13,6 +13,7 @@ import javax.naming.spi.ResolveResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.stereotype.Component;
 
 import com.estore.api.estoreapi.model.Campsite;
@@ -236,6 +237,22 @@ public class ReservationFileDAO implements ReservationDAO {
 
             reservations.put(reservation.getId(),reservation);
             save(); // may throw an IOException
+            return reservation;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Reservation payReservation(int id) throws IOException {
+        synchronized(reservations) {
+            if(reservations.containsKey(id) == false)
+                return null;
+            Reservation reservation = getReservation(id);
+            reservation.setPaid();
+            reservations.put(id, reservation);
+            save();  // may throw IOException
             return reservation;
         }
     }
