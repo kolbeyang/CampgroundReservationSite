@@ -25,6 +25,9 @@ import com.estore.api.estoreapi.persistence.ReservationDAO;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.naming.spi.ResolveResult;
+
 import java.util.Arrays;
 
 /**
@@ -105,9 +108,30 @@ public class UserController {
             // reservationDAO.getUserReservations(userID) will iterate through all reservations and return those with
             // corresponding username and with a matching paid status (true or false)
             Reservation[] reservationArray = reservationDAO.getUserReservations(username, paid);
-            System.out.println("getUserReservations: length of reservationArray" + reservationArray.length);
+            //System.out.println("getUserReservations: length of reservationArray" + reservationArray.length);
             if(reservationArray != null)
                 return new ResponseEntity<Reservation[]>(reservationArray, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Pay for a users cart
+     * @param username
+     * @return array of paid reservations
+     */
+    @PutMapping("/{username}/reservations/purchase")
+    public ResponseEntity<Reservation[]> payCart(@PathVariable String username) {
+        LOG.info("PUT /users/" + username + "/reservations/purchase");
+        try {
+            Reservation[] paidReservations = reservationDAO.payCart(username);
+            if(paidReservations != null)
+                return new ResponseEntity<Reservation[]>(paidReservations, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

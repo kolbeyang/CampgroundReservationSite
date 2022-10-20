@@ -71,6 +71,14 @@ public interface ReservationDAO {
     Reservation payReservation(int id) throws IOException;
 
     /**
+     * Pays for a cart: changes all unpaid reservations of a user to paid
+     * @param username
+     * @return array of paid reservations
+     * @throws IOException
+     */
+    Reservation[] payCart(String username) throws IOException;
+
+    /**
      * Deletes a reservation of the given id
      * @param id : the id of the reservation to delete
      * @return whether the reservation was successfully deleted
