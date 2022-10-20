@@ -17,12 +17,12 @@ import { User } from '../user';
 })
 export class ViewReservationsComponent implements OnInit {
 
-  /** For when we implement owner/user able to edit/delete reservations */
   reservations$!: Observable<Reservation[]>;
-  selectedReservation?:Reservation;
-  reservations:Reservation[] = [];
-  
+  //reservations:Reservation[] = [];
+  adminReservations:Reservation[] = [];
   reservation?: Reservation;
+  campsites:Campsite[] = [];
+
 
 
   constructor(private loginService: LoginService, 
@@ -31,12 +31,13 @@ export class ViewReservationsComponent implements OnInit {
 
   // Need to be able to access username
   ngOnInit(): void {
-    this.getReservations();
+    this.reservations$ = this.loginService.getPaidReservations(this.loginService.getUserName());
+    //this.getAdminReservations(); // will want to display by campsite maybe?
   }
 
-  onSelect(reservation: Reservation): void {
-    this.selectedReservation = reservation;
-  }
+  // onSelect(reservation: Reservation): void {
+  //   this.selectedReservation = reservation;
+  // }
 
   isLoggedIn(): boolean{
     return this.loginService.isLoggedIn();
@@ -48,8 +49,12 @@ export class ViewReservationsComponent implements OnInit {
   }
 
   getReservations(): void{
-    this.loginService.getPaidReservations(this.loginService.getUserName()).subscribe(reservations => this.reservations = reservations);
+    this.reservations$ = this.loginService.getPaidReservations(this.loginService.getUserName());;
   }
+
+  // getAdminReservations(): void {
+  //   this.reservationService.getReservations().subscribe(reservations => this.adminReservations = reservations);
+  // }
 
   getStartDate(reservation: Reservation): Date {
     const milliseconds = reservation.startDate;
@@ -63,9 +68,9 @@ export class ViewReservationsComponent implements OnInit {
     return endDate;
   }
 
-  //getCampsiteName(id: number): string {
-    //return this.productService.getProduct(id).name;
-  //}
+  deleteReservation(reservation: Reservation):void {
+    this.reservationService.deleteReservation(reservation.id).subscribe(() => this.getReservations());
+  }
   
 }
       

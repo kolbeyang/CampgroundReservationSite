@@ -127,6 +127,25 @@ public class ReservationController {
         }
     }
 
+    @PutMapping("/pay/{id}")
+    /**
+     * Change a reservation field paid to true
+     */
+    public ResponseEntity<Reservation> payReservation(@PathVariable int id) {
+        LOG.info("PUT /reservations/pay/" + id);
+        try {
+            Reservation paidReservation = reservationDAO.payReservation(id);
+            if(paidReservation == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            else
+                return new ResponseEntity<>(paidReservation, HttpStatus.OK);
+        } 
+        catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * Deletes the reservation with the inptu id
      * returns a status code of OK, NOT_FOUND, or INTERNAL_SERVER_ERROR

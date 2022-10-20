@@ -63,6 +63,14 @@ public interface ReservationDAO {
     Reservation updateReservation(Reservation reservation) throws IOException;
 
     /**
+     * Updates a reservation tp paid
+     * @param id : the id of the reservation to update
+     * @return the updated paid reservation
+     * @throws IOException
+     */
+    Reservation payReservation(int id) throws IOException;
+
+    /**
      * Deletes a reservation of the given id
      * @param id : the id of the reservation to delete
      * @return whether the reservation was successfully deleted

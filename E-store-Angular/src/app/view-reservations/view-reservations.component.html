@@ -3,13 +3,14 @@
       <h2 *ngIf="!this.isAdmin()">Paid Reservations</h2>
       <h2 *ngIf="this.isAdmin()">Not Done</h2>
         
-      <li *ngFor="let reservation of reservations">
-
+      <li *ngFor="let reservation of reservations$ | async">
           <span class="campsiteId">  {{reservation.campsiteId}}  </span>
           <span class="campsiteName">CAMPSITENAME  |  </span>
           <span class="startDate">START DATE: {{getStartDate(reservation).getMonth()}}/{{getStartDate(reservation).getDate()}}/{{getStartDate(reservation).getFullYear()}},  </span>
           <span class="endDate">END DATE: {{getEndDate(reservation).getMonth()}}/{{getEndDate(reservation).getDate()}}/{{getEndDate(reservation).getFullYear()}}  </span>
-
+        <button type="button" (click)="deleteReservation(reservation)">
+          <span class="name">Remove</span>
+        </button>
       </li>
     </ul>
 </div>

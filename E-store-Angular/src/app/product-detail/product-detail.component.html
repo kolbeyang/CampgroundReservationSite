@@ -46,6 +46,11 @@
 
   <div *ngIf="this.isAdmin()" class = "card">
       <h2>{{selectedProduct.name | uppercase}} Details</h2>
+      <div 
+      *ngIf="errorMessage!=''"
+      class = "alert">
+      {{errorMessage}}
+    </div>
       <div><span>id: </span>{{selectedProduct.id}}</div>
       <div>
         <label for="Campsite-name">Campsite name: </label>
@@ -68,14 +73,8 @@
             class = "alert">
             {{errorMessage}}
           </div>
-      <div
-      *ngIf="errorMessage!=''"
-      class = "alert">
-      {{errorMessage}}
-   </div>
     <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name"/>
     <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
-    <input id="Campsite-id"   #NewCampsiteid   placeholder="Campsite id">
-    <button type="Button" (click)="createProduct(NewCampsiteid.value, NewCampsiteName.value, NewCampsiteRate.value)">Create New Campsite</button>
+    <button type="Button" (click)="createProduct(NewCampsiteName.value, NewCampsiteRate.value)">Create New Campsite</button>
   </div>
 </div>
