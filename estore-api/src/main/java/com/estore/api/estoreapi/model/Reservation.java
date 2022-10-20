@@ -30,7 +30,7 @@ public class Reservation {
      * @param endDate : the end time of the reservation in milliseconds since 1970
      * @param paid : the status of the reservation. When created it is unpaid, so set to false. When the user checks out, updated to paid.
      */
-    public Reservation(@JsonProperty("id") int id, @JsonProperty("campsiteId") int campsiteId, @JsonProperty("startDate") long startDate, @JsonProperty("endDate") long endDate, @JsonProperty("username") String username, double price) {
+    public Reservation(@JsonProperty("id") int id, @JsonProperty("campsiteId") int campsiteId, @JsonProperty("startDate") long startDate, @JsonProperty("endDate") long endDate, @JsonProperty("username") String username, @JsonProperty("paid") boolean paid, @JsonProperty("price") double price) {
         this.id = id;
         this.campsiteId = campsiteId;
         this.startDate = startDate;
@@ -39,8 +39,6 @@ public class Reservation {
         this.paid = false;
 
         this.price = price; 
-
-
     }
 
     /**
@@ -133,7 +131,9 @@ public class Reservation {
             Reservation otherUser = (Reservation) o;
             Integer int1 = this.id;
             Integer int2 = otherUser.getId();
-            return int1.equals(int2);
+            boolean output =  int1.equals(int2);
+            System.out.println("Reservation equality output equals " + output);
+            return output;
         }
         return false;
     }

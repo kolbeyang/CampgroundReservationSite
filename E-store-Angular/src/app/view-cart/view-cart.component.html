@@ -1,30 +1,18 @@
 <h1> Current Cart:         </h1>
-<div>
-    <ul class="card">
-      <h2 *ngIf="!this.isAdmin()">Unpaid Reservations</h2>
-      <h2 *ngIf="this.isAdmin()">Not Done</h2>
-        
-      <li *ngFor="let reservation of reservations">
-
-          <span class="campsiteId">{{reservation.campsiteId}}</span>
-
+<div class = "card">
+    <ul>
+      <h2>Unpaid Reservations</h2>
+      <li *ngFor="let reservation of reservations" >
+        <h3>{{reservation.id}}</h3>
+        <h3>{{reservation.price}}</h3>
       </li>
     </ul>
-    </div>
+</div>
 
+<div class = "checkout">
+    <h1>Checkout</h1>
 
- <div class = "reservation">
-     <ul *ngIf="this.isAdmin()" let reservation of Reservations>
-
-     </ul>
- </div>
-
- <div class = "checkout">
-     <ul *ngIf="this.isAdmin()" let reservation of Reservations>
-     </ul>
-     <h1>Checkout</h1>
-
-     <h3>Total Price:     </h3>
-     <button onclick="x">Make Payment</button>
-     <p></p>
- </div>
+    <h3>Total Price:     </h3>
+    <button>Make Payment</button>
+    <p></p>
+</div>

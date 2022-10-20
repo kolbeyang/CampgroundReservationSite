@@ -12,6 +12,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { ViewCartComponent } from './view-cart/view-cart.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ViewReservationsComponent } from './view-reservations/view-reservations.component';
+import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ViewReservationsComponent } from './view-reservations/view-reservations
     HomePageComponent,
     ViewCartComponent,
     UserProfileComponent,
-    ViewReservationsComponent
+    ViewReservationsComponent,
+    ReservationDetailComponent
   ],
   imports: [
     BrowserModule,
