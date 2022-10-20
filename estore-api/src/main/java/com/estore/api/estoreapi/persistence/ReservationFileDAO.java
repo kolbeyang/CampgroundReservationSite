@@ -40,9 +40,10 @@ public class ReservationFileDAO implements ReservationDAO {
      * @param objectMapper : the object mapper 
      * @throws IOException
      */
-    public ReservationFileDAO(@Value("${reservations.file}") String filename,ObjectMapper objectMapper) throws IOException {
+    public ReservationFileDAO(@Value("${reservations.file}") String filename,ObjectMapper objectMapper, InventoryDAO inventoryDAO) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
+        this.inventoryDAO = inventoryDAO;
         load();  
     }
 
@@ -220,7 +221,7 @@ public class ReservationFileDAO implements ReservationDAO {
 
             /* Creates and adds reservation to persistence with determined price */
 
-            Reservation newReservation = new Reservation(nextId(),reservation.getCampsiteId(),reservation.getStartDate(), reservation.getEndDate(), reservation.getUsername(), price);
+            Reservation newReservation = new Reservation(nextId(),reservation.getCampsiteId(),reservation.getStartDate(), reservation.getEndDate(), reservation.getUsername(), false, price);
             reservations.put(newReservation.getId(),newReservation);
             save(); // may throw an IOException
             return newReservation;

@@ -91,6 +91,7 @@ public class ReservationController {
         try {
             Reservation[] reservations = reservationDAO.getReservations();
             if (Arrays.asList(reservations).contains(reservation))  {
+                System.out.println("arrays.asList reservations contains the reservation already, returning status code conflict");
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             } else {
                 Reservation created = reservationDAO.createReservation(reservation);

@@ -34,8 +34,8 @@ public class ScheduleServiceTest {
 
     @Test
     public void testCreateReservation() throws IOException {
-        Reservation reservation1 = new Reservation(10,10,100,200,"Billy", 0);
-        Reservation reservation2 = new Reservation(10,10,300,200,"Billy", 0);
+        Reservation reservation1 = new Reservation(10,10,100,200,"Billy", false, 0);
+        Reservation reservation2 = new Reservation(10,10,300,200,"Billy", false, 0);
 
         when(mockReservationDAO.createReservation(reservation1)).thenReturn(reservation1);
         when(mockReservationDAO.createReservation(reservation2)).thenReturn(reservation2);
@@ -49,12 +49,12 @@ public class ScheduleServiceTest {
 
     @Test
     public void testIsValidReservation() throws IOException {
-        Reservation reservation1 = new Reservation(10,10,100,200,"Billy", 0);
-        Reservation reservation2 = new Reservation(10,10,200,300,"Billy", 0);
+        Reservation reservation1 = new Reservation(10,10,100,200,"Billy", false, 0);
+        Reservation reservation2 = new Reservation(10,10,200,300,"Billy", false, 0);
 
-        Reservation goodReservation = new Reservation(10,10,400,500,"Billy", 0);
-        Reservation badReservation = new Reservation(10,10,150,500,"Billy", 0);
-        Reservation differentReservation = new Reservation(10,12,150,500,"Billy", 0);
+        Reservation goodReservation = new Reservation(10,10,400,500,"Billy", false, 0);
+        Reservation badReservation = new Reservation(10,10,150,500,"Billy", false, 0);
+        Reservation differentReservation = new Reservation(10,12,150,500,"Billy", false, 0);
 
         Reservation[] reservations = {reservation1, reservation2};
 
