@@ -46,18 +46,29 @@ export class ProductDetailComponent implements OnInit {
   getProducts(): void{
     this.productService.searchProducts("").subscribe(products => this.products$ = products);
   }
-*/
+  */
 
   // Push a search term into the observable stream.
   search(term: string): void {
-    console.log("searching");
     this.products$ = this.productService.searchProducts(term.toLowerCase());
   }
 
   editProduct(): void{
+    this.errorMessage = '';
+    let ratenume = new Number((this.selectedProduct?.rate))
+    console.log('Selected product rate' +this.selectedProduct?.rate);
+    console.log(this.selectedProduct?.rate.valueOf());
+    // if(console.log(this.selectedProduct?.rate instanceof String)) {
 
-      console.log("This ran" + this.selectedProduct);
-      if (this.selectedProduct) {
+    // }
+    if(this.selectedProduct?.name.trim() === '' || !this.selectedProduct?.name.toLowerCase().includes('campsite')){
+      this.errorMessage = 'Invalid Campsite Name, Try Again';
+      console.log("Error message was written");
+    }
+    else if (!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
+      this.errorMessage = 'Invalid Rate, Try again';
+    }else if(this.selectedProduct) {
+        this.errorMessage = '';
         this.productService.updateProduct(this.selectedProduct)
         .subscribe();
       }
@@ -70,30 +81,31 @@ export class ProductDetailComponent implements OnInit {
 }
 
   onSelectAdmin(product:Product): void {
-    console.log('Admin Clicked to view some products')
-    console.log(this.isAdmin());
-    console.log(this.isLoggedIn());
+
     if(this.isAdmin()){
       this.selectedProduct = product;
     }
   }
 
-  createProduct(id: string, name: string, rate: string):void{
-    let idnum = new Number(id);
-    let ratenume = new Number(id);
-    let campsite = new Campsite(name, idnum.valueOf(), ratenume.valueOf()); 
-    console.log("Attempt to create Product with: " + name);
-    console.log("Does name contain campsite:" + name.toLowerCase().includes('campsites'));
-    console.log('Does name.trim() give a empty value' + name.trim() === '');
-
+  createProduct(name: string, rate: string):void{
+    const DUMMYNUMBER = 23;
+    let ratenume = new Number(rate);
+    let campsite = new Campsite(name, DUMMYNUMBER, ratenume.valueOf()); 
+    console.log("Rate nume Value: " + ratenume);
+    console.log('Rate nume: type' + typeof(ratenume));
+    console.log(ratenume === NaN);
+    console.log("rate nume " + ratenume.valueOf());
     if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
       this.errorMessage = 'Invalid Campsite Name, Try Again';
       console.log("Error message was written");
     }
-    else{
+    else if(!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
+      this.errorMessage = 'Invalid Rate Value, Try Again';
+    }
+    else {
+      this.errorMessage = '';
       this.productService.addProduct(campsite).subscribe(campsite => {
-        this.search("");
-      });
+        this.search("")});
     }
 
   }
