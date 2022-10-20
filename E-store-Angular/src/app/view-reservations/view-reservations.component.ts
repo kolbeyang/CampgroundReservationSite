@@ -17,24 +17,38 @@ import { User } from '../user';
 })
 export class ViewReservationsComponent implements OnInit {
 
-  reservations$!: Observable<Reservation[]>;
-  //reservations:Reservation[] = [];
-  adminReservations:Reservation[] = [];
-  reservation?: Reservation;
-  campsites:Campsite[] = [];
-
-
-
   constructor(private loginService: LoginService, 
     private productService: ProductService, 
     private reservationService: ReservationService) { }
 
-  // Need to be able to access username
+  reservation?: Reservation;
+  reservations: Reservation[] = [];
+  campsite?: Campsite;
+  campsites: Campsite[] = [];
+
   ngOnInit(): void {
-    this.reservations$ = this.loginService.getPaidReservations(this.loginService.getUserName());
-    //this.getAdminReservations(); // will want to display by campsite maybe?
+    this.getReservations();
   }
 
+  getCampsiteName(campsiteId: number) : string {
+    for (var campsite of this.campsites) {
+      if (campsite.id === campsiteId) {
+        return campsite.name;
+      }
+    }
+    return "campsite not found";
+  }
+
+
+  getCampsites(): void{
+    this.productService.getProducts()
+      .subscribe(campsites => {this.campsites = campsites;});
+  }
+
+  getReservations(): void{
+    this.loginService.getPaidReservations(this.loginService.getUserName())
+      .subscribe(reservations => {this.reservations = reservations; this.getCampsites();});
+  }
   // onSelect(reservation: Reservation): void {
   //   this.selectedReservation = reservation;
   // }
@@ -48,9 +62,6 @@ export class ViewReservationsComponent implements OnInit {
     return this.loginService.adminLoggedIn();
   }
 
-  getReservations(): void{
-    this.reservations$ = this.loginService.getPaidReservations(this.loginService.getUserName());;
-  }
 
   // getAdminReservations(): void {
   //   this.reservationService.getReservations().subscribe(reservations => this.adminReservations = reservations);

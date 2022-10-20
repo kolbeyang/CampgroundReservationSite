@@ -138,6 +138,13 @@ export class LoginService {
     );
   }
 
+  purchaseCart(username: string): Observable<number> {
+    const url = `${this.loginURL}/${username}/reservations/purchase`;
+    return this.http.put<any>(url, username).pipe(
+      tap(_ => this.log('pay for reservations')), catchError(this.handleError<any>('getCart', []))
+    );
+  }
+
 
     /**
    * Handle Http operation that failed.
