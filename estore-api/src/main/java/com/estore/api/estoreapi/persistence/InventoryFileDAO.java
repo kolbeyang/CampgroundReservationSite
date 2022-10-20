@@ -63,9 +63,11 @@ public class InventoryFileDAO implements InventoryDAO {
      */
     private Campsite[] getCampsitesArray(String containsText) { // if containsText == null, no filter
         ArrayList<Campsite> campsiteArrayList = new ArrayList<>();
+        System.out.println("getCampsitesArray: containsText " + containsText);
 
         for (Campsite campsite : campsites.values()) {
-            if (containsText == null || containsText == " " || campsite.getName().contains(containsText)) {
+            if (containsText == null || containsText == " " || campsite.getName().toLowerCase().contains(containsText)) {
+                System.out.println("getCampsitesArray: found a campsite that matched search criterea");
                 campsiteArrayList.add(campsite);
             }
         }
