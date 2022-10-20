@@ -52,11 +52,11 @@ public class ReservationFileDAOTest {
         Campsite camp2 = new Campsite(2, "Eagle heights Campsite", 12.43);
         Campsite camp3 = new Campsite(3, "Stony Brooks Campsite", 14);
         
-        Reservation reserve1 = new Reservation(0, camp1.getId(), EPOCH + DAY,  EPOCH + (DAY * 2), fakeUsername, 1); //A reservation that is from a Day in advance from 
-        Reservation reserve2 = new Reservation(1, camp2.getId(),EPOCH + DAY, EPOCH + (DAY*2), fakeUsername, 2 );
-        Reservation reserve3 = new Reservation(2, camp1.getId(), EPOCH + (DAY * 3), EPOCH + (DAY * 5), fakeUsername, 3);
-        Reservation reserve4 = new Reservation(1, camp1.getId(), EPOCH + (DAY * 6), EPOCH + (DAY * 7), fakeUsername, 0);
-        Reservation reserve5 = new Reservation(0, camp1.getId(), EPOCH + (DAY * 8), EPOCH + (DAY * 9), fakeUsername, 0);
+        Reservation reserve1 = new Reservation(0, camp1.getId(), EPOCH + DAY,  EPOCH + (DAY * 2), fakeUsername,false, 1 ); //A reservation that is from a Day in advance from 
+        Reservation reserve2 = new Reservation(1, camp2.getId(),EPOCH + DAY, EPOCH + (DAY*2), fakeUsername, false, 2 );
+        Reservation reserve3 = new Reservation(2, camp1.getId(), EPOCH + (DAY * 3), EPOCH + (DAY * 5), fakeUsername, false, 3);
+        Reservation reserve4 = new Reservation(1, camp1.getId(), EPOCH + (DAY * 6), EPOCH + (DAY * 7), fakeUsername, false, 0);
+        Reservation reserve5 = new Reservation(0, camp1.getId(), EPOCH + (DAY * 8), EPOCH + (DAY * 9), fakeUsername, false, 0);
 
         testCampsites = new Campsite[3];
         testReservations = new Reservation[3];
@@ -75,7 +75,7 @@ public class ReservationFileDAOTest {
             .readValue(new File("Whatever.txt"), Reservation[].class))
                 .thenReturn(testReservations);
 
-        reservationFileDAO = new ReservationFileDAO("Whatever.txt", mockObjectMapper);
+        reservationFileDAO = new ReservationFileDAO("Whatever.txt", mockObjectMapper, null); //Check inventoryDao Paramater
         
     }
 
@@ -167,7 +167,7 @@ public class ReservationFileDAOTest {
     */
     @Test
     public void testdeleteReservationNotFound(){
-        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY, fakeUsername, 0);
+        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY, fakeUsername, false, 0);
         boolean result =  assertDoesNotThrow(() -> reservationFileDAO.deleteReservation(fakeReserve.getId()), "An unexpected exception occurred");
         assertFalse(result);
     }
@@ -177,7 +177,7 @@ public class ReservationFileDAOTest {
      */
     @Test
     public void testupdateReservationNotFound(){
-        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY,fakeUsername, 0);
+        Reservation fakeReserve = new Reservation(999999, 43, EPOCH, EPOCH + DAY,fakeUsername,false, 0);
         Reservation result =  assertDoesNotThrow(() -> reservationFileDAO.updateReservation(fakeReserve), "An unexpected exception occurred");
         assertNull(result);
     }
@@ -210,7 +210,7 @@ public class ReservationFileDAOTest {
             .readValue(new File("Whatever.txt"), Reservation[].class);
 
         assertThrows(IOException.class, 
-                   () -> new ReservationFileDAO("Whatever.txt", mockObjectMapper), 
+                   () -> new ReservationFileDAO("Whatever.txt", mockObjectMapper, null), 
                   " Did not throw proper exception");
         
 

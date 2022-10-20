@@ -299,8 +299,8 @@ public class InventoryControllerTest {
     @Test
     public void testGetCampsiteReservations() throws IOException {
         Reservation[] reservations = new Reservation[2];
-        reservations[0] = new Reservation(1,12,100,200,"Billy", 0);
-        reservations[1] = new Reservation(2, 12, 300, 400, "Bob", 0);
+        reservations[0] = new Reservation(1,12,100,200,"Billy", false, 0);
+        reservations[1] = new Reservation(2, 12, 300, 400, "Bob", false, 0);
 
         when(mockReservationDAO.getCampsiteReservations(12)).thenReturn(reservations);
 
@@ -331,7 +331,7 @@ public class InventoryControllerTest {
     @Test
     public void testCreateReservation() throws IOException {
 
-        Reservation reservation = new Reservation(12,12,100,100, "Billy", 0);
+        Reservation reservation = new Reservation(12,12,100,100, "Billy", false, 0);
         when(mockScheduleService.isValidReservation(reservation)).thenReturn(true);
         when(mockScheduleService.createReservation(reservation)).thenReturn(reservation);
 
@@ -343,7 +343,7 @@ public class InventoryControllerTest {
     @Test
     public void testCreateReservationFailed() throws IOException {
 
-        Reservation reservation = new Reservation(12,12,100,100, "Billy", 0);
+        Reservation reservation = new Reservation(12,12,100,100, "Billy", false, 0);
         when(mockScheduleService.isValidReservation(reservation)).thenReturn(false);
         when(mockScheduleService.createReservation(reservation)).thenReturn(reservation);
 
@@ -355,7 +355,7 @@ public class InventoryControllerTest {
     @Test
     public void testCreateReservationHandleException() throws IOException {
 
-        Reservation reservation = new Reservation(12,12,100,100, "Billy", 0);
+        Reservation reservation = new Reservation(12,12,100,100, "Billy", false, 0);
         when(mockScheduleService.isValidReservation(reservation)).thenThrow(new IOException());
         when(mockScheduleService.createReservation(reservation)).thenReturn(reservation);
 

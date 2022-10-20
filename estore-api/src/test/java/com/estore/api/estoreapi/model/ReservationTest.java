@@ -21,7 +21,7 @@ public class ReservationTest {
         String expectedUsername = "GoodUsername";
     
         // Invoke
-        Reservation reservation = new Reservation(expectedID, expectedCampsiteID, expectedStartDate, expectedEndDate, expectedUsername, 0);
+        Reservation reservation = new Reservation(expectedID, expectedCampsiteID, expectedStartDate, expectedEndDate, expectedUsername, false, 0);
   
         // Analyze
         assertEquals(expectedID, reservation.getId());
@@ -40,7 +40,7 @@ public class ReservationTest {
         long endDate = 1777777777;
         String username = "GoodUsername";
 
-        Reservation reservation = new Reservation(id, campsiteID, startDate, endDate, username, 0);
+        Reservation reservation = new Reservation(id, campsiteID, startDate, endDate, username, false, 0);
 
         int expectedStartDate = 1666677777;
         int expectedEndDate = 1777766666;
@@ -62,7 +62,7 @@ public class ReservationTest {
          long endDate = 1777777777;
          String username = "GoodUsername";
  
-         Reservation reservation = new Reservation(id, campsiteID, startDate, endDate, username, 0);
+         Reservation reservation = new Reservation(id, campsiteID, startDate, endDate, username, false, 0);
 
          String expectedString = String.format(Reservation.STRING_FORMAT,id,campsiteID,startDate,endDate,username);
 
