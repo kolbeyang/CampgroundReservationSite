@@ -110,6 +110,16 @@ export class ProductDetailComponent implements OnInit {
 
   }
 
+  //   /**
+  //  * Handles Errors from a failed login
+  //  * @param error The error to check
+  //  */
+  //    handleCreateReservationError(error: any) {
+  //     console.log("Error caught in component ");
+  //     console.log(error.status);
+  //     this.errorMessage = 'Reservation has a conflict.';
+  //   }
+
   createReservation(start: string, end: string, site: Product):void{
     // console.log("Start value" + start);
     // console.log("End Value" + end);
@@ -135,7 +145,9 @@ export class ProductDetailComponent implements OnInit {
       let reserve = new Reservation(1001, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
       
       //calling to reservation service add reservation 
-      this.reservationService.addReservation(reserve).subscribe();//reservation =>{this.search("")
+      // this.reservationService.addReservation(reserve).subscribe(
+      //  (error) => this.handleCreateReservationError(error)); //reservation =>{this.search("")
+      this.reservationService.addReservation(reserve).subscribe();
     }
 
 
