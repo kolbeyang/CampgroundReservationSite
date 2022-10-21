@@ -117,8 +117,14 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 This section describes the web interface flow; this is how the user views and interacts
 with the e-store application.
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+- From the home page, a user will click the login button
+- The user can browse all the campsites on the home page
+- The user can also use the search bar to search for a specific campsite
+- The user can input a start date nad end date to create a campsite reservation
+- The user can click the make reservation button to add their reservation to their shopping cart
+- The user can click cart to see all of their unpurchased reservations
+- The user can click make payment to purchase the reservations in their carc
+- The user can click reservations to see their purchased reservations
 
 
 ### View Tier
@@ -133,14 +139,65 @@ with the e-store application.
 > Be sure to include an relevant HTTP reuqests from the client-side to the server-side 
 > to help illustrate the end-to-end flow._
 
+app.component
+- displays the top navigation bar
+- displays certain buttons based on whether a user is logged in or not
+
+app-routing.module
+- when navigation buttons are clicked, this routes the user to selected pages
+
+user-login.component
+- takes username and password input
+- displays errors for invalid input
+- uses the login.service to make login and signup requests to the api
+
+login.service
+- makes login and signup requests to the api
+- stores the information of the user that is logged in
+
+product-detail.component
+- displays all the campsites
+- uses the product.service to send requests to the api
+- allows Admin to edit and delete campsites
+- allows customers to create reservations for any campsites
+- initial input checking for bad reservation start dates and end dates
+- allows users to search for a specific campsite
+
+product.service
+- sends requests to the api to create, delete, update, and get campsites
+
+view-cart.component
+- Uses the login.service to get all unpurchased reservations for the logged-in user
+- allows the user to purchase the reservations in their cart
+- allows the user to delete reservations from their cart
+
+view-reservations.component
+- Uses the logi.service to get all purchased reservations for the logged-in user
+- allows the user to delete reservations that they've purchased
+
+reservation.service
+- sends requests to the api to create, delete, update, and get reservations
+
 
 ### ViewModel Tier
-> _Provide a summary of this tier of your architecture. This
-> section will follow the same instructions that are given for the View
-> Tier above._
+InventoryController
+- creates, updates, gets, deletes campsites
+- gets campsites based on a search query
+- can get all reservations of a specific campsite
 
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
+UserController
+- creates, updates, gets, deletes users
+- can get all reservations of a specific user
+
+ReservationController
+- creates, updates, gets, deletes reservations
+
+ScheduleService
+- makes sure reservations do not overlap
+
+AuthenticationService
+- generates session tokens for all users when they log in
+- checks to see if psaswords from the UI match stored passwords
 
 
 ### Model Tier
