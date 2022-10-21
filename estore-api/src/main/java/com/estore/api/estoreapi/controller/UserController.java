@@ -180,7 +180,7 @@ public class UserController {
             if (Arrays.asList(users).contains(user))  {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             } 
-            else if( user.getUsername().equals(" ")){
+            else if( user.getUsername().contains(" ")){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             else if(splitUserStrings.length > 1){

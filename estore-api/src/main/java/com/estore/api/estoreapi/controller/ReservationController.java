@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import java.util.Arrays;
 import com.estore.api.estoreapi.persistence.ReservationDAO;
 import com.estore.api.estoreapi.model.Reservation;
+import com.estore.api.estoreapi.model.ScheduleService;
 
 /**
  * Reservation Controller handles requests for all Reservations.
@@ -26,13 +27,15 @@ import com.estore.api.estoreapi.model.Reservation;
 public class ReservationController {
     private static final Logger LOG = Logger.getLogger(ReservationController.class.getName());
     private ReservationDAO reservationDAO;
+    private ScheduleService scheduleService;
 
     /**
      * Constructor for ReservationController
      * @param reservationDAO : the data access object for reservations
      */
-    public ReservationController(ReservationDAO reservationDAO) {
+    public ReservationController(ReservationDAO reservationDAO, ScheduleService scheduleService) {
         this.reservationDAO = reservationDAO;
+        this.scheduleService = scheduleService;
     }
 
     /**
@@ -92,6 +95,10 @@ public class ReservationController {
             Reservation[] reservations = reservationDAO.getReservations();
             if (Arrays.asList(reservations).contains(reservation))  {
                 System.out.println("arrays.asList reservations contains the reservation already, returning status code conflict");
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+            else if (!scheduleService.isValidReservation(reservation)) {
+                System.out.println("Reservation does not fit in schedule");
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             } else {
                 Reservation created = reservationDAO.createReservation(reservation);

@@ -221,6 +221,68 @@ AuthenticationService
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 
+Classes
+  - Authentication Service:
+    * Its primary responsibility is to generate, contain, and verify user tokens
+    * Uses private methods to generate a new token value, and generate a token for a specified user
+    * This class can be used to login a user, determine user login status, whether they are a valid user, and whether a token is associated with an admin or customer  
+
+  - Campsite:
+    * Its primary responsibility is to create new campsites, along with managing/editing campsites
+    * Declares the campsite's fields (id, name, rate) as JsonProperties
+    * This class can compare campsite objects based on their names, get campsite field values, and set field values
+    * Throws exceptions for when invalid values are entered 
+
+  - Login Request:
+    * Its primary responsibility is to represent a Login request
+    * Declares Login request fields (username, password) as Json Properties
+    * The only methods this class uses are to return a Login Request's username, and its password
+
+  - Login Response:
+    * Its primary responsibility is to represent a Login response
+    * Declares Login request fields (username, password, isadmin) as Json Properties
+    * The only methods this class uses are to return a Login Request's username, its password, and admin status
+
+
+  - Reservation:
+    * Its primary responsibility is to create a new reservation object, along with managing/editing reservations, associated with a campsite object
+    * Declares the reservation's fields (id, campsiteId, startDate, endDate, username, paid, price) as Json Properties
+    * Has getters and setters for the fields as deemed necessary
+    * Can determine if reservations are the same  
+
+  - Schedule Service:
+    * Its primary responsibility is to create reservations using the information in reservation object, along with determining if they are valid reservations
+    * Reservations are determined to be valid by being associated with a valid campsite, and by having valid start and end dates
+
+  - User:
+    * Its primary responsibility is to create new users, along with determining if users are the same
+    * Decalres the user's fields (username, password, isAdmin) as Json Properties
+    * Uses an equals methods that determines is useres are equal by checking usernames, can promote users to admin, get user fields, and authenticate passwords. 
+
+  - InventoryDAO:
+    * Its primary responsibility is to serve as an interface for the InventoryFileDAO
+    * The interface declares methods for getting campsites, creating campsites, updating campsites, deleting campsites, getting all campsites, and finding specific campsites given a certain criteria
+
+  - InventoryFileDAO:
+    * Its primary responsibility is to serve as the object to get Inventory data regarding campsites
+    * Implements the methods described in the InventoryDAO interface, interacts with campsite json file, and updates the Campsite Json data accordingly
+
+  - ReservationDAO:
+    * Its primary responsibility is to serve as an interface for the ReservationFileDAO
+    * The interface declares methods for getting reservations, get a users specific reservations, get Cart Total, create reservation, update reservations, pay a reservation, pay for a shopping cart, and delete reservations
+
+  - ReservationFileDAO:
+    * Its primary responsibility is to serve as the object to get Inventory data regarding reservations
+    *Implements the methods described in the ReservationDAO interface, interacts with reservation json file, and updates the Campsite Json data accordingly
+
+  - UserDAO:
+    * Its primary responsibility is to serve as an interface for the UserFileDAO
+    * The interface declares methods for getting all users, getting a specific user, determining if a user exists, create a user, update a user, and delete a user
+
+  - UserFileDAO:
+    * Its primary responsibility is to serve as the object to get data regarding users
+    * Implements the methods described in the UserDAO interface, interacts with userjson file, and updates the Campsite Json data accordingly
+
 ### Static Code Analysis/Design Improvements
 > _Discuss design improvements that you would make if the project were
 > to continue. These improvement should be based on your direct

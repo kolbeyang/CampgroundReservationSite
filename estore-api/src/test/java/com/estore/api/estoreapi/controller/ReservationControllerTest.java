@@ -35,7 +35,8 @@ public class ReservationControllerTest {
     @BeforeEach
     public void setupReservationController() {
         mockReservationDAO = mock(ReservationDAO.class);
-        reservationController = new ReservationController(mockReservationDAO);
+        mockScheduleService = mock(ScheduleService.class);
+        reservationController = new ReservationController(mockReservationDAO, mockScheduleService);
     }
 
     @Test

@@ -48,7 +48,6 @@ export class ReservationService {
     getReservation(id: number): Observable<Reservation> {
       const url = `${this.reservationURL}/${id}`;
       return this.http.get<Reservation>(url).pipe(
-        tap(_ => this.log(`fetched reservation id=${id}`)),
         catchError(this.handleError<Reservation>(`getReservation id=${id}`))
       );
     }
