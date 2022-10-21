@@ -171,12 +171,22 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         System.out.println("Post createUser request received");
+        String trimmedUsername = user.getUsername().trim();
+        String[] splitUserStrings = trimmedUsername.split(" ");
+
         LOG.info("POST /users " + user);
         try {
             User[] users = userDAO.getUsers();
             if (Arrays.asList(users).contains(user))  {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
-            } else {
+            } 
+            else if( user.getUsername().equals(" ")){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            else if(splitUserStrings.length > 1){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            else {
                 User created = userDAO.createUser(user);
                 return new ResponseEntity<User>(created, HttpStatus.CREATED);
             }

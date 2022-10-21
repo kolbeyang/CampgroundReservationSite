@@ -46,7 +46,7 @@ Each campsite can only have one reservation at any given time, so if a user make
 
 ### MVP Features
 STORY
-<br> Login: As an owner, I can login with the username “admin” and the password “1234” so that I can receive administrator privileges.
+<br> Login: As an owner, I can login with the username “Admin” and the password “1234” so that I can receive administrator privileges.
 <br>EPIC
 <br>Edit Inventory: As an owner, I want to edit the campsites listed in the inventory so that the list of campsites displayed  to the customers is accurate and up to date.
 <br>STORY
@@ -71,7 +71,10 @@ STORY
 
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+<br>Scheduling: Campsites will not be able to have more than a specified amount of reservations at any given time.
+<br>Changes in inventory: If the owner removes a campsite from the inventory or changes its status to not reservable, any customers with paid reservations or reservations in their cart for that campsite will receive a notice and their reservations will be removed the next time they login. 
+<br>Setting Campsite Dates: The owner will be able to specify certain times of year that the campsites are available or unavailable and users will be able to see this.
+
 
 
 ## Application Domain
@@ -182,3 +185,5 @@ with the e-store application.
 > those._
 
 Our main unit testing strategy was to flesh out the classes, and then once implemented write out tests then check the coverage using jacoco to determine what other test cases/branches need to be covered. For some classes in the model it made more sense to follow Test Driven Development and have tests the fail until methods are implemented, but for the remaining classes in the other tiers it wasn't as feasible.
+
+![Overall Code Coverage](Code_Coverage.PNG)
