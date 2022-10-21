@@ -238,6 +238,10 @@ Classes
     * The only methods this class uses are to return a Login Request's username, and its password
 
   - Login Response:
+    * Its primary responsibility is to represent a Login response
+    * Declares Login request fields (username, password, isadmin) as Json Properties
+    * The only methods this class uses are to return a Login Request's username, its password, and admin status
+
 
   - Reservation:
     * Its primary responsibility is to create a new reservation object, along with managing/editing reservations, associated with a campsite object
