@@ -31,9 +31,9 @@ An online E-store system built in Java 17
 
 ## Known bugs and disclaimers
 (It may be the case that your implementation is not perfect.)
-- Still possible to add in negative values to the rates
-- The campsite names are not case-sensitive so duplicate names with different cases will be accepted
-- Still possible to add in empty campsite names
+-Reservations can overlap
+-When the owner reserves a campsite it doesn't cancel the reservations with that associated campsite
+-Can create an empty username
 
 Document any known bug or nuisance.
 If any shortcomings, make clear what these are and where they are located.

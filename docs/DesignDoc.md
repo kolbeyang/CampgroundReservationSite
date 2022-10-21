@@ -24,13 +24,22 @@ This is a summary of the project.
 > _Provide a very brief statement about the project and the most
 > important user group and user goals._
 
+The goal of the Letch Worth E-store was to provide the Letch Worth Campgrounds company with the ability to rent out their campsites to customers through a online service. In the most basic level the E-store would be able to let users log online to browse through and reserve campsites that were made available by the company owner. 
+
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
-| SPA | Single Page |
-
+| SPA  | Single Page Application |
+| API | Application programming <br> interface
+| CRUD | Create Read Update Delete|
+| START | START or Representational State Transfer <br> is the architectural style that was used <br> for the project's separate components.
+| SPA | Single Page Application
+| UI  | User Interface
+| UML | Universal Markup Language
+| Spring Framework | The platform used to develop <br> the project software
+| TDD | Test Driven Development
 
 ## Requirements
 
@@ -46,7 +55,7 @@ Each campsite can only have one reservation at any given time, so if a user make
 
 ### MVP Features
 STORY
-<br> Login: As an owner, I can login with the username “admin” and the password “1234” so that I can receive administrator privileges.
+<br> Login: As an owner, I can login with the username “Admin” and the password “1234” so that I can receive administrator privileges.
 <br>EPIC
 <br>Edit Inventory: As an owner, I want to edit the campsites listed in the inventory so that the list of campsites displayed  to the customers is accurate and up to date.
 <br>STORY
@@ -71,7 +80,10 @@ STORY
 
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+<br>Scheduling: Campsites will not be able to have more than a specified amount of reservations at any given time.
+<br>Changes in inventory: If the owner removes a campsite from the inventory or changes its status to not reservable, any customers with paid reservations or reservations in their cart for that campsite will receive a notice and their reservations will be removed the next time they login. 
+<br>Setting Campsite Dates: The owner will be able to specify certain times of year that the campsites are available or unavailable and users will be able to see this.
+
 
 
 ## Application Domain
@@ -220,6 +232,7 @@ AuthenticationService
 > and recommendations for further improvements. Where relevant, include 
 > screenshots from the tool and/or corresponding source code that was flagged._
 
+
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
@@ -231,11 +244,24 @@ AuthenticationService
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
+
+For the acceptance portion of the code, almost all of the user stories have passed their acceptance criteria.  In total, 10 of the 11 user stories completed passed all of their acceptance testing. However, there were two user stories that did not pass the acceptance testing. The first story that didn't pass all of its tests was the story: Buyer, Add Reservation to Cart. Its Acceptance Criteria are shown below:
+
+![Acceptence Criteria](SWEN-261-CodeDocs-AcceptenceTesting.PNG)
+
+As it can seen be the second criteria of preventing scheduling conflicts was not completed. This is due to the campsites not checking for overlapping times for reservations, but this will be fixed in later versions of the project.  In total the rest of the acceptance testing of the user stories were tested and verified.
+
 ### Unit Testing and Code Coverage
 > _Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
 > coverage targets, why you selected those values, and how well your
 > code coverage met your targets. If there are any anomalies, discuss
 > those._
+The strategy that was used for unit testing was to first have a developer fully implement the backend classes for a specific feature they were working on. After this was done, a separate user created the required Unit tests of the project using the Junit and Mockito testing frameworks. These unit tests were subdivided based on the three main components of the project: the model, controller, and the persistence.  
 
-Our main unit testing strategy was to flesh out the classes, and then once implemented write out tests then check the coverage using jacoco to determine what other test cases/branches need to be covered. For some classes in the model it made more sense to follow Test Driven Development and have tests the fail until methods are implemented, but for the remaining classes in the other tiers it wasn't as feasible.
+After all the tests passed, a Jacoco report was generated to check the coverage of the testing. This was used to determine what other test cases/scenarios need to be covered. The figure below shows the results of the Jacoco report. 
+
+
+![Overall Code Coverage](Code_Coverage.PNG)
+
+As it can be seen the code coverage 97% was achieved for the persistence, 91% was achieved for the model, and 90% was achieved for the controller. The coverage targets that were aimed for were 90% for the controller and persistence, and 95% for the model.  Although all of the coverage targets were achieved, there were still some untested scenarios that will need to be addressed later on.  For some classes in the model it made more sense to follow Test Driven Development (TDD) and have tests the fail until methods are implemented, but for the remaining classes in the other tiers it wasn't as feasible. Overall, as the project continues, the unit testing will be continually updated to ensure that the code is functioning.
