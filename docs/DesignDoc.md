@@ -182,3 +182,5 @@ with the e-store application.
 > those._
 
 Our main unit testing strategy was to flesh out the classes, and then once implemented write out tests then check the coverage using jacoco to determine what other test cases/branches need to be covered. For some classes in the model it made more sense to follow Test Driven Development and have tests the fail until methods are implemented, but for the remaining classes in the other tiers it wasn't as feasible.
+
+![Overall Code Coverage](Code_Coverage.PNG)
