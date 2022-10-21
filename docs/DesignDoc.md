@@ -263,15 +263,15 @@ Classes
     * The interface declares methods for getting campsites, creating campsites, updating campsites, deleting campsites, getting all campsites, and finding specific campsites given a certain criteria
 
   - InventoryFileDAO:
-    *Its primary responsibility is to serve as the object to get Inventory data regarding campsites
-    *Implements the methods described in the InventoryDAO interface, interacts with campsite json file, and updates the Campsite Json data accordingly
+    * Its primary responsibility is to serve as the object to get Inventory data regarding campsites
+    * Implements the methods described in the InventoryDAO interface, interacts with campsite json file, and updates the Campsite Json data accordingly
 
   - ReservationDAO:
     * Its primary responsibility is to serve as an interface for the ReservationFileDAO
     * The interface declares methods for getting reservations, get a users specific reservations, get Cart Total, create reservation, update reservations, pay a reservation, pay for a shopping cart, and delete reservations
 
   - ReservationFileDAO:
-    *Its primary responsibility is to serve as the object to get Inventory data regarding reservations
+    * Its primary responsibility is to serve as the object to get Inventory data regarding reservations
     *Implements the methods described in the ReservationDAO interface, interacts with reservation json file, and updates the Campsite Json data accordingly
 
   - UserDAO:
@@ -279,8 +279,8 @@ Classes
     * The interface declares methods for getting all users, getting a specific user, determining if a user exists, create a user, update a user, and delete a user
 
   - UserFileDAO:
-    *Its primary responsibility is to serve as the object to get data regarding users
-    *Implements the methods described in the UserDAO interface, interacts with userjson file, and updates the Campsite Json data accordingly
+    * Its primary responsibility is to serve as the object to get data regarding users
+    * Implements the methods described in the UserDAO interface, interacts with userjson file, and updates the Campsite Json data accordingly
 
 ### Static Code Analysis/Design Improvements
 > _Discuss design improvements that you would make if the project were
