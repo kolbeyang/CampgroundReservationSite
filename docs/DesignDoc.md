@@ -186,6 +186,8 @@ with the e-store application.
 > criteria tests failing, and the number of user stories that
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
+
+
 For the acceptance portion of the code, almost all of the user stories have passed their acceptance criteria.  In total, 10 of the 11 user stories completed passed all of their acceptance testing. However, there were two user stories that did not pass the acceptance testing. The first story that didn't pass all of its tests was the story: Buyer, Add Reservation to Cart. Its Acceptance Criteria are shown below:
 
 ![Acceptence Criteria](SWEN-261-CodeDocs-AcceptenceTesting.png)
