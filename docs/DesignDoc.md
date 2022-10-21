@@ -45,7 +45,7 @@ The E-store for Letchworth Campgrounds handles the reservations for various camp
 Each campsite can only have one reservation at any given time, so if a user makes a reservation at one campsite, another user cannot make an overlapping reservation at the same campsite. The reservations in the customers shopping cart remain even after logging out, and once a reservation is in a shopping cart, it is considered a part of the schedule of that campsite and no other user will be able to make a reservation at that campsite that overlaps.
 
 ### MVP Features
-STORY
+STORY\n
 Login: As an owner, I can login with the username “admin” and the password “1234” so that I can receive administrator privileges.
 EPIC
 Edit Inventory: As an owner, I want to edit the campsites listed in the inventory so that the list of campsites displayed  to the customers is accurate and up to date.
