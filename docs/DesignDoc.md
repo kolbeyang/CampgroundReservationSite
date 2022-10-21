@@ -187,7 +187,7 @@ with the e-store application.
 > acceptance testing and if there are any concerns._
 For the acceptance portion of the code, almost all of the user stories have passed their acceptance criteria.  In total, 10 of the 11 user stories completed passed all of their acceptance testing. However, there were two user stories that did not pass the acceptance testing. The first story that didn't pass all of its tests was the story: Buyer, Add Reservation to Cart. Its Acceptance Criteria are shown below:
 
-![Acceptence Criteria](SWEN-261-CodeDocs-AcceptenceTesting.jpg)
+![Acceptence Criteria](SWEN-261-CodeDocs-AcceptenceTesting.png)
 
 As it can seen be the second criteria of preventing scheduling conflicts was not completed. This is due to the campsites not checking for overlapping times for reservations, but this will be fixed in later versions of the project.  In total the rest of the acceptance testing of the user stories were tested and verified.
 
