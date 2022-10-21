@@ -48,6 +48,9 @@ export class UserLoginComponent implements OnInit {
     if (error.status == 409) {
       this.errorMessage = 'Username Already Taken';
     }
+    if( error.status == 400){
+      this.errorMessage = 'Please Don\'t Include Spaces';
+    }
   }
 
   ngOnInit(): void {
