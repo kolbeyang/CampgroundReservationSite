@@ -45,29 +45,29 @@ The E-store for Letchworth Campgrounds handles the reservations for various camp
 Each campsite can only have one reservation at any given time, so if a user makes a reservation at one campsite, another user cannot make an overlapping reservation at the same campsite. The reservations in the customers shopping cart remain even after logging out, and once a reservation is in a shopping cart, it is considered a part of the schedule of that campsite and no other user will be able to make a reservation at that campsite that overlaps.
 
 ### MVP Features
-STORY\n
-Login: As an owner, I can login with the username “admin” and the password “1234” so that I can receive administrator privileges.
-EPIC
-Edit Inventory: As an owner, I want to edit the campsites listed in the inventory so that the list of campsites displayed  to the customers is accurate and up to date.
 STORY
-Add Campsite: As an owner, I want to add a new campsite to the inventory so that it will be displayed to the customers.
-STORY
-Remove Campsite: As an owner, I want to remove campsites from the inventory so that it will no longer be displayed in the e-store.
-STORY
-Create Account: As a customer, I want to create an account so I can login to the e-store.
-Login: As a customer, I want to login with my credentials so that I can access the e-store and make reservations.
-STORY
-Create Reservation: As a customer, I can select a campsite and enter the dates for my reservation so that my reservation will be added to my cart and my spot and time will be reserved.
-STORY
-Remove Reservation from Cart: As a customer, I can remove a campsite from my cart so that when I decide I don’t want the reservation I don’t have to pay for it when I checkout.
-STORY
-Checkout: As a customer, I can checkout and purchase all reservations in my cart so that my reservations will be confirmed.
-STORY
-Cancel Reservation: As a customer, I can cancel a reservation I have paid for so that my spot at that campsite is no longer reserved.
-STORY
-Search for a Campsite: As a customer, I can search for campsites with names similar to what I search for so that I can find a specific campsite without having to browse the entire inventory.
-STORY
-Browse Campsites: As a customer, I can browse through all listed campsites so that I can choose one to make a reservation at.
+<br> Login: As an owner, I can login with the username “admin” and the password “1234” so that I can receive administrator privileges.
+<br>EPIC
+<br>Edit Inventory: As an owner, I want to edit the campsites listed in the inventory so that the list of campsites displayed  to the customers is accurate and up to date.
+<br>STORY
+<br>Add Campsite: As an owner, I want to add a new campsite to the inventory so that it will be displayed to the customers.
+<br>STORY
+<br>Remove Campsite: As an owner, I want to remove campsites from the inventory so that it will no longer be displayed in the e-store.
+<br>STORY
+<br>Create Account: As a customer, I want to create an account so I can login to the e-store.
+<br>Login: As a customer, I want to login with my credentials so that I can access the e-store and make reservations.
+<br>STORY
+<br>Create Reservation: As a customer, I can select a campsite and enter the dates for my reservation so that my reservation will be added to my cart and my spot and time will be reserved.
+<br>STORY
+<br>Remove Reservation from Cart: As a customer, I can remove a campsite from my cart so that when I decide I don’t want the reservation I don’t have to pay for it when I checkout.
+<br>STORY
+<br>Checkout: As a customer, I can checkout and purchase all reservations in my cart so that my reservations will be confirmed.
+<br>STORY
+<br>Cancel Reservation: As a customer, I can cancel a reservation I have paid for so that my spot at that campsite is no longer reserved.
+<br>STORY
+<br>Search for a Campsite: As a customer, I can search for campsites with names similar to what I search for so that I can find a specific campsite without having to browse the entire inventory.
+<br>STORY
+<br>Browse Campsites: As a customer, I can browse through all listed campsites so that I can choose one to make a reservation at.
 
 
 ### Roadmap of Enhancements
