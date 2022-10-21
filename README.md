@@ -33,7 +33,6 @@ An online E-store system built in Java 17
 (It may be the case that your implementation is not perfect.)
 -Reservations can overlap
 -When the owner reserves a campsite it doesn't cancel the reservations with that associated campsite
--Can create an empty username
 
 Document any known bug or nuisance.
 If any shortcomings, make clear what these are and where they are located.
