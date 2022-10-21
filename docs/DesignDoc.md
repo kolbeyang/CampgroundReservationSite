@@ -71,7 +71,10 @@ STORY
 
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+<br>Scheduling: Campsites will not be able to have more than a specified amount of reservations at any given time.
+<br>Changes in inventory: If the owner removes a campsite from the inventory or changes its status to not reservable, any customers with paid reservations or reservations in their cart for that campsite will receive a notice and their reservations will be removed the next time they login. 
+<br>Setting Campsite Dates: The owner will be able to specify certain times of year that the campsites are available or unavailable and users will be able to see this.
+
 
 
 ## Application Domain
