@@ -221,7 +221,7 @@ AuthenticationService
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 
 Classes
-  -Authentication Service:
+  - Authentication Service:
     -Its primary responsibility is to generate, contain, and verify user tokens
     -Uses private methods to generate a new token value, and generate a token for a specified user
     -This class can be used to login a user, determine user login status, whether they are a valid user, and whether a token is associated with an admin or customer  
