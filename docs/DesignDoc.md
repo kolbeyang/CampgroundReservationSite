@@ -23,7 +23,8 @@ This is a summary of the project.
 ### Purpose
 > _Provide a very brief statement about the project and the most
 > important user group and user goals._
-> The goal of the Letch Worth E-store was to provide the Letch Worth Campgrounds company with the ability to rent out their campsites to customers through a online service. In the most basic level the E-store would be able to let users log online to browse through and reserve campsites that were made available by the company owner. 
+
+The goal of the Letch Worth E-store was to provide the Letch Worth Campgrounds company with the ability to rent out their campsites to customers through a online service. In the most basic level the E-store would be able to let users log online to browse through and reserve campsites that were made available by the company owner. 
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
