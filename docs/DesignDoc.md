@@ -46,7 +46,7 @@ Each campsite can only have one reservation at any given time, so if a user make
 
 ### MVP Features
 STORY
-<br> Login: As an owner, I can login with the username “admin” and the password “1234” so that I can receive administrator privileges.
+<br> Login: As an owner, I can login with the username “Admin” and the password “1234” so that I can receive administrator privileges.
 <br>EPIC
 <br>Edit Inventory: As an owner, I want to edit the campsites listed in the inventory so that the list of campsites displayed  to the customers is accurate and up to date.
 <br>STORY
