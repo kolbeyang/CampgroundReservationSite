@@ -1,1 +1,173 @@
 /* You can add global styles to this file, and also import other style files */
+/* Application-wide Styles */
+:root {
+    --tan: #ECE5D4;
+    --yellow: #F9CF7D;
+    --light-gray: #D9D9D9;
+    --dark-gray: #555555;
+    --light-red: #e7d0d0;
+  }
+
+body {
+    background-color: var(--tan);
+}
+
+input {
+    padding: .5rem;
+    width: 100%;
+    height: 44px;
+    box-sizing: border-box;
+    display: block;
+    background-color: var(--light-gray);
+    color: black;
+    outline: black outset 3px;
+    margin-top: 20px;
+    font-size: 20px;
+  
+    border-radius: 6px;
+    border:none;
+  }
+input::placeholder {
+    color: black;
+}
+input:focus {
+    background-color: black;
+    color: white;
+}
+input:focus::placeholder {
+    color: var(--yellow);
+}
+
+  
+  li {
+    list-style : none;
+  }
+  
+  .card{
+    max-width: 350px;
+    padding: 72px 54px;
+    margin: auto;
+    margin-top: 10%;
+    margin-bottom: 32px;
+    row-gap: 20px;
+    display: flexbox;
+    background-color: white;
+    border-radius: 12px;
+    outline: black outset 3px;
+    box-shadow: -10px 12px 0px 0px black;
+  }
+
+  .list-element {
+      background-color: white;
+      margin: 0px 0px 0px 0px;
+      border-radius: 0px;
+      width: 100%;
+  }
+  
+  h1 {
+      color: black;
+      font-family: Helvetica, sans-serif;
+      font-size: 24px;
+    }
+    h2 {
+      font-size: 36px;
+      font-family: Helvetica, sans-serif;
+      color: black;
+      text-align: left;
+      margin: 0px;
+  }
+button {
+    background-color: var(--yellow);
+    width: 100%;
+    padding: 20px;
+    font-size: 24px;
+    color: black;
+    margin-top: 10px;
+
+    border-radius: 6px;
+    border:none;
+    outline-width: 0;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    outline: black outset 3px;
+
+    position: relative;
+    top: 0;
+}
+button:hover {
+    background-color: var(--yellow);
+    color: black;
+    box-shadow: -6px 8px 0px 0px black;
+    top: -5px;
+}
+button:disabled {
+    background-color: var(--light-gray);
+    outline: black outset 3px;
+    font-weight: normal;
+    color: black;
+    cursor: auto;
+    top: 0px;
+    box-shadow: none;
+}
+button:focus {
+    box-shadow: none;
+    font-weight: normal;
+    background-color: black;
+    color: white;
+    top: 0px;
+}
+.nav-button {
+    font-size: 22px;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    padding: 9px;
+    text-decoration: none;
+    color: black;
+    align: center;
+    margin-right: 20px;
+  }
+  .login-button {
+    padding: 12px 20px;
+      font-size: 22px;
+      margin-top: 0px;
+  }
+
+
+  .title {
+    font-size: 22px;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    padding: 9px;
+    text-decoration: none;
+    color: black;
+  }
+  .nav-bar {
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .button-box {
+    display:flex;
+    align-items: center;
+  }
+  
+.alert {
+    padding: 10px;
+    text-align: center;
+    font-weight: medium;
+    font-size: 14px;
+    color: black;
+    background-color:var(--light-red);
+    font-weight: bold;
+    margin-top: 30px;
+    border-radius: 8px;
+    outline: black outset 3px;
+}
+
+    
+    /* everywhere else */
+    * {
+      font-family: Arial, Helvetica, sans-serif;
+    }

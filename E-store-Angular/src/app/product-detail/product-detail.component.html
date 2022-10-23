@@ -1,22 +1,26 @@
-<div>
-<ul class="card">
-  <h2 *ngIf="!this.isAdmin()">Campsite Products</h2>
-  <h2 *ngIf="this.isAdmin()">Campsite Products Admin View</h2>
 
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
-  <li *ngFor="let product of products$ | async">
-    <button *ngIf="!this.isAdmin()" [class.selected]="product === selectedProduct" type="button" (click)="onSelect(product)">
-      <span class="name">{{product.name}}</span>
-    </button>
-    <button *ngIf="this.isAdmin()" [class.selected]="product === selectedProduct" type="button" (click)="onSelectAdmin(product)">
-      <span class="name">{{product.name}}</span>
-    </button>
-  </li>
-</ul>
+<div class="card search-card">
+
+  <div class = "search-card-element">
+    <h2 class = "page-title"> Browse Campsites</h2>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+  </div>
+    <li *ngFor="let product of products$ | async">
+      <button class = "list-element" *ngIf="!this.isAdmin()" [class.selected]="product === selectedProduct" type="button" (click)="onSelect(product)">
+        <span class="name">{{product.name}}</span>
+      </button>
+      <button class = "list-element" *ngIf="this.isAdmin()" [class.selected]="product === selectedProduct" type="button" (click)="onSelectAdmin(product)">
+        <span class="name">{{product.name}}</span>
+      </button>
+    </li>
+  <div>
+
+  </div>
+
 </div>
 
-<div *ngIf="selectedProduct" class = "card">
+<div *ngIf="selectedProduct && this.isLoggedIn()" class = "card">
   <div *ngIf="this.isLoggedIn() && !this.isAdmin()">
     <h2>{{selectedProduct.name | uppercase}} Details</h2>
     <div 
