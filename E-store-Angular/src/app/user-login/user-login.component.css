@@ -1,5 +1,7 @@
 
-
+.card {
+    max-width: 450px;
+}
 
 button{
     width: auto;
@@ -15,3 +17,4 @@ button{
     width: 100%;
     
 }
+

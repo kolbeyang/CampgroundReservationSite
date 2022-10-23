@@ -40,9 +40,6 @@
     
 }
 
-.button {
-    transition: transform 1s ease;
-}
 
 button:active {
     transform: scale(1.2, 1.2);

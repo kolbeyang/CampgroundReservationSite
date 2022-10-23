@@ -1,0 +1,35 @@
+
+
+<div class="card search-card">
+
+    <div class = "search-card-element">
+      <h2 class = "page-title"> Browse Campsites</h2>
+      <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+      </div>
+        <li *ngFor="let product of products$ | async">
+          <button class = "list-element" *ngIf="!this.isAdmin()" [class.selected]="product === selectedProduct" routerLink="/detail/{{product.id}}">
+            <span class="name">{{product.name}}</span>
+          </button>
+          <button class = "list-element" *ngIf="this.isAdmin()" [class.selected]="product === selectedProduct" routerLink="/detail/{{product.id}}">
+            <span class="name">{{product.name}}</span>
+          </button>
+        </li>
+      <div>
+    </div>
+  
+  </div>
+
+  <div *ngIf="this.isAdmin()" class = "card">
+    <h2>Create New Product</h2>
+      <div>
+            <div 
+              *ngIf="errorMessage!=''"
+              class = "alert">
+              {{errorMessage}}
+            </div>
+      <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name"/>
+      <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
+      <button type="Button" (click)="createProduct(NewCampsiteName.value, NewCampsiteRate.value)">Create New Campsite</button>
+    </div>
+  </div>
+  

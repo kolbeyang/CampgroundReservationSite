@@ -12,6 +12,7 @@ import { ViewCartComponent } from './view-cart/view-cart.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ViewReservationsComponent } from './view-reservations/view-reservations.component';
 import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
+import { BrowseCampsitesComponent } from './browse-campsites/browse-campsites.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReservationDetailComponent } from './reservation-detail/reservation-det
     ViewCartComponent,
     UserProfileComponent,
     ViewReservationsComponent,
-    ReservationDetailComponent
+    ReservationDetailComponent,
+    BrowseCampsitesComponent
   ],
   imports: [
     BrowserModule,

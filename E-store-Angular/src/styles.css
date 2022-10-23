@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
+* {
+  box-sizing: border-box;
+  margin: 0px;
+
+}
+
 :root {
     --tan: #ECE5D4;
     --yellow: #F9CF7D;
@@ -44,7 +50,7 @@ input:focus::placeholder {
   }
   
   .card{
-    max-width: 350px;
+    max-width: 50%;
     padding: 72px 54px;
     margin: auto;
     margin-top: 10%;
@@ -110,7 +116,7 @@ button:disabled {
     top: 0px;
     box-shadow: none;
 }
-button:focus {
+button:active {
     box-shadow: none;
     font-weight: normal;
     background-color: black;

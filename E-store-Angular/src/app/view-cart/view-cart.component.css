@@ -69,3 +69,69 @@ button{
     grid-template-columns: 1fr 1fr;
     
 }*/
+
+
+.products{
+    max-width: 350px;
+    padding: 72px 54px;
+    margin: auto;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    row-gap: 20px;
+    display: flexbox;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 5px 10px 5px #E6EAE6;
+}
+.page-title {
+    text-align: center;
+}
+
+
+.card {
+    margin-top: 16px;
+    align-items: center;
+
+    padding: 36px 32px;
+}
+
+.search-card {
+    padding: 0px;
+    overflow: hidden;
+}
+.search-card-element {
+    padding: 36px 32px;
+}
+
+
+.buttons{
+    margin-top: 20px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    
+}
+
+.list-element {
+    width: 100%;
+    padding: 20px;
+    font-size: 24px;
+    color: black;
+    
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    outline: black outset 3px;
+
+    position: relative;
+    top: 0;
+}
+
+
+button:active {
+    transform: scale(1.2, 1.2);
+}
+
+button:after {
+    background-color: white;
+}
