@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../Product';
 import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
@@ -13,16 +13,13 @@ import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 import { Reservation } from '../Reservation';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['../app.component.css','./product-detail.component.css']
+  selector: 'app-browse-campsites',
+  templateUrl: './browse-campsites.component.html',
+  styleUrls: ['./browse-campsites.component.css']
 })
-export class ProductDetailComponent implements OnInit {
-
-  @Input() campsite?: Campsite;
+export class BrowseCampsitesComponent implements OnInit {
 
   products$!: Observable<Campsite[]>;
   private searchTerms = new Subject<string>();
@@ -30,7 +27,6 @@ export class ProductDetailComponent implements OnInit {
   errorMessage = '';
 
   constructor(
-    private route: ActivatedRoute,
     private productService: ProductService, 
     private loginService: LoginService,
     private reservationService: ReservationService,
@@ -40,7 +36,6 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
 
     this.products$ = this.productService.searchProducts("");
-    this.getCampsite();
   }
 
   onSelect(product: Product): void {
@@ -52,13 +47,6 @@ export class ProductDetailComponent implements OnInit {
     this.productService.searchProducts("").subscribe(products => this.products$ = products);
   }
   */
-
-  getCampsite(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    console.log("Campsite id is " + id)
-    this.productService.getProduct(id)
-      .subscribe(campsite => this.campsite = campsite);
-  }
 
   // Push a search term into the observable stream.
   search(term: string): void {
@@ -166,9 +154,7 @@ export class ProductDetailComponent implements OnInit {
     
   }
 
-  goBack(): void {
-    this.location.back();
-  }
+
 
   isLoggedIn(): boolean{
     return this.loginService.isLoggedIn();

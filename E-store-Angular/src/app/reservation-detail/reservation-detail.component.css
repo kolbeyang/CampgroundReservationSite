@@ -1,0 +1,30 @@
+.list-element {
+    width: 100%;
+    padding: 20px;
+    font-size: 24px;
+    color: black;
+    
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    outline: black outset 3px;
+
+    position: relative;
+    top: 0;
+}
+
+.horizontal-display {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-block {
+    display: inline;
+    font-size: 24px;
+}
+
+.detail-text {
+    font-weight: normal;
+    font-size: 18px;
+    margin-top: 10px;
+}
