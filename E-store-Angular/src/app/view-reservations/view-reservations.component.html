@@ -10,7 +10,7 @@
     <h1> Your reservations </h1>
   </div>
     <li *ngFor="let reservation of reservations">
-      <app-reservation-detail *ngIf="reservation" [reservation] = "reservation"> </app-reservation-detail>
+      <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation] = "reservation"> </app-reservation-detail>
     </li>
 
 </div>
