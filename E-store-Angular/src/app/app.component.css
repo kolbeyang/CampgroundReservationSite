@@ -1,4 +1,5 @@
 button:hover {
     box-shadow: none;
     top:0px;
+    background-color: white;
 }
