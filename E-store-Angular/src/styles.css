@@ -107,6 +107,13 @@ button:hover {
     box-shadow: -6px 8px 0px 0px black;
     top: -5px;
 }
+button:active {
+  box-shadow: none;
+  font-weight: normal;
+  background-color: black;
+  color: white;
+  top: 0px;
+}
 button:disabled {
     background-color: var(--light-gray);
     outline: black outset 3px;
@@ -116,13 +123,7 @@ button:disabled {
     top: 0px;
     box-shadow: none;
 }
-button:active {
-    box-shadow: none;
-    font-weight: normal;
-    background-color: black;
-    color: white;
-    top: 0px;
-}
+
 .nav-button {
     font-size: 22px;
     font-family: Helvetica, sans-serif;

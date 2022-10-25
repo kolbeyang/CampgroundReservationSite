@@ -3,3 +3,7 @@ button:hover {
     top:0px;
     background-color: white;
 }
+
+button:active {
+    background-color:black;
+}
