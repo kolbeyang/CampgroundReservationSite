@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Campsite } from '../Campsite';
 import { Product } from '../Product';
@@ -15,6 +15,8 @@ export class ReservationDetailComponent implements OnInit {
   
   @Input() reservation?: Reservation;
   @Input() campsite?: Campsite;
+
+  @Output() deleteSelf: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private reservationService: ReservationService,
@@ -45,7 +47,7 @@ export class ReservationDetailComponent implements OnInit {
   }
 
   deleteReservation():void {
-    if (this.reservation) {this.reservationService.deleteReservation(this.reservation.id).subscribe();}
+    if (this.reservation) {this.reservationService.deleteReservation(this.reservation.id).subscribe(() => this.deleteSelf.emit());}
   }
 
 }

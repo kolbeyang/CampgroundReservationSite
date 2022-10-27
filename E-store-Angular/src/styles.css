@@ -107,6 +107,13 @@ button:hover {
     box-shadow: -6px 8px 0px 0px black;
     top: -5px;
 }
+button:active {
+  box-shadow: none;
+  font-weight: normal;
+  background-color: black;
+  color: white;
+  top: 0px;
+}
 button:disabled {
     background-color: var(--light-gray);
     outline: black outset 3px;
@@ -116,28 +123,7 @@ button:disabled {
     top: 0px;
     box-shadow: none;
 }
-button:active {
-    box-shadow: none;
-    font-weight: normal;
-    background-color: black;
-    color: white;
-    top: 0px;
-}
-.nav-button {
-    font-size: 22px;
-    font-family: Helvetica, sans-serif;
-    font-weight: bold;
-    padding: 9px;
-    text-decoration: none;
-    color: black;
-    align: center;
-    margin-right: 20px;
-  }
-  .login-button {
-    padding: 12px 20px;
-      font-size: 22px;
-      margin-top: 0px;
-  }
+
 
 
   .title {
@@ -148,16 +134,7 @@ button:active {
     text-decoration: none;
     color: black;
   }
-  .nav-bar {
-    display: flex;
-    padding: 12px;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .button-box {
-    display:flex;
-    align-items: center;
-  }
+
   
 .alert {
     padding: 10px;

@@ -24,7 +24,6 @@ export class AppComponent implements OnInit{
   }
 
   isAdmin(): boolean{
-    console.log(this.loginService.adminLoggedIn());
     return this.loginService.adminLoggedIn();
   }
   

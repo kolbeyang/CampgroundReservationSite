@@ -31,7 +31,6 @@ export class LoginService {
    * @returns Whether there is a user that is logged in
    */
   isLoggedIn() {
-    console.log(this.loginResponse.token)
     return this.loggedIn;
   }
   getUserName(){

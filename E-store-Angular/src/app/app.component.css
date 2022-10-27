@@ -3,3 +3,34 @@ button:hover {
     top:0px;
     background-color: white;
 }
+
+button:active {
+    background-color:black;
+}
+
+.nav-bar {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .button-box {
+    display:flex;
+    align-items: center;
+  }
+
+.nav-button {
+    font-size: 22px;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    padding: 9px;
+    text-decoration: none;
+    color: black;
+    align: center;
+    margin-right: 20px;
+  }
+  .login-button {
+    padding: 12px 20px;
+      font-size: 22px;
+      margin-top: 0px;
+  }
