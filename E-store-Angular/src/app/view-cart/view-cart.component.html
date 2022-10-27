@@ -3,9 +3,11 @@
   <div class = "search-card-element">
     <h2 class = "page-title"> Shopping Cart</h2>
   </div>
+  <div class = "list-container">
     <li *ngFor="let reservation of reservations">
       <app-reservation-detail (deleteSelf)="getReservations()" [reservation] = "reservation"> </app-reservation-detail>
     </li>
+  </div>
   <div class = "search-card-element">
     <div class = "horizontal-display">
       <h2 class = "text-block">Total</h2>

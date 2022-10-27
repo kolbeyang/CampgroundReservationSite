@@ -65,8 +65,14 @@
     padding: 0px;
     overflow: hidden;
 }
+
+.list-container {
+    
+}
+
 .search-card-element {
     padding: 36px 32px;
+    height: fit-content;
 }
 
 

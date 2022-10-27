@@ -56,6 +56,10 @@ button {
     font-size: 24px;
 }
 
+.campsite-name {
+    max-width: 65%;
+}
+
 .detail-text {
     font-weight: normal;
     font-size: 18px;

@@ -6,7 +6,7 @@
 
 <div *ngIf="this.isLoggedIn() && !this.isAdmin() && campsite" class = "card">
   <div class = "horizontal-display">
-    <h2 class = "text-block"> {{campsite.name}}</h2>
+    <h2 class = "text-block campsite-name"> {{campsite.name}}</h2>
     <h2 class = "text-block">${{campsite.rate}} / night  </h2>
   </div>
   <div 
@@ -32,9 +32,7 @@
       class = "alert">
       {{errorMessage}}
     </div>
-      <div><span>id: </span>{{campsite.id}}</div>
       <div>
-        <label for="Campsite-name">Campsite name: </label>
         <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
         <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
         <button type="Button" (click)="editProduct()">Save Changes</button>

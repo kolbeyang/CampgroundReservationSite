@@ -63,7 +63,7 @@ export class UserLoginComponent implements OnInit {
   login(loginResponse: LoginResponse) {
     this.loggedIn = true;
     this.loginService.login(loginResponse);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/browse']);
   }
 
   /**
