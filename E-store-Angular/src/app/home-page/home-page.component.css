@@ -1,5 +1,8 @@
 .background-image {
     width:100%;
+    height:100%;
+    object-fit: cover;
+    overflow: hidden;
 }
 
 .background-overlay {
@@ -13,6 +16,7 @@
 
 .container {
     position:relative;
+    height: calc(100vh  );
 }
 
 .main-text{
