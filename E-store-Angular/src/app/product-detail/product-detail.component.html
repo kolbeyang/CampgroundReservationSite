@@ -14,10 +14,9 @@
     class = "alert">
     {{errorMessage}}
   </div>
-
-
-    <input type="Date" #StartDate>
-    <input type="Date" #EndDate>
+  <app-calendar></app-calendar>
+  <input type="Date" #StartDate>
+  <input type="Date" #EndDate>
   <div>
     <!-- calling to createReservvation once this button is pressed-->
     <button class="make-reservation-button"  type="button"(click)="createReservation(StartDate.value, EndDate.value, campsite)">Make Reservation</button>

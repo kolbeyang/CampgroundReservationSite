@@ -1,0 +1,97 @@
+.top-bar {
+    display: flex;
+    flex-grow: 2;
+    outline: black outset 3px;
+    overflow: hidden;
+    justify-content: space-between;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.input-bar {
+    display: flex;
+    outline: none;
+    justify-content: space-between;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.date-input {
+    width: 40%;
+    margin-top: 0px;
+}
+
+button:hover {
+    box-shadow: none;
+    top: 0px;
+    background-color: black;
+}
+
+.arrow {
+    background-color: var(--light-gray);
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    width: 60px;
+    border-radius: 0px;
+}
+
+.date-display {
+    background-color: white;
+    padding: 16px;
+}
+
+.two-week-block {
+    outline: black outset 3px;
+    overflow: hidden;
+    justify-content: space-between;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.day-labels {
+    width: 100%;
+    display: flex;
+}
+
+.day-label-box {
+    padding: 10px;
+    width: 14.2857%;
+    outline: black 3px;
+    outline-style:outset;
+    background-color: white;
+}
+
+.day-label {
+    text-align: center;
+    background-color:none;
+}
+
+.date-label {
+    text-align: center;
+    font-size: 30px;
+    font-weight: normal;
+    background-color:none;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.week-block {
+    width: 100%;
+    display: flex;
+}
+
+.day-block {
+    width: 14.2857%;
+    aspect-ratio: 1/1;
+    height: calc(width);
+    outline: black 3px;
+    outline-style:solid;
+    background-color: var(--light-gray);
+    
+    position: relative;
+}

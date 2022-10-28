@@ -1,0 +1,32 @@
+
+<div class="top-bar"> 
+    <button class="arrow left-arrow" (click)="changePreviousWeek()"></button>
+    <h1 class="date-display">October 23 - November 5</h1>
+    <button class="arrow right-arrow" (click)="changeNextWeek()"></button>
+</div>
+
+<h3>{{startDate}}</h3>
+<h3>{{endDate}}</h3>
+
+<div class="two-week-block">
+    <div class="day-labels">
+        <div class = "day-label-box" *ngFor="let day of daysOfTheWeek">
+            <h1 class="day-label"> {{day}} </h1>
+        </div>
+    </div>
+    <div class="week-block week-one">
+        <div class = "day-block" *ngFor="let date of week1">
+            <h1 class="date-label"> {{date.getDate()}} </h1>
+        </div>
+    </div>
+    <div class="week-block week-two">
+        <div class = "day-block" *ngFor="let date of week2">
+            <h1 class="date-label"> {{date.getDate()}} </h1>
+        </div>
+    </div>
+</div>
+
+<div class="input-bar">
+    <input class="date-input start-date" type="date" #StartDate placeholder="Start date" (change)="setStartDate(StartDate.value)">
+    <input class="date-input end-date" type="date" #EndDate placeholder="End date" (change)="setEndDate(EndDate.value)">
+</div>
