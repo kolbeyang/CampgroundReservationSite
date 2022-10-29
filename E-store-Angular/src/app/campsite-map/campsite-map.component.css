@@ -26,8 +26,8 @@
 }
 
 .campsite-map{
-    width: 650px;
-    height: 325px;
+    width: 500px;
+    height: 500px;
     border: 5px solid rgb(136, 16, 16);
     align-self: center;
     position: relative;
@@ -35,6 +35,7 @@
     top: 0;
     left: 0;
     background-image: url(../../assets/campsite-map.png);
+    background-size: cover;
 }
 
 .map-card {

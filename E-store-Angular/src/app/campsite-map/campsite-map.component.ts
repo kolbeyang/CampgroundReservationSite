@@ -24,7 +24,6 @@ export class CampsiteMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.products$ = this.productService.searchProducts("");
-
   }
 
 }
