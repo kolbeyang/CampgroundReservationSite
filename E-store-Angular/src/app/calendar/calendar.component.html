@@ -1,7 +1,10 @@
-
-<div class="top-bar"> 
-    <button class="arrow left-arrow" (click)="changePreviousWeek()"></button>
-    <h1 class="date-display">October 23 - November 5</h1>
+<div class="top-bar">
+    <button class="arrow left-arrow" (click)="changePreviousWeek()">
+        <div class = "left-text">Previous week</div>
+    </button>
+    <div class = "date-display-box">
+        <h1 class="date-display">{{calendarTitle}}</h1>
+    </div>
     <button class="arrow right-arrow" (click)="changeNextWeek()"></button>
 </div>
 
@@ -10,23 +13,36 @@
 
 <div class="two-week-block">
     <div class="day-labels">
-        <div class = "day-label-box" *ngFor="let day of daysOfTheWeek">
+        <div class="day-label-box" *ngFor="let day of daysOfTheWeek">
             <h1 class="day-label"> {{day}} </h1>
         </div>
     </div>
     <div class="week-block week-one">
-        <div class = "day-block" *ngFor="let date of week1">
+        <div class="day-block" *ngFor="let date of week1">
+            <div class="lower-triangle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg" [attr.fill]="getColor(date)">
+                    <g id="Layer_2" data-name="Layer 2">
+                        <g id="Layer_1-2" data-name="Layer 1">
+                            <polygon class="cls-1" points="116.11 116.11 0 116.11 116.11 0 116.11 116.11" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
             <h1 class="date-label"> {{date.getDate()}} </h1>
         </div>
     </div>
     <div class="week-block week-two">
-        <div class = "day-block" *ngFor="let date of week2">
+        <div class="day-block" *ngFor="let date of week2">
+            <div class="lower-triangle"></div>
             <h1 class="date-label"> {{date.getDate()}} </h1>
         </div>
     </div>
 </div>
 
 <div class="input-bar">
-    <input class="date-input start-date" type="date" #StartDate placeholder="Start date" (change)="setStartDate(StartDate.value)">
+    <input class="date-input start-date" type="date" #StartDate placeholder="Start date"
+        (change)="setStartDate(StartDate.value)">
     <input class="date-input end-date" type="date" #EndDate placeholder="End date" (change)="setEndDate(EndDate.value)">
 </div>
+
+<div class="lower-triangle"></div>
