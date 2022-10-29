@@ -49,9 +49,9 @@ public class ReservationFileDAOTest {
     @BeforeEach
     public void setupreservationFileDAO() throws IOException{
         mockObjectMapper = mock(ObjectMapper.class);
-        Campsite camp1 = new Campsite(1, "Lucky Meadows Campsite", 11.99);
-        Campsite camp2 = new Campsite(2, "Eagle heights Campsite", 12.43);
-        Campsite camp3 = new Campsite(3, "Stony Brooks Campsite", 14);
+        Campsite camp1 = new Campsite(1, "Lucky Meadows Campsite", 11.99,  new Coordinates(50, 256));
+        Campsite camp2 = new Campsite(2, "Eagle heights Campsite", 12.43, new Coordinates(50, 255));
+        Campsite camp3 = new Campsite(3, "Stony Brooks Campsite", 14,  new Coordinates(50, 250));
         
         Reservation reserve1 = new Reservation(0, camp1.getId(), EPOCH + DAY,  EPOCH + (DAY * 2), fakeUsername,false, 1 ); //A reservation that is from a Day in advance from 
         Reservation reserve2 = new Reservation(1, camp2.getId(),EPOCH + DAY, EPOCH + (DAY*2), fakeUsername, false, 2 );

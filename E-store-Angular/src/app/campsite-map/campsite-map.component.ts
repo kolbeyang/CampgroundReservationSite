@@ -16,8 +16,6 @@ import { Observable, Subject } from 'rxjs';
 })
 export class CampsiteMapComponent implements OnInit {
   products$!: Observable<Campsite[]>;
-  Coordinates: number[][] = [[10,10],[30,60]];
-  Numer: number[] = [200,300]
 
   constructor(private productService: ProductService, 
     private loginService: LoginService,

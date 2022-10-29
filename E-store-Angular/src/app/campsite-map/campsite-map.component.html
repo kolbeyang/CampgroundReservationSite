@@ -1,15 +1,13 @@
 <div class = 'card'> 
     <div class = 'campsite-map'>
-        <li *ngFor="let num of Numer">
-            <img class="image1" [ngStyle]="{'left.px': num, 'top.px': num }" src="../../assets/tent-icon.png" routerLink="/detail/{{14}}" />
+        <li *ngFor="let product of products$ | async">
+            <img class="image1" [ngStyle]="{'left.px': product.x, 'top.px': product.y }" src="../../assets/tent-icon.png" routerLink="/detail/{{product.id}}"
+            title="Campsite Name: {{product.name}} Click for more details" />
         </li>
     </div>
 
 </div> 
 
-<map name ="Campsite-map">
-    <area shape="rect" coords="50,50,100,100" title= 'Campsite Random' routerLink="/detail/{{14}}">
-</map>
 
 
 <!--

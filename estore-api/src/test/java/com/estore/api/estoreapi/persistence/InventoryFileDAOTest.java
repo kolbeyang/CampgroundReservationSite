@@ -43,9 +43,9 @@ public class InventoryFileDAOTest {
     @BeforeEach
     public void setupinventoryFileDAO()throws IOException{
         mockObjectMapper = mock(ObjectMapper.class);
-        Campsite camp1 = new Campsite(1, "Lucky Meadows Campsite", 11.99);
-        Campsite camp2 = new Campsite(2, "Eagle heights Campsite", 12.43);
-        Campsite camp3 = new Campsite(3, "Stony Brooks Campsite", 14);
+        Campsite camp1 = new Campsite(1, "Lucky Meadows Campsite", 11.99,  new Coordinates(70, 90));
+        Campsite camp2 = new Campsite(2, "Eagle heights Campsite", 12.43,  new Coordinates(150, 100));
+        Campsite camp3 = new Campsite(3, "Stony Brooks Campsite", 14,  new Coordinates(200, 210));
         testCampsites = new Campsite[3];
         testCampsites[0] = camp1;
         testCampsites[1] = camp2;
@@ -119,7 +119,7 @@ public class InventoryFileDAOTest {
      */
     @Test
     public void testcreateCampsites() throws IOException{
-        Campsite newCampsite = new Campsite(4, "Warbling wonders Campsite", 34.54);
+        Campsite newCampsite = new Campsite(4, "Warbling wonders Campsite", 34.54,  new Coordinates(230, 50));
         inventoryFileDAO.createCampsite(newCampsite);
         assertEquals(newCampsite, inventoryFileDAO.getCampsite(newCampsite.getId()));
     }
@@ -129,7 +129,7 @@ public class InventoryFileDAOTest {
       */
     @Test
     public void testupdateCampsite(){
-        Campsite updateCampsite = new Campsite(3, "Worming Wonders Campsite", 34.54);
+        Campsite updateCampsite = new Campsite(3, "Worming Wonders Campsite", 34.54,  new Coordinates(450, 50));
 
         testCampsites[2].setName(updateCampsite.getName());
         testCampsites[2].setRate(updateCampsite.getRate());
@@ -169,7 +169,7 @@ public class InventoryFileDAOTest {
      */
     @Test
     public void testUpdateCampsiteNotFound(){
-        Campsite fakeCamp = new Campsite(999, "Stony Brooks Campsite", 45);
+        Campsite fakeCamp = new Campsite(999, "Stony Brooks Campsite", 45,  new Coordinates(50, 50));
         Campsite result = assertDoesNotThrow(() -> inventoryFileDAO.updateCampsite(fakeCamp), "fakeCamp should not exist" );
         assertNull(result);
     }   
@@ -198,7 +198,7 @@ public class InventoryFileDAOTest {
             .when(mockObjectMapper)
                 .writeValue(any(File.class), any(Campsite[].class));
 
-        Campsite newCampsite = new Campsite(23, "Evererst Glades Campsite", 9.65);
+        Campsite newCampsite = new Campsite(23, "Evererst Glades Campsite", 9.65,  new Coordinates(50, 50));
 
         assertThrows(IOException.class, () -> inventoryFileDAO.createCampsite(newCampsite));
     }
