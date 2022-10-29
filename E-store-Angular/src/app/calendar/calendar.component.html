@@ -1,15 +1,16 @@
 <div class="top-bar">
-    <button class="arrow left-arrow" (click)="changePreviousWeek()">
-        <div class = "left-text">Previous week</div>
-    </button>
-    <div class = "date-display-box">
+    <div class="date-display-box">
         <h1 class="date-display">{{calendarTitle}}</h1>
     </div>
-    <button class="arrow right-arrow" (click)="changeNextWeek()"></button>
+    <div class="button-box">
+        <button class="week-toggle left-arrow" (click)="changePreviousWeek()">
+            <div class="left-text week-toggle-text">Previous week</div>
+        </button>
+        <button class="week-toggle right-arrow" (click)="changeNextWeek()">
+            <div class="right-text week-toggle-text">Next week</div>
+        </button>
+    </div>
 </div>
-
-<h3>{{startDate}}</h3>
-<h3>{{endDate}}</h3>
 
 <div class="two-week-block">
     <div class="day-labels">
@@ -18,9 +19,19 @@
         </div>
     </div>
     <div class="week-block week-one">
-        <div class="day-block" *ngFor="let date of week1">
+        <div class="day-block" *ngFor="let date of week1" [style.background-color]="getColor(date, 0)">
             <div class="lower-triangle">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg" [attr.fill]="getColor(date)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg"
+                    [attr.fill]="getColor(date, 1)">
+                    <!-- <defs>
+                        <style>
+                            .cls-1 {
+                                stroke: #000000;
+                                stroke-miterlimit: 10;
+                                stroke-width: 3px;
+                            }
+                        </style>
+                    </defs> -->
                     <g id="Layer_2" data-name="Layer 2">
                         <g id="Layer_1-2" data-name="Layer 1">
                             <polygon class="cls-1" points="116.11 116.11 0 116.11 116.11 0 116.11 116.11" />
@@ -32,8 +43,18 @@
         </div>
     </div>
     <div class="week-block week-two">
-        <div class="day-block" *ngFor="let date of week2">
-            <div class="lower-triangle"></div>
+        <div class="day-block" *ngFor="let date of week2" [style.background-color]="getColor(date, 0)">
+            <div class="lower-triangle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg"
+                    [attr.fill]="getColor(date, 1)">
+
+                    <g id="Layer_2" data-name="Layer 2">
+                        <g id="Layer_1-2" data-name="Layer 1">
+                            <polygon class="cls-1" points="116.11 116.11 0 116.11 116.11 0 116.11 116.11" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
             <h1 class="date-label"> {{date.getDate()}} </h1>
         </div>
     </div>
@@ -45,4 +66,3 @@
     <input class="date-input end-date" type="date" #EndDate placeholder="End date" (change)="setEndDate(EndDate.value)">
 </div>
 
-<div class="lower-triangle"></div>

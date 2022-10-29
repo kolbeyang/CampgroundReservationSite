@@ -136,8 +136,11 @@ export class ProductDetailComponent implements OnInit {
     // console.log("Start value" + start);
     // console.log("End Value" + end);
     let currentDate = new Date();
-    let startDate = new Date(start);
-    let endDate = new Date(end);
+    let startDate = new Date(start.replace(/-/g, '\/'));
+    let endDate = new Date(end.replace(/-/g, '\/'));
+
+    console.log("Input strings are from  " + start + " to " + end);
+    console.log("Creating a reservation from " + startDate + " to " + endDate);
 
     // console.log("Start Date:" + startDate.getTime());
     // console.log("End Date:" + endDate.getTime());
@@ -154,7 +157,7 @@ export class ProductDetailComponent implements OnInit {
     else{
       let camp = new Campsite(site.name, site.id, site.rate);
 
-      let reserve = new Reservation(1001, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
+      let reserve = new Reservation(1001, Number(camp.id), startDate.getTime(), endDate.getTime(), this.loginService.getUserName(), false, camp.rate);
       
       //calling to reservation service add reservation 
       // this.reservationService.addReservation(reserve).subscribe(
