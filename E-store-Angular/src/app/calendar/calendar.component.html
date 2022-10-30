@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="week-block week-one">
-        <button class="day-block" *ngFor="let date of week1" [style.background-color]="getColor(date, 0)" (click)="handleCalendarClick(date)">
+        <button class="day-block" *ngFor="let date of week1" [style.background-color]="getColor(date, 0)" (mousedown)="handleCalendarClick(date)">
             <div class="lower-triangle">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg"
                     [attr.fill]="getColor(date, 1)">
@@ -35,7 +35,7 @@
         </button>
     </div>
     <div class="week-block week-two">
-        <button class="day-block" *ngFor="let date of week2" [style.background-color]="getColor(date, 0)" (click)="handleCalendarClick(date)">
+        <button class="day-block" *ngFor="let date of week2" [style.background-color]="getColor(date, 0)" (mousedown)="handleCalendarClick(date)">
             <div class="lower-triangle">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg"
                     [attr.fill]="getColor(date, 1)">
@@ -55,7 +55,7 @@
 
 <div class="input-bar">
     <input class="date-input start-date" type="date" id="startDate" #StartDate placeholder="Start date"
-        (change)="setStartDate(StartDate.value)">
-    <input class="date-input end-date" type="date" id="endDate" #EndDate placeholder="End date" (change)="setEndDate(EndDate.value)">
+        (change)="handleStartDate(StartDate.value)">
+    <input class="date-input end-date" type="date" id="endDate" #EndDate placeholder="End date" (change)="handleEndDate(EndDate.value)">
 </div>
 

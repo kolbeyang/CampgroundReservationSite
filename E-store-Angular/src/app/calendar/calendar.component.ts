@@ -1,5 +1,6 @@
+import { DOCUMENT } from '@angular/common';
 import { outputAst } from '@angular/compiler';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { Campsite } from '../Campsite';
 import { ProductService } from '../product.service';
 import { Reservation } from '../Reservation';
@@ -22,6 +23,7 @@ export class CalendarComponent implements OnInit {
 
   startDate?: Date;
   endDate?: Date;
+  value: Date = new Date();
 
   calendarStartDate: Date;
   calendarTitle: string = "";
@@ -32,7 +34,7 @@ export class CalendarComponent implements OnInit {
 
   color = "#FF0000";
 
-  constructor( private productService: ProductService) {
+  constructor( private productService: ProductService, @Inject(DOCUMENT) private document: Document) {
     this.calendarStartDate = new Date();
     this.calendarStartDate.setHours(0,0,0,0);
     this.calendarStartDate = this.getPreviousSunday(this.calendarStartDate);
@@ -131,7 +133,6 @@ export class CalendarComponent implements OnInit {
 
     let startDate: Date;
     let endDate: Date;
-    let calendarEndDate = new Date(this.calendarStartDate.getTime() + 13 * 24 * 60 * 60 * 1000);
 
     for (let reservation of this.reservations) {
       startDate = new Date(reservation.startDate);
@@ -216,8 +217,20 @@ export class CalendarComponent implements OnInit {
 
   handleCalendarClick(date: Date) {
     let index = Math.floor((date.getTime() - this.calendarStartDate.getTime()) / (24 * 60 * 60 * 1000));
-    console.log("Day clicked of index " + index);
 
+    if (this.startDate && this.endDate) {
+      if (date < this.startDate) {
+        this.validateStartDate(date);
+      } else {
+        this.validateEndDate(date);
+      }
+    } else if (!this.startDate && this.endDate) {
+      this.validateStartDate(date);
+    } else if (this.startDate && !this.endDate) {
+      this.validateEndDate(date);
+    } else if (!this.startDate && !this.endDate) {
+      this.validateStartDate(date);
+    } 
   }
 
   emitDateRange():void {
@@ -225,23 +238,141 @@ export class CalendarComponent implements OnInit {
     this.dateRange.emit([this.startDate, this.endDate]);
   }
 
-  setStartDate(date: string | null): void {
+  setStartDate(date?: Date): void {
+    //assume date is formatted correctly and date range is valid
+    console.log("setting StartDate");
+    this.startDate = date;
+    this.updateCalendar();
+    this.emitDateRange();
+
+    let startDateElement = this.document.querySelector("#startDate") as HTMLInputElement;
+    let DateOrNull: Date | null;
+    if (this.startDate) DateOrNull = this.startDate;
+    else DateOrNull = null;
+    if (startDateElement) {
+      startDateElement.valueAsDate = DateOrNull;
+    }
+  }
+
+  setEndDate(date?: Date): void {
+    //assume date is formatted correctly and date range is valid
+    console.log("setting EndDate");
+    this.endDate = date;
+    this.updateCalendar();
+    this.emitDateRange();
+
+    let endDateElement = this.document.querySelector("#endDate") as HTMLInputElement;
+    let DateOrNull: Date | null;
+    if (this.endDate) DateOrNull = this.endDate;
+    else DateOrNull = null;
+    if (endDateElement) {
+      endDateElement.valueAsDate = DateOrNull;
+    }
+  }
+
+  setDateRangeIfValid(date1: Date, date2: Date): boolean {
+    console.log("validating date range " + date1 + " to " + date2);
+    let valid: boolean = true;
+
+    if (date1.getTime() >= date2.getTime()) {
+      //start date cannot be equal or after end date
+      valid = false;
+    }
+
+    if (this.reservations && valid) {
+
+      let ResStartDate: Date;
+      let ResEndDate: Date;
+
+      for (let reservation of this.reservations) {
+        ResStartDate = new Date(reservation.startDate);
+        ResEndDate = new Date(reservation.endDate);
+
+
+        if (ResStartDate.getTime() === date1.getTime()) {
+          valid = false;
+          break;
+        } else if (ResEndDate.getTime() === date2.getTime()) {
+          valid = false;
+          break;
+        } else if (ResStartDate.getTime() < date1.getTime() && date1.getTime() < ResEndDate.getTime()) {
+          valid = false;
+          break;
+        } else if (ResStartDate.getTime() < date2.getTime() && date2.getTime() < ResEndDate.getTime()) {
+          valid = false;
+          break;
+        } else if (date1.getTime() < ResStartDate.getTime() && ResStartDate.getTime() < date2.getTime()) {
+          valid = false;
+          break;
+        }
+      }
+
+      if (!valid) {console.log("CONFLICTING with a reservation");}
+
+    }
+
+    if (valid) {
+      this.setStartDate(date1);
+      this.setEndDate(date2);
+    }
+    return valid;;
+  }
+
+  //checks input start date and updates if valid
+  validateStartDate(date: Date): boolean {
+    console.log("validating startDate");
+    let valid: boolean = true;
+
+    if (this.endDate) {
+      if (this.setDateRangeIfValid(date, this.endDate)) {
+        //end Date is set but the date range is invalid
+        valid = true;
+      } else {
+        valid = false;
+      }
+    } else {
+      this.setStartDate(date);
+    }
+    return valid;
+  }
+
+
+  //checks input end date and updates if valid
+  validateEndDate(date: Date): boolean {
+    console.log("validating endDate");
+    let valid: boolean = true;
+
+    if (this.startDate) {
+      if (this.setDateRangeIfValid(this.startDate, date)) {
+        //start Date is set but the date range in invalid
+        valid = true;
+      } else {
+        valid = false;
+      }
+    } else {
+      this.setEndDate(date);
+    }
+    return valid;
+  }
+
+  handleStartDate(date: string | null): void {
     console.log("Setting Start Date");
     if (date === null) {return;}
-    let newDate = new Date(date.replace(/-/g, '\/'));
-    this.startDate = newDate;
+    let startDate = new Date(date.replace(/-/g, '\/'));
+    this.validateStartDate(startDate);
     //if the start date is not shown, show it
-    if (!(this.calendarStartDate.getTime() <= newDate.getTime() && newDate.getTime() <= this.calendarStartDate.getTime() + 14 * 24 * 60 * 60 * 1000)) {
+    if (!(this.calendarStartDate.getTime() <= startDate.getTime() && startDate.getTime() <= this.calendarStartDate.getTime() + 14 * 24 * 60 * 60 * 1000)) {
       console.log("showwing date");
-      this.showDate(newDate);
+      this.showDate(startDate);
     }
 
     this.updateCalendar();
     this.emitDateRange();
   } 
-  setEndDate(date: string): void {
+  handleEndDate(date: string): void {
     if (date === null) {return;}
-    this.endDate = new Date(date.replace(/-/g, '\/'));
+    let endDate = new Date(date.replace(/-/g, '\/'));
+    this.setEndDate(endDate);
 
     this.updateCalendar();
     this.emitDateRange();
