@@ -27,9 +27,7 @@ export class CalendarComponent implements OnInit {
   calendarTitle: string = "";
 
   reservations?: Reservation[];
-
   @Input() campsite?: Campsite;
-
   @Output() dateRange: EventEmitter<Date[]> = new EventEmitter();
 
   color = "#FF0000";
@@ -171,7 +169,7 @@ export class CalendarComponent implements OnInit {
       week2Date = new Date(week2Date.setDate(week2Date.getDate() + 1));
     }
 
-    this.calendarTitle = this.months[firstDate.getMonth()] + " " + firstDate.getDate() + " - " + this.months[lastDate.getMonth()] + " " + lastDate.getDate();
+    this.calendarTitle = this.months[this.calendarStartDate.getMonth()] + " " + this.calendarStartDate.getDate() + " - " + this.months[lastDate.getMonth()] + " " + lastDate.getDate();
     this.updateColors();
   }
 
@@ -213,6 +211,12 @@ export class CalendarComponent implements OnInit {
 
     return "#D9D9D9";
 
+
+  }
+
+  handleCalendarClick(date: Date) {
+    let index = Math.floor((date.getTime() - this.calendarStartDate.getTime()) / (24 * 60 * 60 * 1000));
+    console.log("Day clicked of index " + index);
 
   }
 

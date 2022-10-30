@@ -160,6 +160,12 @@
     outline: black 3px;
     outline-style:solid;
     background-color: var(--light-gray);
-    
+    margin-top: 0px;
+    padding: 0px 0px 0px 0px;
+    border-radius: 0px;
     position: relative;
+}
+.day-block:hover {
+    box-shadow: 0px 8px 0px 0px black;
+    z-index: 1;
 }
