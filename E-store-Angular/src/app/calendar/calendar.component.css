@@ -49,7 +49,7 @@
     outline: black solid 3px;
     top: 0px;
     box-shadow: none;
-    transition: width 1s;
+    transition: width 0.2s;
     vertical-align:middle;
     padding: 0px;
     overflow: hidden;
@@ -61,25 +61,29 @@
 }
 
 .week-toggle-text {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
     display:none;
-    width: 250;
+    width: 250px;
     overflow: hidden;
     height: fit-content;
     text-align: center;
 }
-/* 
+
 .left-text {
+    left: 0px;
     text-align: left;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .right-text {
-    text-align: right;
-    margin-left: -20px;
     right: 0px;
+    text-align: right;
+    margin-right: 10px;
 }
 
-.left-arrow:hover .left-text{
+.left-arrow:hover .left-text {
     display: block;
     color: white;
 }
@@ -87,7 +91,7 @@
 .right-arrow:hover .right-text {
     display: block;
     color: white;
-} */
+}
 
 .date-display-box {
     position: relative;

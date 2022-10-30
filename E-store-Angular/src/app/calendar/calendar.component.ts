@@ -1,5 +1,5 @@
 import { outputAst } from '@angular/compiler';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Campsite } from '../Campsite';
 import { ProductService } from '../product.service';
 import { Reservation } from '../Reservation';
@@ -29,6 +29,8 @@ export class CalendarComponent implements OnInit {
   reservations?: Reservation[];
 
   @Input() campsite?: Campsite;
+
+  @Output() dateRange: EventEmitter<Date[]> = new EventEmitter();
 
   color = "#FF0000";
 
@@ -214,6 +216,11 @@ export class CalendarComponent implements OnInit {
 
   }
 
+  emitDateRange():void {
+    if (!(this.startDate && this.endDate)) return;
+    this.dateRange.emit([this.startDate, this.endDate]);
+  }
+
   setStartDate(date: string | null): void {
     console.log("Setting Start Date");
     if (date === null) {return;}
@@ -225,13 +232,15 @@ export class CalendarComponent implements OnInit {
       this.showDate(newDate);
     }
 
-    this.updateSelectionColors();
+    this.updateCalendar();
+    this.emitDateRange();
   } 
   setEndDate(date: string): void {
     if (date === null) {return;}
     this.endDate = new Date(date.replace(/-/g, '\/'));
 
-    this.updateSelectionColors();
+    this.updateCalendar();
+    this.emitDateRange();
   } 
 
 }

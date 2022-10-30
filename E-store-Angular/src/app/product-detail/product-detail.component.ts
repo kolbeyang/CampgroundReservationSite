@@ -29,6 +29,9 @@ export class ProductDetailComponent implements OnInit {
   selectedProduct?:Product;
   errorMessage = '';
 
+  startDate?: Date;
+  endDate?: Date;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService, 
@@ -122,6 +125,12 @@ export class ProductDetailComponent implements OnInit {
 
   }
 
+  updateDateRange(dateRange: Date[]): void {
+    this.startDate = dateRange[0];
+    this.endDate = dateRange[1];
+    console.log("Product detail received date range from " + this.startDate + " to " + this.endDate);
+  }
+
   //   /**
   //  * Handles Errors from a failed login
   //  * @param error The error to check
@@ -132,12 +141,20 @@ export class ProductDetailComponent implements OnInit {
   //     this.errorMessage = 'Reservation has a conflict.';
   //   }
 
-  createReservation(start: string, end: string, site: Product):void{
+  createReservation(start?: Date, end?: Date):void{
     // console.log("Start value" + start);
     // console.log("End Value" + end);
+    // let currentDate = new Date();
+    // let startDate = new Date(start.replace(/-/g, '\/'));
+    // let endDate = new Date(end.replace(/-/g, '\/'));
+
+    if (!(start && end && this.campsite)) return;
+
     let currentDate = new Date();
-    let startDate = new Date(start.replace(/-/g, '\/'));
-    let endDate = new Date(end.replace(/-/g, '\/'));
+    let startDate = start;
+    let endDate = end;
+
+    let site = this.campsite;
 
     console.log("Input strings are from  " + start + " to " + end);
     console.log("Creating a reservation from " + startDate + " to " + endDate);
