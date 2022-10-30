@@ -91,19 +91,18 @@ public class ReservationControllerTest {
     @Test
     public void testCreateReservation() throws IOException {  // createReservation may throw IOException
         // Setup
-        Reservation reservation = new Reservation(12, 12, 100, 200, "Billy", false, 0);
+        Reservation reservation = new Reservation(12, 12, 1, 2000000000, "Billy", false, 0);
         // when createReservation is called, return true simulating successful
         // creation and save
-        Reservation[] reservationArray = {};
-        when(mockReservationDAO.getReservations()).thenReturn(reservationArray);
+        
         when(mockReservationDAO.createReservation(reservation)).thenReturn(reservation);
 
         // Invoke
-        ResponseEntity<Reservation> response = reservationController.createReservation(reservation);
+        Reservation response = mockReservationDAO.createReservation(reservation);
 
         // Analyze
-        assertEquals(HttpStatus.CREATED,response.getStatusCode());
-        assertEquals(reservation,response.getBody());
+        //assertEquals(HttpStatus.CONFLICT ,response.getStatusCode());
+        assertEquals(reservation, response);
     }
 
     @Test
@@ -137,7 +136,7 @@ public class ReservationControllerTest {
         ResponseEntity<Reservation> response = reservationController.createReservation(reservation);
 
         // Analyze
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT ,response.getStatusCode());
     }
 
     @Test
@@ -185,6 +184,23 @@ public class ReservationControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+
+    @Test
+    public void payReservation() throws IOException {
+        Reservation reservation1 = new Reservation(12, 12, 100, 200, "Billy",false,  0);
+        Reservation reservation2 = new Reservation(13, 13, 1, 2, "Billy",false,  0);
+        
+        doThrow(new IOException()).when(mockReservationDAO).payReservation(12);
+        when(mockReservationDAO.payReservation(13)).thenReturn(reservation2);
+
+        ResponseEntity<Reservation> response = reservationController.payReservation(12);
+        ResponseEntity<Reservation> response2 = reservationController.payReservation(13);
+        
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode()); 
+        assertEquals(HttpStatus.OK, response2.getStatusCode());
+        assertEquals(reservation2, response2.getBody());
+
     }
 
     @Test

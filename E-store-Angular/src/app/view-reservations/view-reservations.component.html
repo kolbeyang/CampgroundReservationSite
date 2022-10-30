@@ -1,20 +1,18 @@
-<div>
-    <ul class="card">
-      <h2 *ngIf="!this.isAdmin()">Paid Reservations</h2>
-      <h2 *ngIf="this.isAdmin()">No Reservations for Admin</h2>
-        
-      <li *ngFor="let reservation of reservations">
-          <div class = "card">
-            <span class="campsiteId">  {{reservation.campsiteId}}  </span>
-            <span class="campsiteName"> {{getCampsiteName(reservation.campsiteId)}} </span>
-            <span class="startDate">START DATE: {{getStartDate(reservation).getMonth() + 1}}/{{getStartDate(reservation).getDate() + 1}}/{{getStartDate(reservation).getFullYear()}},  </span>
-            <span class="endDate">END DATE: {{getEndDate(reservation).getMonth() + 1}}/{{getEndDate(reservation).getDate() + 1}}/{{getEndDate(reservation).getFullYear()}}  </span>
-          <button type="button" (click)="deleteReservation(reservation)">
-            <span class="name">Remove</span>
-          </button>
-        </div>
-      </li>
-    </ul>
+<div *ngIf="!isLoggedIn()"> 
+  <h2 class = "page-title">Log in to view reservations</h2>
+</div>
+
+
+<div *ngIf="isLoggedIn()" class="card search-card">
+
+  <div class = "search-card-element">
+    <h2 class = "page-title"> Hi {{getUsername()}}! </h2>
+    <h1> Your reservations </h1>
+  </div>
+    <li *ngFor="let reservation of reservations">
+      <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation] = "reservation"> </app-reservation-detail>
+    </li>
+
 </div>
 
 

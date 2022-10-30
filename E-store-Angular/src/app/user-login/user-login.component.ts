@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
-  styleUrls: ['../app.component.css', './user-login.component.css']
+  styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
 
@@ -63,7 +63,7 @@ export class UserLoginComponent implements OnInit {
   login(loginResponse: LoginResponse) {
     this.loggedIn = true;
     this.loginService.login(loginResponse);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/browse']);
   }
 
   /**

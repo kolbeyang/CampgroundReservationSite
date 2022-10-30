@@ -14,7 +14,9 @@
 .page-title {
     text-align: center;
 }
-
+.make-campsite-button{
+    margin-top:30px;
+}
 
 .card {
     margin-top: 16px;
@@ -40,33 +42,11 @@
     
 }
 
-button {
-    margin-top:30px;
+
+button:active {
+    transform: scale(1.2, 1.2);
 }
 
-
-
-.horizontal-display {
-    display: flex;
-    justify-content: space-between;
+button:after {
+    background-color: white;
 }
-
-.text-block {
-    display: inline;
-    font-size: 24px;
-}
-
-.campsite-name {
-    max-width: 65%;
-}
-
-.detail-text {
-    font-weight: normal;
-    font-size: 18px;
-    margin-top: 10px;
-}
-
-.make-reservation-button {
-    margin-top: 30px;
-}
-  

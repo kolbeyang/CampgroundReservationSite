@@ -1,85 +1,44 @@
-<div>
-<ul class="card">
-  <h2 *ngIf="!this.isAdmin()">Campsite Products</h2>
-  <h2 *ngIf="this.isAdmin()">Campsite Products Admin View</h2>
 
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
-  <li *ngFor="let product of products$ | async">
-    <button *ngIf="!this.isAdmin()" [class.selected]="product === selectedProduct" type="button" (click)="onSelect(product)">
-      <span class="name">{{product.name}}</span>
-    </button>
-    <button *ngIf="this.isAdmin()" [class.selected]="product === selectedProduct" type="button" (click)="onSelectAdmin(product)">
-      <span class="name">{{product.name}}</span>
-    </button>
-  </li>
-</ul>
+<div *ngIf="!this.isLoggedIn()" class = "card">
+  <h1>Log in to view Campsites</h1>
 </div>
 
-<div *ngIf="selectedProduct" class = "card">
-  <div *ngIf="this.isLoggedIn() && !this.isAdmin()">
-    <h2>{{selectedProduct.name | uppercase}} Details</h2>
-    <div 
+<div *ngIf="this.isLoggedIn() && !this.isAdmin() && campsite" class = "card">
+  <div class = "horizontal-display">
+    <h2 class = "text-block campsite-name"> {{campsite.name}}</h2>
+    <h2 class = "text-block">${{campsite.rate}} / night  </h2>
+  </div>
+  <div 
     *ngIf="errorMessage!=''"
     class = "alert">
     {{errorMessage}}
   </div>
-    <div>id: {{selectedProduct.id}}</div>
-  
-    <div>
-      <label for="product-name">Campsite name: </label>
-      <span class ="rate">{{selectedProduct.name}}</span>
-    </div>
-    <div>
-      <label for="product-rate">Campsite rate: </label>
-      <span class ="rate">${{selectedProduct.rate}}/Night</span>
-    </div>
 
-    <div>
-      <label for="reservation-start">Start Date:</label>
-      <input type="Date" #StartDate>
-    </div>
-    <div>
-      <label for="reservation-end">End Date:</label>
-      <input type="Date" #EndDate>
-    </div>
-    <div>
-      <!-- calling to createReservvation once this button is pressed-->
-      <button type="button"(click)="createReservation(StartDate.value, EndDate.value, selectedProduct)">Make Reservation</button>
-    </div>
+
+    <input type="Date" #StartDate>
+    <input type="Date" #EndDate>
+  <div>
+    <!-- calling to createReservvation once this button is pressed-->
+    <button class="make-reservation-button"  type="button"(click)="createReservation(StartDate.value, EndDate.value, campsite)">Make Reservation</button>
   </div>
+</div>
 
-  <div *ngIf="this.isAdmin()" class = "card">
-      <h2>{{selectedProduct.name | uppercase}} Details</h2>
+
+  <div *ngIf="this.isAdmin() && campsite" class = "card">
+      <h2>{{campsite.name}} Details</h2>
       <div 
       *ngIf="errorMessage!=''"
       class = "alert">
       {{errorMessage}}
     </div>
-      <div><span>id: </span>{{selectedProduct.id}}</div>
       <div>
-        <label for="Campsite-name">Campsite name: </label>
-        <input id="Campsite-name" [(ngModel)]="selectedProduct.name" placeholder="Campsite name"/>
-        <input id="Campsite-rate" [(ngModel)]="selectedProduct.rate" placeholder="Campsite Rate">
+        <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
+        <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
         <button type="Button" (click)="editProduct()">Save Changes</button>
-        <button type="button" (click)="deleteProduct(selectedProduct)"delete>Delete</button>
+        <button type="button" (click)="deleteProduct(campsite)"delete>Delete</button>
         <!-- <button type="button" (click)="editProduct()">save</button> -->
       </div>
   </div>
 
-</div>
 
-
-<div *ngIf="this.isAdmin()" class = "card">
-  <h2>Create New Product</h2>
-    <div>
-          <div 
-            *ngIf="errorMessage!=''"
-            class = "alert">
-            {{errorMessage}}
-          </div>
-    <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name"/>
-    <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
-    <button type="Button" (click)="createProduct(NewCampsiteName.value, NewCampsiteRate.value)">Create New Campsite</button>
-  </div>
-</div>

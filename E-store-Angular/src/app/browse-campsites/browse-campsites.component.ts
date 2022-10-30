@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../Product';
 import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
@@ -13,16 +13,13 @@ import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 import { Reservation } from '../Reservation';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css']
+  selector: 'app-browse-campsites',
+  templateUrl: './browse-campsites.component.html',
+  styleUrls: ['./browse-campsites.component.css']
 })
-export class ProductDetailComponent implements OnInit {
-
-  @Input() campsite?: Campsite;
+export class BrowseCampsitesComponent implements OnInit {
 
   products$!: Observable<Campsite[]>;
   private searchTerms = new Subject<string>();
@@ -30,7 +27,6 @@ export class ProductDetailComponent implements OnInit {
   errorMessage = '';
 
   constructor(
-    private route: ActivatedRoute,
     private productService: ProductService, 
     private loginService: LoginService,
     private reservationService: ReservationService,
@@ -40,7 +36,6 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
 
     this.products$ = this.productService.searchProducts("");
-    this.getCampsite();
   }
 
   onSelect(product: Product): void {
@@ -53,13 +48,6 @@ export class ProductDetailComponent implements OnInit {
   }
   */
 
-  getCampsite(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    console.log("Campsite id is " + id)
-    this.productService.getProduct(id)
-      .subscribe(campsite => this.campsite = campsite);
-  }
-
   // Push a search term into the observable stream.
   search(term: string): void {
     this.products$ = this.productService.searchProducts(term.toLowerCase());
@@ -67,21 +55,21 @@ export class ProductDetailComponent implements OnInit {
 
   editProduct(): void{
     this.errorMessage = '';
-    let ratenume = new Number((this.campsite?.rate))
-    console.log('Selected product rate' +this.campsite?.rate);
-    console.log(this.campsite?.rate.valueOf());
+    let ratenume = new Number((this.selectedProduct?.rate))
+    console.log('Selected product rate' +this.selectedProduct?.rate);
+    console.log(this.selectedProduct?.rate.valueOf());
     // if(console.log(this.selectedProduct?.rate instanceof String)) {
 
     // }
-    if(this.campsite?.name.trim() === '' || !this.campsite?.name.toLowerCase().includes('campsite')){
+    if(this.selectedProduct?.name.trim() === '' || !this.selectedProduct?.name.toLowerCase().includes('campsite')){
       this.errorMessage = 'Invalid Campsite Name, Try Again';
       console.log("Error message was written");
     }
     else if (!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
       this.errorMessage = 'Invalid Rate, Try again';
-    }else if(this.campsite) {
+    }else if(this.selectedProduct) {
         this.errorMessage = '';
-        this.productService.updateProduct(this.campsite)
+        this.productService.updateProduct(this.selectedProduct)
         .subscribe();
       }
     
@@ -166,9 +154,7 @@ export class ProductDetailComponent implements OnInit {
     
   }
 
-  goBack(): void {
-    this.location.back();
-  }
+
 
   isLoggedIn(): boolean{
     return this.loginService.isLoggedIn();

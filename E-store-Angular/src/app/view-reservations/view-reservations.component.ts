@@ -53,6 +53,10 @@ export class ViewReservationsComponent implements OnInit {
   //   this.selectedReservation = reservation;
   // }
 
+  getUsername(): String {
+    return this.loginService.getUserName();
+  }
+
   isLoggedIn(): boolean{
     return this.loginService.isLoggedIn();
   }

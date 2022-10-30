@@ -4,11 +4,12 @@ import { ProductService } from '../product.service';
 import { ReservationService } from '../reservation.service';
 import { Reservation} from '../Reservation';
 import { Campsite } from '../Campsite';
+import { ReservationDetailComponent } from '../reservation-detail/reservation-detail.component';
 
 @Component({
   selector: 'app-view-cart',
   templateUrl: './view-cart.component.html',
-  styleUrls: ['../app.component.css','./view-cart.component.css']
+  styleUrls: ['./view-cart.component.css']
 })
 export class ViewCartComponent implements OnInit {
 

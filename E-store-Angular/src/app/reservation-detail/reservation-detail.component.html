@@ -1,6 +1,21 @@
-<div *ngIf="reservation && campsite">
 
-    <h2>{{campsite.name}} Reservation {{reservation.id})</h2>
-    <div>Price {{reservation.price}}<div>
-  
+<div class = "container">
+    <button class="remove-button" type="button" (click)="deleteReservation()">
+        <span class="name">Remove</span>
+    </button>
+    <div class = "list-element" *ngIf="campsite && reservation">
+
+
+
+        <div class = "horizontal-display">
+            <h2 class = "text-block"> {{campsite.name}}</h2>
+            <h2 class = "text-block">${{reservation.price}}  </h2>
+        </div>
+
+        <h3 class = "detail-text"> 
+            from {{getStartDate().getMonth() + 1}}/{{getStartDate().getDate() + 1}}/{{getStartDate().getFullYear()}}
+            to {{getEndDate().getMonth() + 1}}/{{getEndDate().getDate() + 1}}/{{getEndDate().getFullYear()}}
+        </h3>
+
+    </div>
 </div>

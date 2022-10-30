@@ -1,0 +1,59 @@
+.remove-button {
+    position: absolute;
+    width: fit-content;
+    top: 50%;
+    transform: translate(0px, -50%);
+    right: 0%;
+    display: none;
+
+    padding: 16px;
+    margin-top: 0px;
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.list-element {
+    width: 100%;
+    padding: 20px;
+    font-size: 24px;
+    color: black;
+    
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    outline: black outset 3px;
+
+
+
+    top: 0;
+}
+.container:hover .list-element{
+    width: calc(100% - 120px);
+}
+
+.container:hover .remove-button {
+    display: block;
+}
+
+.container {
+    background-color: black;
+    position: relative;
+    outline: black outset 3px;
+    display: flex;
+}
+
+.horizontal-display {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-block {
+    display: inline;
+    font-size: 24px;
+}
+
+.detail-text {
+    font-weight: normal;
+    font-size: 18px;
+    margin-top: 10px;
+}
