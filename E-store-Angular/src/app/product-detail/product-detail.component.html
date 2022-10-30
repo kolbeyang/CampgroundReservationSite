@@ -35,8 +35,9 @@
       <div>
         <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
         <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
-        <input id="Campsite-coords" [(ngModel)]="campsite.x" placeholder="Campsite X Location">
-        <input id="Campsite-coords" [(ngModel)]="campsite.y" placeholder="Campsite Y Location">
+        <span [(ngModel)]="campsite.x">X Coordinate: {{campsite.x}}</span>
+        <br>
+        <span [(ngModel)]="campsite.y">Y Coordinate: {{campsite.y}}</span>
 
         <button type="Button" (click)="editProduct()">Save Changes</button>
         <button type="button" (click)="deleteProduct(campsite)"delete>Delete</button>
@@ -44,4 +45,4 @@
       </div>
   </div>
 
-
+<app-campsite-map></app-campsite-map>

@@ -15,7 +15,10 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./campsite-map.component.css']
 })
 export class CampsiteMapComponent implements OnInit {
+
   products$!: Observable<Campsite[]>;
+  errorMessage = '';
+  campsite = this.productService.getPossibleCampsite();
 
   constructor(private productService: ProductService, 
     private loginService: LoginService,
@@ -26,4 +29,20 @@ export class CampsiteMapComponent implements OnInit {
     this.products$ = this.productService.searchProducts("");
   }
 
-}
+  search(term: string): void {
+    this.products$ = this.productService.searchProducts(term.toLowerCase());
+  }
+
+  randomFunction(e: MouseEvent): void{
+    console.log(e.offsetX);
+    console.log(e.offsetY);
+    this.productService.setPossibleCampsiteLocation(e.offsetX,e.offsetY);
+    this.campsite = this.productService.getPossibleCampsite();
+
+
+    }
+
+    
+  }
+
+

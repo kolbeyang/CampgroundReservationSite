@@ -12,11 +12,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProductService {
 
   private productUrl = 'http://localhost:8080/campsites'
+  campsite: Campsite = new Campsite("Possible Campsite Location", 900, 10, NaN, NaN);
+
 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
+  setPossibleCampsiteLocation(x: number, y: number): void{
+    this.campsite = new Campsite(this.campsite.name, this.campsite.id, this.campsite.rate, x, y);
+  }
+
+  getPossibleCampsite(): Campsite{
+    return this.campsite;
+  }
 
   constructor(
     private http: HttpClient) { }
