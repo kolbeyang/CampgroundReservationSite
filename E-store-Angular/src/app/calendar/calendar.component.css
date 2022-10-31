@@ -16,12 +16,14 @@
     justify-content: space-between;
     border-radius: 6px;
     margin-top: 20px;
+    position: relative;
 }
 
 .date-input {
     width: 40%;
     margin-top: 0px;
 }
+
 
 .lower-triangle {
     width:100%;
@@ -37,6 +39,14 @@
     justify-content: space-between;
 
     
+}
+
+.date-to-date-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .week-toggle {

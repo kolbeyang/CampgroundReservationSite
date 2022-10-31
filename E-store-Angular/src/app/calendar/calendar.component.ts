@@ -31,6 +31,7 @@ export class CalendarComponent implements OnInit {
   reservations?: Reservation[];
   @Input() campsite?: Campsite;
   @Output() dateRange: EventEmitter<Date[]> = new EventEmitter();
+  @Input() forAdmin: boolean = false;
 
   color = "#FF0000";
 
@@ -102,6 +103,9 @@ export class CalendarComponent implements OnInit {
   }
 
   updateSelectionColors() {
+    if (this.startDate && !this.endDate) {
+      this.updateColor(this.startDate, false, true, 2);
+    }
     if (! (this.startDate && this.endDate)) {
       return;
     }
@@ -158,10 +162,8 @@ export class CalendarComponent implements OnInit {
   updateCalendar(): void {
     //force dates to be in the previous day by subtracting a second
     let week1Date = this.getPreviousSunday(this.calendarStartDate);
-    let week2Date = new Date(week1Date.getTime() + 7 * 24 * 60 * 60 * 1000);
-
-    let firstDate = week1Date;
-    let lastDate = new Date(week1Date.getTime() + 13 * 24 * 60 * 60 * 1000);
+    let week2Date = new Date(new Date(week1Date).setDate(week1Date.getDate() + 7));
+    console.log("Updating calendar with week1 of " + week1Date + " to " + week2Date);
 
     for (let index = 0; index < 7; index++) {
       this.week1[index] = new Date(week1Date);
@@ -169,6 +171,9 @@ export class CalendarComponent implements OnInit {
       week1Date = new Date(week1Date.setDate(week1Date.getDate() + 1));
       week2Date = new Date(week2Date.setDate(week2Date.getDate() + 1));
     }
+
+    let firstDate = week1Date;
+    let lastDate = this.week2[6];
 
     this.calendarTitle = this.months[this.calendarStartDate.getMonth()] + " " + this.calendarStartDate.getDate() + " - " + this.months[lastDate.getMonth()] + " " + lastDate.getDate();
     this.updateColors();
@@ -216,6 +221,9 @@ export class CalendarComponent implements OnInit {
   }
 
   handleCalendarClick(date: Date) {
+    //if this is admin view, disregard click input
+    if (this.forAdmin) return;
+
     let index = Math.floor((date.getTime() - this.calendarStartDate.getTime()) / (24 * 60 * 60 * 1000));
 
     if (this.startDate && this.endDate) {
@@ -335,7 +343,6 @@ export class CalendarComponent implements OnInit {
     }
     return valid;
   }
-
 
   //checks input end date and updates if valid
   validateEndDate(date: Date): boolean {

@@ -14,21 +14,22 @@
     class = "alert">
     {{errorMessage}}
   </div>
-  <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)"></app-calendar>
+  <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="false"></app-calendar>
   <div>
     <!-- calling to createReservvation once this button is pressed-->
-    <button class="make-reservation-button"  type="button"(click)="createReservation(this.startDate, this.endDate)">Make Reservation</button>
+    <button class="make-reservation-button" [disabled]="!(this.startDate && this.endDate)" type="button"(click)="createReservation(this.startDate, this.endDate)">Make Reservation</button>
   </div>
 </div>
 
 
   <div *ngIf="this.isAdmin() && campsite" class = "card">
-      <h2>{{campsite.name}} Details</h2>
+      <h2>{{campsite.name}}</h2>
       <div 
       *ngIf="errorMessage!=''"
       class = "alert">
       {{errorMessage}}
     </div>
+    <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
       <div>
         <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
         <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
