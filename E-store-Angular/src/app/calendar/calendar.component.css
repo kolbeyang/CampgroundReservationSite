@@ -106,6 +106,14 @@
     color: white;
 }
 
+.left-arrow:hover .left-arrow-box {
+    display: none;
+}
+
+.right-arrow:hover .right-arrow-box {
+    display: none;
+}
+
 .right-arrow:hover .right-text {
     display: block;
     color: white;
