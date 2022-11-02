@@ -192,7 +192,7 @@ public class ReservationFileDAO implements ReservationDAO {
                 total += reservation.getPrice();
             }
 
-            return Math.round(total * 100.0) / 100; // should round to two decimal points
+            return (double) Math.round(total * 100.0) / 100.0; // should round to two decimal points
         }
     }
     /**
@@ -217,7 +217,7 @@ public class ReservationFileDAO implements ReservationDAO {
             double rate = campsite.getRate();
 
             double num_days = TimeUnit.MILLISECONDS.toDays(reservation.getEndDate()) - TimeUnit.MILLISECONDS.toDays(reservation.getStartDate());
-            price = Math.round(num_days * rate * 100.0) / 100;
+            price = (double) Math.round(num_days * rate * 100.0) / 100.0;
 
             /* Creates and adds reservation to persistence with determined price */
 
