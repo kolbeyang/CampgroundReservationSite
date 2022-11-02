@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+ 
 * {
   box-sizing: border-box;
   margin: 0px;
@@ -150,7 +153,5 @@ button:disabled {
 }
 
     
-    /* everywhere else */
-    * {
-      font-family: Arial, Helvetica, sans-serif;
-    }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
