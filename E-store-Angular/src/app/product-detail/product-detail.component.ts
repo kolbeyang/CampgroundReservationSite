@@ -8,6 +8,8 @@ import { Campsite } from '../Campsite';
 import { ReservationService } from '../reservation.service';
 import { DeclarationListEmitMode } from '@angular/compiler';
 import { Observable, Subject } from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+
 
 import {
   debounceTime, distinctUntilChanged, switchMap
@@ -34,7 +36,8 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService, 
     private loginService: LoginService,
     private reservationService: ReservationService,
-    private location : Location) {
+    private location : Location,
+    public dialog: MatDialog) {
   }
   
   ngOnInit(): void {
@@ -87,9 +90,27 @@ export class ProductDetailComponent implements OnInit {
     
   }
 
+  editConfirmation(): void {
+    const dialogRef = this.dialog.open(EditContentDialog);
+    dialogRef.afterClosed().subscribe(result => {
+      this.editProduct();
+    });
+
+  }
+
+
+  deleteConfirmation(product: Product):void{
+      const dialogRef = this.dialog.open(DeleteContentDialog);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) this.deleteProduct(product);
+      });
+  }
+
   deleteProduct(product: Product):void{
     //this.products = this.products.filter(h => h !== product);
     this.productService.deleteProduct(product.id).subscribe(() => this.search(""));
+    this.location.back();
 }
 
   onSelectAdmin(product:Product): void {
@@ -179,3 +200,17 @@ export class ProductDetailComponent implements OnInit {
   }
 
 }
+
+@Component({
+  selector: 'delete-content-dialog',
+  templateUrl: 'delete-content-dialog.html',
+})
+export class DeleteContentDialog {}
+
+
+
+@Component({
+  selector: 'edit-content-dialog',
+  templateUrl: 'edit-content-dialog.html'
+})
+export class EditContentDialog {}
