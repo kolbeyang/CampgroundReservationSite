@@ -33,13 +33,16 @@ export class CampsiteMapComponent implements OnInit {
     this.products$ = this.productService.searchProducts(term.toLowerCase());
   }
 
-  randomFunction(e: MouseEvent): void{
-    console.log(e.offsetX);
-    console.log(e.offsetY);
-    this.productService.setPossibleCampsiteLocation(e.offsetX,e.offsetY);
-    this.campsite = this.productService.getPossibleCampsite();
+  selectCampsiteLocation(e: MouseEvent): void{
 
+    if( ((e.target ) instanceof HTMLDivElement)  && this.isAdmin()){
+      this.productService.setPossibleCampsiteLocation(e.offsetX,e.offsetY);
+      this.campsite = this.productService.getPossibleCampsite();  
+      }
+    }
 
+    isAdmin(): boolean{
+      return this.loginService.adminLoggedIn();
     }
 
     

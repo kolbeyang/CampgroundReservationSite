@@ -35,14 +35,14 @@
       <div>
         <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
         <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
-        <span [(ngModel)]="campsite.x">X Coordinate: {{campsite.x}}</span>
+        <span >X Coordinate: {{this.getPossiblex()}}</span>
         <br>
-        <span [(ngModel)]="campsite.y">Y Coordinate: {{campsite.y}}</span>
+        <span >Y Coordinate: {{this.getPossibley()}}</span>
 
         <button type="Button" (click)="editProduct()">Save Changes</button>
         <button type="button" (click)="deleteProduct(campsite)"delete>Delete</button>
-        <!-- <button type="button" (click)="editProduct()">save</button> -->
       </div>
   </div>
-
-<app-campsite-map></app-campsite-map>
+<span *ngIf="this.isAdmin()">
+  <app-campsite-map></app-campsite-map>
+</span>

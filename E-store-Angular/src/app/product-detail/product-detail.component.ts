@@ -71,10 +71,7 @@ export class ProductDetailComponent implements OnInit {
 
     console.log('Selected product rate' +this.campsite?.rate);
     console.log(this.campsite?.rate.valueOf());
-    
-    // if(console.log(this.selectedProduct?.rate instanceof String)) {
 
-    // }
     if(this.campsite?.name.trim() === '' || !this.campsite?.name.toLowerCase().includes('campsite')){
       this.errorMessage = 'Invalid Campsite Name, Try Again';
       console.log("Error message was written");
@@ -83,7 +80,10 @@ export class ProductDetailComponent implements OnInit {
       this.errorMessage = 'Invalid Rate, Try again';
     }else if(this.campsite) {
         this.errorMessage = '';
-        this.productService.updateProduct(this.campsite)
+        let x = new Number(this.getPossiblex());
+        let y = new Number(this.getPossibley());
+        let updatedCampsite = new Campsite(this.campsite.name,this.campsite.id,this.campsite.rate,x.valueOf(),y.valueOf());
+        this.productService.updateProduct(updatedCampsite)
         .subscribe();
       }
     
@@ -125,6 +125,19 @@ export class ProductDetailComponent implements OnInit {
     }
 
   }
+
+  getPossiblex(): string{
+    let campsite = this.productService.getPossibleCampsite();
+    let xString = new String(campsite.x);
+      return xString.toString();
+  }
+
+  getPossibley(): string{
+    let campsite = this.productService.getPossibleCampsite();
+    let yString = new String(campsite.y);
+      return yString.toString();
+  }
+
 
   //   /**
   //  * Handles Errors from a failed login

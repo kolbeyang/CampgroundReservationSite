@@ -152,10 +152,19 @@ export class BrowseCampsitesComponent implements OnInit {
       // this.reservationService.addReservation(reserve).subscribe(
       //  (error) => this.handleCreateReservationError(error)); //reservation =>{this.search("")
       this.reservationService.addReservation(reserve).subscribe();
-    }
+    }    
+  }
 
+  getPossiblex(): string{
+    let campsite = this.productService.getPossibleCampsite();
+    let xString = new String(campsite.x);
+      return xString.toString();
+  }
 
-    
+  getPossibley(): string{
+    let campsite = this.productService.getPossibleCampsite();
+    let yString = new String(campsite.y);
+      return yString.toString();
   }
 
 
