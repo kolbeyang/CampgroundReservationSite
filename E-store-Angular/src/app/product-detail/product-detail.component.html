@@ -32,6 +32,11 @@
       class = "alert">
       {{errorMessage}}
     </div>
+    <div 
+    *ngIf="successMessage!=''"
+    class = "success">
+    {{successMessage}}
+  </div>
       <div>
         <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
         <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
