@@ -14,6 +14,7 @@ import { ViewReservationsComponent } from './view-reservations/view-reservations
 import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
 import { BrowseCampsitesComponent } from './browse-campsites/browse-campsites.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { CampsiteMapComponent } from './campsite-map/campsite-map.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     ViewReservationsComponent,
     ReservationDetailComponent,
     BrowseCampsitesComponent,
-    CalendarComponent
+    CalendarComponent,
+    CampsiteMapComponent
   ],
   imports: [
     BrowserModule,

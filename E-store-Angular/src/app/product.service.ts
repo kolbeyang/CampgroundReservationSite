@@ -12,11 +12,30 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProductService {
 
   private productUrl = 'http://localhost:8080/campsites'
+  campsite: Campsite = new Campsite("Possible Campsite Location", 900, 10, 0, 0);
+
 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
+  setPossibleCampsiteLocation(x: number, y: number): void{
+    if(x > 460 || y > 460 ){
+        // do nothing
+    }
+    else{
+      this.campsite = new Campsite(this.campsite.name, this.campsite.id, this.campsite.rate, x, y);    
+    }
+  }
+
+  private resetPossibleCampsite():void {
+    this.campsite = new Campsite("Possible Campsite Location", -1, -12, 0, 0);
+  }
+
+  getPossibleCampsite(): Campsite{
+    return this.campsite;
+  }
 
   constructor(
     private http: HttpClient) { }
@@ -35,6 +54,7 @@ export class ProductService {
   }
 
   updateProduct(product: Product): Observable<any> {
+    this.resetPossibleCampsite();
     return this.http.put(this.productUrl, product, this.httpOptions).pipe(
       tap(_ => this.log(`updated campsite id=${product.id}`)),
       catchError(this.handleError<any>('updateCampsite'))
@@ -70,6 +90,7 @@ export class ProductService {
   }
 
   addProduct(campsite: Campsite){
+    this.resetPossibleCampsite();
     return this.http.post<Campsite>(this.productUrl, campsite, this.httpOptions).pipe(     
     catchError(this.handleError<any>('addCampsite')));
   }
