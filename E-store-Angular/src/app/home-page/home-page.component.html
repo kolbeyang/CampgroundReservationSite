@@ -3,6 +3,8 @@
     <div class="background-overlay"></div>
     <div class="over-image-container">
         <h2 class="main-text">Your next adventure</h2> 
-        <button class="main-button" routerLink="/login">Get Started</button>
+        
+        <button *ngIf="this.isLoggedIn()" class="main-button" routerLink="/browse">Get Started</button>
+        <button *ngIf="!this.isLoggedIn()" class="main-button" routerLink="/login">Get Started</button>
     </div>
 </div>
