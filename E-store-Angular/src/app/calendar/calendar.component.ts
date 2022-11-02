@@ -27,6 +27,7 @@ export class CalendarComponent implements OnInit {
 
   calendarStartDate: Date;
   calendarTitle: string = "";
+  errorMessage: string = "";
 
   reservations?: Reservation[];
   @Input() campsite?: Campsite;
@@ -284,6 +285,7 @@ export class CalendarComponent implements OnInit {
 
     if (date1.getTime() >= date2.getTime()) {
       //start date cannot be equal or after end date
+      console.log("Start date cannot be equal or after end date");
       valid = false;
     }
 
@@ -315,13 +317,18 @@ export class CalendarComponent implements OnInit {
         }
       }
 
-      if (!valid) {console.log("CONFLICTING with a reservation");}
+      if (!valid) {
+        console.log("CONFLICTING with a reservation");
+      }
 
     }
 
     if (valid) {
       this.setStartDate(date1);
       this.setEndDate(date2);
+      this.errorMessage = "";
+    } else {
+      this.errorMessage = "Invalid date range";
     }
     return valid;;
   }
@@ -379,7 +386,7 @@ export class CalendarComponent implements OnInit {
   handleEndDate(date: string): void {
     if (date === null) {return;}
     let endDate = new Date(date.replace(/-/g, '\/'));
-    this.setEndDate(endDate);
+    this.validateEndDate(endDate);
 
     this.updateCalendar();
     this.emitDateRange();
