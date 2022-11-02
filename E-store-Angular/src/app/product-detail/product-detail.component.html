@@ -25,7 +25,7 @@
 </div>
 
 
-  <div *ngIf="this.isAdmin() && campsite" class = "card">
+  <div *ngIf="this.isAdmin() && campsite && this.isLoggedIn()" class = "card">
       <h2>{{campsite.name}} Details</h2>
       <div 
       *ngIf="errorMessage!=''"
