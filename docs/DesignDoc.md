@@ -3,11 +3,6 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
 * Team name: Fantastic Five
 * Team members
@@ -21,13 +16,11 @@ geometry: margin=1in
 This is a summary of the project.
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+
 
 The goal of the Letch Worth E-store was to provide the Letch Worth Campgrounds company with the ability to rent out their campsites to customers through a online service. In the most basic level the E-store would be able to let users log online to browse through and reserve campsites that were made available by the company owner. 
 
 ### Glossary and Acronyms
-> _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
@@ -45,9 +38,6 @@ The goal of the Letch Worth E-store was to provide the Letch Worth Campgrounds c
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
 
 ### Definition of MVP
 The E-store for Letchworth Campgrounds handles the reservations for various campsites offered by the company. The e-store owner can login and obtain admin privileges such as being able to add, remove, and edit the campsites on the inventory which includes their names, rates, and current availability (able to be reserved or not). Customers sign up and login with their credentials. Once logged in, customers can see a list of campsites and search for a specific campsite under the home page. Customers can also create a reservation at a specific campsite and have it added to their cart, remove a reservation from their cart, and purchase all reservations currently in their cart. Once purchased, the customer can see the reservations under the Reservations page and be able to cancel them. 
@@ -141,16 +131,6 @@ with the e-store application.
 
 
 ### View Tier
-> _Provide a summary of the View Tier UI of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
-
-> _You must also provide sequence diagrams as is relevant to a particular aspects 
-> of the design that you are describing.  For example, in e-store you might create a 
-> sequence diagram of a customer searching for an item and adding to their cart. 
-> Be sure to include an relevant HTTP reuqests from the client-side to the server-side 
-> to help illustrate the end-to-end flow._
 
 app.component
 - displays the top navigation bar
@@ -214,13 +194,6 @@ AuthenticationService
 
 
 ### Model Tier
-> _Provide a summary of this tier of your architecture. This
-> section will follow the same instructions that are given for the View
-> Tier above._
-
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
-
 Classes
   - Authentication Service:
     * Its primary responsibility is to generate, contain, and verify user tokens
@@ -284,28 +257,13 @@ Classes
     * Implements the methods described in the UserDAO interface, interacts with userjson file, and updates the Campsite Json data accordingly
 
 ### Static Code Analysis/Design Improvements
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements._
-
-> _With the results from the Static Code Analysis exercise, 
-> discuss the resulting issues/metrics measurements along with your analysis
-> and recommendations for further improvements. Where relevant, include 
-> screenshots from the tool and/or corresponding source code that was flagged._
 
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
+
 
 ### Acceptance Testing
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
+
 
 
 For the acceptance portion of the code, almost all of the user stories have passed their acceptance criteria.  In total, 10 of the 11 user stories completed passed all of their acceptance testing. However, there were two user stories that did not pass the acceptance testing. The first story that didn't pass all of its tests was the story: Buyer, Add Reservation to Cart. Its Acceptance Criteria are shown below:
@@ -315,11 +273,7 @@ For the acceptance portion of the code, almost all of the user stories have pass
 As it can seen be the second criteria of preventing scheduling conflicts was not completed. This is due to the campsites not checking for overlapping times for reservations, but this will be fixed in later versions of the project.  In total the rest of the acceptance testing of the user stories were tested and verified.
 
 ### Unit Testing and Code Coverage
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
+
 The strategy that was used for unit testing was to first have a developer fully implement the backend classes for a specific feature they were working on. After this was done, a separate user created the required Unit tests of the project using the Junit and Mockito testing frameworks. These unit tests were subdivided based on the three main components of the project: the model, controller, and the persistence.  
 
 After all the tests passed, a Jacoco report was generated to check the coverage of the testing. This was used to determine what other test cases/scenarios need to be covered. The figure below shows the results of the Jacoco report. 

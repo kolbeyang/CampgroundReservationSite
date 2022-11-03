@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+ 
 * {
   box-sizing: border-box;
   margin: 0px;
@@ -149,8 +152,19 @@ button:disabled {
     outline: black outset 3px;
 }
 
+.success {
+  padding: 10px;
+  text-align: center;
+  font-weight: medium;
+  font-size: 14px;
+  color: black;
+  background-color:rgb(97, 211, 97);
+  font-weight: bold;
+  margin-top: 30px;
+  border-radius: 8px;
+  outline: black outset 3px;
+}
+
     
-    /* everywhere else */
-    * {
-      font-family: Arial, Helvetica, sans-serif;
-    }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

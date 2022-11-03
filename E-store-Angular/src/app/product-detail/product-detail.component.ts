@@ -8,6 +8,8 @@ import { Campsite } from '../Campsite';
 import { ReservationService } from '../reservation.service';
 import { DeclarationListEmitMode } from '@angular/compiler';
 import { Observable, Subject } from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+
 
 import {
   debounceTime, distinctUntilChanged, switchMap
@@ -28,13 +30,18 @@ export class ProductDetailComponent implements OnInit {
   private searchTerms = new Subject<string>();
   selectedProduct?:Product;
   errorMessage = '';
+  successMessage = '';
+
+  startDate?: Date;
+  endDate?: Date;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService, 
     private loginService: LoginService,
     private reservationService: ReservationService,
-    private location : Location) {
+    private location : Location,
+    public dialog: MatDialog) {
   }
   
   ngOnInit(): void {
@@ -53,6 +60,10 @@ export class ProductDetailComponent implements OnInit {
   }
   */
 
+  goBackToBrowse(): void{
+    this.location.go('http://localhost:4200/browse');
+  }
+
   getCampsite(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log("Campsite id is " + id)
@@ -67,12 +78,12 @@ export class ProductDetailComponent implements OnInit {
 
   editProduct(): void{
     this.errorMessage = '';
-    let ratenume = new Number((this.campsite?.rate))
+    this.successMessage = '';
+    let ratenume = new Number((this.campsite?.rate));
+
     console.log('Selected product rate' +this.campsite?.rate);
     console.log(this.campsite?.rate.valueOf());
-    // if(console.log(this.selectedProduct?.rate instanceof String)) {
 
-    // }
     if(this.campsite?.name.trim() === '' || !this.campsite?.name.toLowerCase().includes('campsite')){
       this.errorMessage = 'Invalid Campsite Name, Try Again';
       console.log("Error message was written");
@@ -81,15 +92,37 @@ export class ProductDetailComponent implements OnInit {
       this.errorMessage = 'Invalid Rate, Try again';
     }else if(this.campsite) {
         this.errorMessage = '';
-        this.productService.updateProduct(this.campsite)
-        .subscribe();
+        this.successMessage = 'Successful purchase';
+        let x = new Number(this.getPossiblex());
+        let y = new Number(this.getPossibley());
+        let updatedCampsite = new Campsite(this.campsite.name,this.campsite.id,this.campsite.rate,x.valueOf(),y.valueOf());
+        this.productService.updateProduct(updatedCampsite)
+        .subscribe(() => this.goBack());
       }
     
+  }
+
+  editConfirmation(): void {
+    const dialogRef = this.dialog.open(EditContentDialog);
+    dialogRef.afterClosed().subscribe(result => {
+      this.editProduct();
+    });
+
+  }
+
+
+  deleteConfirmation(product: Product):void{
+      const dialogRef = this.dialog.open(DeleteContentDialog);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) this.deleteProduct(product);
+      });
   }
 
   deleteProduct(product: Product):void{
     //this.products = this.products.filter(h => h !== product);
     this.productService.deleteProduct(product.id).subscribe(() => this.search(""));
+    this.location.back();
 }
 
   onSelectAdmin(product:Product): void {
@@ -99,10 +132,12 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  createProduct(name: string, rate: string):void{
+  createProduct(name: string, rate: string, x: string, y: string):void{
     const DUMMYNUMBER = 23;
     let ratenume = new Number(rate);
-    let campsite = new Campsite(name, DUMMYNUMBER, ratenume.valueOf()); 
+    let xcoord = new Number(x);
+    let ycoord = new Number(y);
+    let campsite = new Campsite(name, DUMMYNUMBER, ratenume.valueOf(), xcoord.valueOf(), ycoord.valueOf()); 
     console.log("Rate nume Value: " + ratenume);
     console.log('Rate nume: type' + typeof(ratenume));
     console.log(ratenume === NaN);
@@ -122,6 +157,25 @@ export class ProductDetailComponent implements OnInit {
 
   }
 
+  updateDateRange(dateRange: Date[]): void {
+    this.startDate = dateRange[0];
+    this.endDate = dateRange[1];
+    console.log("Product detail received date range from " + this.startDate + " to " + this.endDate);
+  }
+
+  getPossiblex(): string{
+    let campsite = this.productService.getPossibleCampsite();
+    let xString = new String(campsite.x);
+      return xString.toString();
+  }
+
+  getPossibley(): string{
+    let campsite = this.productService.getPossibleCampsite();
+    let yString = new String(campsite.y);
+      return yString.toString();
+  }
+
+
   //   /**
   //  * Handles Errors from a failed login
   //  * @param error The error to check
@@ -132,12 +186,17 @@ export class ProductDetailComponent implements OnInit {
   //     this.errorMessage = 'Reservation has a conflict.';
   //   }
 
-  createReservation(start: string, end: string, site: Product):void{
+
+  createReservation(start?: Date, end?: Date):void{
     // console.log("Start value" + start);
     // console.log("End Value" + end);
+    if (!(start && end && this.campsite)) {
+      return;
+    }
     let currentDate = new Date();
     let startDate = new Date(start);
     let endDate = new Date(end);
+    let site = this.campsite;
 
     // console.log("Start Date:" + startDate.getTime());
     // console.log("End Date:" + endDate.getTime());
@@ -152,7 +211,7 @@ export class ProductDetailComponent implements OnInit {
       this.errorMessage = 'Invalid Reservation Time';
     }
     else{
-      let camp = new Campsite(site.name, site.id, site.rate);
+      let camp = new Campsite(site.name, site.id, site.rate, site.x, site.y);
 
       let reserve = new Reservation(1001, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
       
@@ -179,3 +238,17 @@ export class ProductDetailComponent implements OnInit {
   }
 
 }
+
+@Component({
+  selector: 'delete-content-dialog',
+  templateUrl: 'delete-content-dialog.html',
+})
+export class DeleteContentDialog {}
+
+
+
+@Component({
+  selector: 'edit-content-dialog',
+  templateUrl: 'edit-content-dialog.html'
+})
+export class EditContentDialog {}
