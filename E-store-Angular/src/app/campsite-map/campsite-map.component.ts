@@ -20,13 +20,16 @@ export class CampsiteMapComponent implements OnInit {
   errorMessage = '';
   campsite = this.productService.getPossibleCampsite();
 
-  constructor(private productService: ProductService, 
+  constructor(private productService: ProductService,
     private loginService: LoginService,
     private reservationService: ReservationService,
-    private location : Location,
+    private location: Location,
     @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
+    console.log("Campsite map initting");
+    this.productService.resetPossibleCampsite();
+    this.campsite = this.productService.getPossibleCampsite();
     this.products$ = this.productService.searchProducts("");
   }
 
@@ -34,7 +37,7 @@ export class CampsiteMapComponent implements OnInit {
     this.products$ = this.productService.searchProducts(term.toLowerCase());
   }
 
-  selectCampsiteLocation(e: MouseEvent): void{
+  selectCampsiteLocation(e: MouseEvent): void {
 
     let mapDiv = this.document.querySelector(".campsite-map");
     let mapWidth = 500;
@@ -43,18 +46,19 @@ export class CampsiteMapComponent implements OnInit {
     }
     console.log("MAPWIDTH " + mapWidth);
 
-    if( ((e.target ) instanceof HTMLDivElement)  && this.isAdmin()){
-      console.log("Mouse event x-offset " + e.offsetX + " y-offset " + e.offsetY);
+    if (((e.target) instanceof HTMLDivElement) && this.isAdmin()) {
+      console.log("Mouse event x-offset " + e.offsetX + " y-offset " + e.offsetY + " with map width of " + mapWidth);
       this.productService.setPossibleCampsiteLocation(e.offsetX * 500 / mapWidth, e.offsetY * 500 / mapWidth);
-      this.campsite = this.productService.getPossibleCampsite();  
-      }
+      this.campsite = this.productService.getPossibleCampsite();
     }
-
-    isAdmin(): boolean{
-      return this.loginService.adminLoggedIn();
-    }
-
-    
+    this.products$ = this.productService.searchProducts("");
   }
+
+  isAdmin(): boolean {
+    return this.loginService.adminLoggedIn();
+  }
+
+
+}
 
 

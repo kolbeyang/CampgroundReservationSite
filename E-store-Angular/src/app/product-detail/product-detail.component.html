@@ -27,7 +27,9 @@
     {{successMessage}}
   </div>
   <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
-  <app-campsite-map></app-campsite-map>
+  <div class="campsite-map">
+    <app-campsite-map></app-campsite-map>
+  </div>
   <div>
     <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name" />
     <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">

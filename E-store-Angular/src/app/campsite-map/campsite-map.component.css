@@ -26,7 +26,6 @@
 }
 
 .campsite-map{
-    outline: black outset 3px;
     border-radius: 12px;
     overflow: hidden;
     align-self: center;
@@ -39,6 +38,7 @@
     width:100%;
     aspect-ratio: 1/1;
     object-fit: cover;
+    outline: black outset 3px;
 }
 
 .map-card {
@@ -49,17 +49,28 @@
 
 .image1 {
     position: absolute;
+    background-image: url(../../assets/tent-icon.png);
+    background-size: cover;
+    object-fit:cover;
     top: 100px;
-    height: 40px;
-    width: 40px;
+    height: 80px;
+    width: 80px;
+    transform: translate(-50%, -50%);
   }
 
+.image1:hover {
+    background-image: url(../../assets/tent-icon-hover.png);
+}
+
   .possibleimage {
+    background-image: url(../../assets/tent-icon-temporary.png);
+    background-size: cover;
+    object-fit:cover;
     position: absolute;
     top: 100px;
-    border: 1px red solid;
-    height: 40px;
-    width: 40px;
+    height: 80px;
+    width: 80px;
+    transform: translate(-50%, -50%);
   }
 
 
