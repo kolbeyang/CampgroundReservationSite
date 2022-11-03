@@ -228,7 +228,7 @@ export class CalendarComponent implements OnInit {
     let index = Math.floor((date.getTime() - this.calendarStartDate.getTime()) / (24 * 60 * 60 * 1000));
 
     if (this.startDate && this.endDate) {
-      if (date < this.startDate) {
+      if (date.getTime() < (this.startDate.getTime() + this.endDate.getTime())/2) {
         this.validateStartDate(date);
       } else {
         this.validateEndDate(date);
