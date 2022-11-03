@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.estore.api.estoreapi.model.Campsite;
+import com.estore.api.estoreapi.model.Reservation;
+import com.estore.api.estoreapi.persistence.ReservationDAO;
+
+
 
 /**
  * The Inventory Data Access Object
@@ -25,6 +29,8 @@ public class InventoryFileDAO implements InventoryDAO {
     private ObjectMapper objectMapper; 
     private static int nextId; 
     private String filename;    
+
+    private ReservationDAO reservationDAO;
 
     /**
      * Constructor
@@ -179,6 +185,13 @@ public class InventoryFileDAO implements InventoryDAO {
     public boolean deleteCampsite(int id) throws IOException {
         synchronized(campsites) {
             if (campsites.containsKey(id)) {
+                Reservation[] campsiteReservations = reservationDAO.getCampsiteReservations(id);
+
+                for(Reservation reservation : campsiteReservations)
+                {
+                    reservation.setToInvalid(); // sets the campsite ID to -1
+                }
+
                 campsites.remove(id);
                 return save();
             }

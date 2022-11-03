@@ -90,6 +90,14 @@ public class Reservation {
     public int getCampsiteId() {return this.campsiteId;}
 
     /**
+     * Set campsite ID to -1
+     */
+    public void setToInvalid()
+    {
+        this.campsiteId = -1;
+    }
+
+    /**
      * Getter
      * @return the time this reservation begins
      */
