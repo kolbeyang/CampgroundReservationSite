@@ -28,6 +28,11 @@
       class = "alert">
       {{errorMessage}}
     </div>
+    <div 
+    *ngIf="successMessage!=''"
+    class = "success">
+    {{successMessage}}
+  </div>
     <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
       <div>
         <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>

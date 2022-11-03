@@ -30,6 +30,7 @@ export class ProductDetailComponent implements OnInit {
   private searchTerms = new Subject<string>();
   selectedProduct?:Product;
   errorMessage = '';
+  successMessage = '';
 
   startDate?: Date;
   endDate?: Date;
@@ -59,6 +60,10 @@ export class ProductDetailComponent implements OnInit {
   }
   */
 
+  goBackToBrowse(): void{
+    this.location.go('http://localhost:4200/browse');
+  }
+
   getCampsite(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log("Campsite id is " + id)
@@ -73,6 +78,7 @@ export class ProductDetailComponent implements OnInit {
 
   editProduct(): void{
     this.errorMessage = '';
+    this.successMessage = '';
     let ratenume = new Number((this.campsite?.rate));
 
     console.log('Selected product rate' +this.campsite?.rate);
@@ -86,11 +92,12 @@ export class ProductDetailComponent implements OnInit {
       this.errorMessage = 'Invalid Rate, Try again';
     }else if(this.campsite) {
         this.errorMessage = '';
+        this.successMessage = 'Successful purchase';
         let x = new Number(this.getPossiblex());
         let y = new Number(this.getPossibley());
         let updatedCampsite = new Campsite(this.campsite.name,this.campsite.id,this.campsite.rate,x.valueOf(),y.valueOf());
         this.productService.updateProduct(updatedCampsite)
-        .subscribe();
+        .subscribe(() => this.goBack());
       }
     
   }
