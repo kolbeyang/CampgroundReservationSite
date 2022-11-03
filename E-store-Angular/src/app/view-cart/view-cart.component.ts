@@ -44,7 +44,9 @@ export class ViewCartComponent implements OnInit {
 
   getReservations(): void{
     this.loginService.getUnPaidReservations(this.loginService.getUserName())
-      .subscribe(reservations => {this.reservations = reservations; this.getCampsites();});
+      .subscribe(reservations => {
+        this.reservations = reservations; 
+        this.getCampsites();});
   }
 
   getStartDate(reservation: Reservation): Date {

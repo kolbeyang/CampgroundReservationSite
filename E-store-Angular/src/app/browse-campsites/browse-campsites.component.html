@@ -16,8 +16,10 @@
         </li>
       <div>
     </div>
-  
+
   </div>
+
+<app-campsite-map></app-campsite-map>
 
   <div *ngIf="this.isAdmin()" class = "card">
     <h2>Create New Campsite</h2>
@@ -29,7 +31,11 @@
             </div>
       <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name"/>
       <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
-      <button class="make-campsite-button" type="Button" (click)="createProduct(NewCampsiteName.value, NewCampsiteRate.value)">Create New Campsite</button>
+      <span >X Coordinate: {{this.getPossiblex()}}</span>
+      <br>
+      <span >Y Coordinate: {{this.getPossibley()}}</span>
+
+      <button class="make-campsite-button" type="Button" (click)="createProduct(NewCampsiteName.value, NewCampsiteRate.value, this.getPossiblex(), this.getPossibley())">Create New Campsite</button>
     </div>
   </div>
   

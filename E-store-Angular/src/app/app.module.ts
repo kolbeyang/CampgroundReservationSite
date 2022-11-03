@@ -13,6 +13,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ViewReservationsComponent } from './view-reservations/view-reservations.component';
 import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
 import { BrowseCampsitesComponent } from './browse-campsites/browse-campsites.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { CampsiteMapComponent } from './campsite-map/campsite-map.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -33,7 +35,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     ReservationDetailComponent,
     BrowseCampsitesComponent,
     DeleteContentDialog,
-    EditContentDialog
+    EditContentDialog,
+    CalendarComponent,
+    CampsiteMapComponent
   ],
   imports: [
     AppRoutingModule,

@@ -58,7 +58,7 @@ public class ScheduleServiceTest {
 
         Reservation[] reservations = {reservation1, reservation2};
 
-        Campsite campsite1 = new Campsite(10, "Foggy Valley Campsite", 10);
+        Campsite campsite1 = new Campsite(10, "Foggy Valley Campsite", 10 , 20, 50);
         
         when(mockInventoryDAO.getCampsite(10)).thenReturn(campsite1);
         when(mockInventoryDAO.getCampsite(12)).thenReturn(null);

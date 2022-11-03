@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.model;
 
 import java.util.logging.Logger;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.awt.Point;
 
 /**
  * Represents a Campsite
@@ -10,11 +11,15 @@ public class Campsite {
     private static final Logger LOG = Logger.getLogger(Campsite.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Campsite [id=%d, name=%s, rate=%.2f]";
+    static final String STRING_FORMAT = "Campsite [id=%d, name=%s, rate=%.2f x=%d, y=%d]";
+    static final int MAX_XVALUE = 650;
+    static final int MAX_YVALUE = 325;
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("rate") private double rate;
+    @JsonProperty("x") private int x;
+    @JsonProperty("y") private int y;
 
     /**
      * Constructor, sets private variables based on input
@@ -24,16 +29,20 @@ public class Campsite {
      * @throws IllegalArgumentException
      */
     
-    public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate) throws IllegalArgumentException {
+    public Campsite(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("rate") double rate,
+    @JsonProperty("x") int x, @JsonProperty("y") int y)  throws IllegalArgumentException {
         if(!isValidName(name)) {
             throw new IllegalArgumentException("<ERROR: Name must contain the word Campsite>");
         }
         else if(!isValidRate(rate)) {
             throw new IllegalArgumentException("<ERROR: Invalid Rate");
         }
+
         this.id = id;
         this.name = name;
         this.rate = rate;
+        this.x = x;
+        this.y = y;
         
     }
     /**
@@ -60,6 +69,18 @@ public class Campsite {
         this.rate = 20.00;
     }
     */
+
+    /**
+     * the Coordinates of the campsite
+     * @return
+     */
+    public int getXCoord(){
+        return this.x;
+    }
+
+    public int getYCoord(){
+        return this.y;
+    }
 
     /**
      * @return the id of the campsite
@@ -120,7 +141,7 @@ public class Campsite {
     @Override
     public String toString() {
 
-        return String.format(STRING_FORMAT,id,name,rate);
+        return String.format(STRING_FORMAT,id,name,rate, x, y);
     }
 
     /**
@@ -147,6 +168,10 @@ public class Campsite {
         }
         return true;
         
+    }
+
+    public boolean isValidPoint(Point coord){
+            return coord.x > MAX_XVALUE || coord.y > MAX_YVALUE || coord.x < 0 || coord.y < 0;
     }
 
 }
