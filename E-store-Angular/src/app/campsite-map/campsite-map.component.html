@@ -1,16 +1,14 @@
-<div class = 'card'> 
-    <div class = 'campsite-map' (click)="selectCampsiteLocation($event)">
-        <li *ngFor="let product of products$ | async">
-            <img class="image1" [ngStyle]="{'left.px': product.x, 'top.px': product.y }" src="../../assets/tent-icon.png" routerLink="/detail/{{product.id}}"
-            title="Campsite Name: {{product.name}} Click for more details" />
-        </li>
+<div class='campsite-map' id="campsiteMap" (click)="selectCampsiteLocation($event)">
+    <li *ngFor="let product of products$ | async">
+        <img class="image1" [ngStyle]="{'left.%': product.y / 5, 'top.%': product.y / 5 }" src="../../assets/tent-icon.png"
+            routerLink="/detail/{{product.id}}" title="Campsite Name: {{product.name}} Click for more details" />
+    </li>
 
-        <span *ngIf="this.isAdmin()">
-        <img class="possibleimage" [ngStyle]="{'left.px': campsite.x, 'top.px': campsite.y }" src="../../assets/tent-icon.png"
-        title="Campsite Name: {{campsite.name}} Click for more details" />
-        </span>
-    </div>
-</div> 
+    <span *ngIf="this.isAdmin()">
+        <img class="possibleimage" [ngStyle]="{'left.%': campsite.x / 5, 'top.%': campsite.y / 5}"
+            src="../../assets/tent-icon.png" title="Campsite Name: {{campsite.name}} Click for more details" />
+    </span>
+</div>
 
 <!--
             <img class ='fit-map' src="../assets/campsite-map.png " 

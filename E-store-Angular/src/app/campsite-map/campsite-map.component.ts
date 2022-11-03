@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Product } from '../Product';
 import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
 import { User } from '../user';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { Campsite } from '../Campsite';
 import { ReservationService } from '../reservation.service';
 import { DeclarationListEmitMode } from '@angular/compiler';
@@ -23,7 +23,8 @@ export class CampsiteMapComponent implements OnInit {
   constructor(private productService: ProductService, 
     private loginService: LoginService,
     private reservationService: ReservationService,
-    private location : Location) { }
+    private location : Location,
+    @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
     this.products$ = this.productService.searchProducts("");
@@ -35,8 +36,16 @@ export class CampsiteMapComponent implements OnInit {
 
   selectCampsiteLocation(e: MouseEvent): void{
 
+    let mapDiv = this.document.querySelector(".campsite-map");
+    let mapWidth = 500;
+    if (mapDiv) {
+      mapWidth = (this.document.querySelector(".campsite-map") as HTMLElement).offsetWidth;
+    }
+    console.log("MAPWIDTH " + mapWidth);
+
     if( ((e.target ) instanceof HTMLDivElement)  && this.isAdmin()){
-      this.productService.setPossibleCampsiteLocation(e.offsetX,e.offsetY);
+      console.log("Mouse event x-offset " + e.offsetX + " y-offset " + e.offsetY);
+      this.productService.setPossibleCampsiteLocation(e.offsetX * 500 / mapWidth, e.offsetY * 500 / mapWidth);
       this.campsite = this.productService.getPossibleCampsite();  
       }
     }
