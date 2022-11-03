@@ -32,6 +32,7 @@ export class ReservationDetailComponent implements OnInit {
 
   getData(reservation: Reservation) : void {
     this.reservation = reservation;
+    console.log("Displaying the data of a reservation from " + new Date(reservation.startDate) + " to " + new Date(reservation.endDate));
     const campsiteId = reservation.campsiteId;
     this.productService.getProduct(campsiteId)
       .subscribe(campsite => this.campsite = campsite);

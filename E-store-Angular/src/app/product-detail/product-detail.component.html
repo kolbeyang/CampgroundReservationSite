@@ -14,18 +14,14 @@
     class = "alert">
     {{errorMessage}}
   </div>
-
-
-    <input type="Date" #StartDate>
-    <input type="Date" #EndDate>
+  <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="false"></app-calendar>
   <div>
     <!-- calling to createReservvation once this button is pressed-->
-    <button class="make-reservation-button"  type="button"(click)="createReservation(StartDate.value, EndDate.value, campsite)">Make Reservation</button>
+    <button class="make-reservation-button" [disabled]="!(this.startDate && this.endDate)" type="button"(click)="createReservation(this.startDate, this.endDate)">Make Reservation</button>
   </div>
 </div>
 
-
-  <div *ngIf="this.isAdmin() && campsite" class = "card">
+  <div *ngIf="this.isAdmin() && campsite && this.isLoggedIn()" class = "card">
       <h2>{{campsite.name}} Details</h2>
       <div 
       *ngIf="errorMessage!=''"
@@ -37,15 +33,17 @@
     class = "success">
     {{successMessage}}
   </div>
+    <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
       <div>
         <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
         <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
+
         <span >X Coordinate: {{this.getPossiblex()}}</span>
         <br>
         <span >Y Coordinate: {{this.getPossibley()}}</span>
 
-        <button type="Button" (click)="editProduct()">Save Changes</button>
-        <button type="button" (click)="deleteProduct(campsite)"delete>Delete</button>
+        <button type="Button" (click)="editConfirmation()">Save Changes</button>
+        <button mat-button (click)="deleteConfirmation(campsite)"delete>Delete</button>
       </div>
   </div>
 <span *ngIf="this.isAdmin()">

@@ -98,6 +98,14 @@ export class ProductService {
   log(arg0: string): void {
 
   }
+
+
+  getReservationsOfCampsite(id: number): Observable<Reservation[]> {
+    const url = `${this.productUrl}/${id}/reservations`;
+    return this.http.get<Reservation[]>(url, this.httpOptions).pipe(
+      catchError(this.handleError<any>('getReservationsOfCampsite')));
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
