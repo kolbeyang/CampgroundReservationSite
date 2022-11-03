@@ -151,7 +151,7 @@ public class InventoryFileDAO implements InventoryDAO {
     @Override
     public Campsite createCampsite(Campsite campsite) throws IOException, IllegalArgumentException {
         synchronized(campsites) {
-            Campsite newCampsite = new Campsite(nextId(),campsite.getName(),campsite.getRate());
+            Campsite newCampsite = new Campsite(nextId(),campsite.getName(),campsite.getRate(), campsite.getXCoord(), campsite.getYCoord());
             campsites.put(newCampsite.getId(),newCampsite);
             save(); // may throw an IOException
             return newCampsite;

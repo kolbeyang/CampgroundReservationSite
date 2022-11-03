@@ -1,0 +1,95 @@
+<div *ngIf="errorMessage!=''" class="alert">
+    {{errorMessage}}
+</div>
+<div class="top-bar">
+    <div class="date-display-box">
+        <h1 class="date-display">{{calendarTitle}}</h1>
+    </div>
+    <div class="button-box">
+        <button class="week-toggle left-arrow" (click)="changePreviousWeek()">
+            <div class="left-text week-toggle-text">Previous week</div>
+            <div class="arrow-box left-arrow-box" overflow="visible">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 34 44" height="100%">
+                    <style>
+                        .left-arrow {
+                            fill: none;
+                            stroke: black;
+                            stroke-miterlimit: 10;
+                            stroke-width: 5;
+                        }
+                    </style>
+
+                    <polyline class="left-arrow" points="30 0 0 20 30 40" />
+                </svg>
+            </div>
+        </button>
+        <button class="week-toggle right-arrow" (click)="changeNextWeek()">
+            <div class="right-text week-toggle-text">Next week</div>
+            <div class="arrow-box right-arrow-box" overflow="visible">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 34 44" height="100%">
+                    <style>
+                        .right-arrow {
+                            fill: none;
+                            stroke: black;
+                            stroke-miterlimit: 10;
+                            stroke-width: 5;
+                        }
+                    </style>
+
+                    <polyline class="right-arrow" points="0 0 30 20 0 40" />
+                </svg>
+            </div>
+        </button>
+    </div>
+</div>
+
+<div class="two-week-block">
+    <div class="day-labels">
+        <div class="day-label-box" *ngFor="let day of daysOfTheWeek">
+            <h1 class="day-label"> {{day}} </h1>
+        </div>
+    </div>
+    <div class="week-block week-one">
+        <button class="day-block" *ngFor="let date of week1" [style.background-color]="getColor(date, 0)"
+            (mousedown)="handleCalendarClick(date)">
+            <div class="lower-triangle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg"
+                    [attr.fill]="getColor(date, 1)">
+                    <g id="Layer_2" data-name="Layer 2">
+                        <g id="Layer_1-2" data-name="Layer 1">
+                            <polygon class="cls-1" points="116.11 116.11 0 116.11 116.11 0 116.11 116.11" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <h1 class="date-label"> {{date.getDate()}} </h1>
+            <div class="select-frame"></div>
+        </button>
+    </div>
+    <div class="week-block week-two">
+        <button class="day-block" *ngFor="let date of week2" [style.background-color]="getColor(date, 0)"
+            (mousedown)="handleCalendarClick(date)">
+            <div class="lower-triangle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg"
+                    [attr.fill]="getColor(date, 1)">
+
+                    <g id="Layer_2" data-name="Layer 2">
+                        <g id="Layer_1-2" data-name="Layer 1">
+                            <polygon class="cls-1" points="116.11 116.11 0 116.11 116.11 0 116.11 116.11" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <h1 class="date-label"> {{date.getDate()}} </h1>
+            <div class="select-frame"></div>
+        </button>
+    </div>
+</div>
+
+<div class="input-bar" *ngIf="!this.forAdmin">
+    <input class="date-input start-date" type="date" id="startDate" #StartDate placeholder="Start date"
+        (change)="handleStartDate(StartDate.value)">
+    <h1 class="date-to-date-label">to</h1>
+    <input class="date-input end-date" type="date" id="endDate" #EndDate placeholder="End date"
+        (change)="handleEndDate(EndDate.value)">
+</div>

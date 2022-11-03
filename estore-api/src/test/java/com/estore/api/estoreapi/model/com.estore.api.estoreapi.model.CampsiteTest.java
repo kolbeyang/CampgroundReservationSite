@@ -13,24 +13,24 @@ class comestoreapiestoreapimodelCampsiteTest{
     Campsite test_site;
     @BeforeEach
     public void setup() throws IllegalArgumentException {
-        test_site = new Campsite(7, "Test Campsite", 20.00);
+        test_site = new Campsite(7, "Test Campsite", 20.00, 0,0);
     }
     @Test
     public void Constructor() throws IllegalArgumentException {
         Campsite test_site;
         Campsite test_site2;
         try{
-            test_site = new Campsite(6, "Test", 5.00);
+            test_site = new Campsite(6, "Test", 5.00, 0, 0);
             
         }
         catch(IllegalArgumentException e){
-        test_site = new Campsite(6, "Test Campsite", 5.00);
+        test_site = new Campsite(6, "Test Campsite", 5.00, 0 ,0);
         }
         try{
-            test_site2 = new Campsite(6, "Test Campsite", -5.00);
+            test_site2 = new Campsite(6, "Test Campsite", -5.00, 0, 0);
         }
         catch(IllegalArgumentException e) {
-            test_site2 = new Campsite(6, "Test Campsite", 5.00);
+            test_site2 = new Campsite(6, "Test Campsite", 5.00, 0, 0);
         }
         assertEquals(test_site.equals(test_site2), true);
 
@@ -75,9 +75,9 @@ class comestoreapiestoreapimodelCampsiteTest{
     @Test
     public void test_Equals() {
         //setup
-        Campsite test_site2 = new Campsite(1, "Test Campsite", 20.00);
-        Campsite test_site3 = new Campsite(2, "Hidden Valley Campsite", 20.00);
-        Campsite test_site4 = new Campsite(3, "hidden valley campsite", 20.00);
+        Campsite test_site2 = new Campsite(1, "Test Campsite", 20.00, 0, 0);
+        Campsite test_site3 = new Campsite(2, "Hidden Valley Campsite", 20.00, 0 ,0);
+        Campsite test_site4 = new Campsite(3, "hidden valley campsite", 20.00, 0,0);
         Object random_object = new Object(); //Random object
 
         //test

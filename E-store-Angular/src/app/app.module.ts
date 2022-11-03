@@ -13,6 +13,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ViewReservationsComponent } from './view-reservations/view-reservations.component';
 import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
 import { BrowseCampsitesComponent } from './browse-campsites/browse-campsites.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { CampsiteMapComponent } from './campsite-map/campsite-map.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { BrowseCampsitesComponent } from './browse-campsites/browse-campsites.co
     UserProfileComponent,
     ViewReservationsComponent,
     ReservationDetailComponent,
-    BrowseCampsitesComponent
+    BrowseCampsitesComponent,
+    CalendarComponent,
+    CampsiteMapComponent
   ],
   imports: [
     BrowserModule,

@@ -87,10 +87,14 @@ export class BrowseCampsitesComponent implements OnInit {
     }
   }
 
-  createProduct(name: string, rate: string):void{
+  createProduct(name: string, rate: string, x: string, y: string):void{
     const DUMMYNUMBER = 23;
     let ratenume = new Number(rate);
-    let campsite = new Campsite(name, DUMMYNUMBER, ratenume.valueOf()); 
+    let xcoord = new Number(x);
+    let ycoord = new Number(y);
+    console.log("X: " + xcoord.valueOf() + " Y:"  + ycoord.valueOf());
+    let campsite = new Campsite(name, DUMMYNUMBER, ratenume.valueOf(), xcoord.valueOf(), ycoord.valueOf()); 
+    console.log("Campsite x: " + campsite.x + "y: " + campsite.y);
     console.log("Rate nume Value: " + ratenume);
     console.log('Rate nume: type' + typeof(ratenume));
     console.log(ratenume === NaN);
@@ -120,7 +124,7 @@ export class BrowseCampsitesComponent implements OnInit {
   //     this.errorMessage = 'Reservation has a conflict.';
   //   }
 
-  createReservation(start: string, end: string, site: Product):void{
+  createReservation(start: string, end: string, site: Campsite):void{
     // console.log("Start value" + start);
     // console.log("End Value" + end);
     let currentDate = new Date();
@@ -140,7 +144,7 @@ export class BrowseCampsitesComponent implements OnInit {
       this.errorMessage = 'Invalid Reservation Time';
     }
     else{
-      let camp = new Campsite(site.name, site.id, site.rate);
+      let camp = new Campsite(site.name, site.id, site.rate, site.x, site.y);
 
       let reserve = new Reservation(1001, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
       
@@ -148,10 +152,19 @@ export class BrowseCampsitesComponent implements OnInit {
       // this.reservationService.addReservation(reserve).subscribe(
       //  (error) => this.handleCreateReservationError(error)); //reservation =>{this.search("")
       this.reservationService.addReservation(reserve).subscribe();
-    }
+    }    
+  }
 
+  getPossiblex(): string{
+    let campsite = this.productService.getPossibleCampsite();
+    let xString = new String(campsite.x);
+      return xString.toString();
+  }
 
-    
+  getPossibley(): string{
+    let campsite = this.productService.getPossibleCampsite();
+    let yString = new String(campsite.y);
+      return yString.toString();
   }
 
 
