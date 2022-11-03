@@ -21,9 +21,8 @@
   </div>
 </div>
 
-
-  <div *ngIf="this.isAdmin() && campsite" class = "card">
-      <h2>{{campsite.name}}</h2>
+  <div *ngIf="this.isAdmin() && campsite && this.isLoggedIn()" class = "card">
+      <h2>{{campsite.name}} Details</h2>
       <div 
       *ngIf="errorMessage!=''"
       class = "alert">
@@ -33,12 +32,13 @@
       <div>
         <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
         <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
+
         <span >X Coordinate: {{this.getPossiblex()}}</span>
         <br>
         <span >Y Coordinate: {{this.getPossibley()}}</span>
 
-        <button type="Button" (click)="editProduct()">Save Changes</button>
-        <button type="button" (click)="deleteProduct(campsite)"delete>Delete</button>
+        <button type="Button" (click)="editConfirmation()">Save Changes</button>
+        <button mat-button (click)="deleteConfirmation(campsite)"delete>Delete</button>
       </div>
   </div>
 <span *ngIf="this.isAdmin()">
