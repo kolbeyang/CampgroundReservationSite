@@ -50,3 +50,13 @@ button:active {
 button:after {
     background-color: white;
 }
+
+.horizontal-display {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-block {
+    display: inline;
+    font-size: 24px;
+}

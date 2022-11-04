@@ -193,6 +193,7 @@
     position: relative;
     transition: border-radius 0.2s;
 }
+
 .day-block:hover {
     overflow: hidden;
     box-shadow: none;
@@ -200,6 +201,14 @@
     border-radius: 50%;
     z-index: 1;
     cursor: pointer;
+}
+
+.unclickable:hover {
+    top: 0px;
+    box-shadow: none;
+    border-radius: 0px;
+    cursor: pointer;
+    z-index: 0;
 }
 
 .day-block:active {

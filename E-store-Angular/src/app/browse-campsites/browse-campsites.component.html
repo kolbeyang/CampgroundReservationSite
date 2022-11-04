@@ -5,13 +5,12 @@
     <input #searchBox id="search-box" placeholder="Search" (input)="search(searchBox.value)" />
   </div>
   <li *ngFor="let product of products$ | async">
-    <button class="list-element" *ngIf="!this.isAdmin()" [class.selected]="product === selectedProduct"
+    <button class="list-element" [class.selected]="product === selectedProduct"
       routerLink="/detail/{{product.id}}">
-      <span class="name">{{product.name}}</span>
-    </button>
-    <button class="list-element" *ngIf="this.isAdmin()" [class.selected]="product === selectedProduct"
-      routerLink="/detail/{{product.id}}">
-      <span class="name">{{product.name}}</span>
+      <div class = "horizontal-display">
+        <h2 class = "text-block"> {{product.name}}</h2>
+        <h2 class = "text-block">${{product.rate}} / night  </h2>
+    </div>
     </button>
   </li>
   <div class="search-card-element map-container">
