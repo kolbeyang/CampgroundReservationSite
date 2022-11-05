@@ -19,10 +19,18 @@
     height: calc(100vh  );
 }
 
+.error-text{
+    font-size: 150px;
+    font-weight: bold;
+    line-height: normal;
+    text-align: center;
+}
+
 .main-text{
     font-size: 72px;
     font-weight: bold;
     line-height: 72px;
+    text-align: center;
 }
 
 .main-button {
@@ -30,12 +38,12 @@
     font-weight: bold;
     margin-top: 50px;
     padding: 30px;
-}
+ }
 
-.over-image-container {
-    position: absolute;
-    top: 40vh;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 350px;
-}
+ .over-image-container {
+     position: absolute;
+     top: 40vh;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     max-width: 350px;
+ }
