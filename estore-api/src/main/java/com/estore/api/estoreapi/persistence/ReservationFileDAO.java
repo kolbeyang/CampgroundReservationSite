@@ -291,4 +291,18 @@ public class ReservationFileDAO implements ReservationDAO {
                 return false;
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void invalidateCampsiteReservations(int campsiteId) {
+        synchronized(reservations) {
+            Reservation[] campsiteReservations = getCampsiteReservations(campsiteId);
+
+            for(Reservation reservation : campsiteReservations) {
+                reservation.setToInvalid();
+            }
+        }
+    }
 }

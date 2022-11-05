@@ -185,12 +185,8 @@ public class InventoryFileDAO implements InventoryDAO {
     public boolean deleteCampsite(int id) throws IOException {
         synchronized(campsites) {
             if (campsites.containsKey(id)) {
-                Reservation[] campsiteReservations = reservationDAO.getCampsiteReservations(id);
-
-                for(Reservation reservation : campsiteReservations)
-                {
-                    reservation.setToInvalid(); // sets the campsite ID to -1
-                }
+                // sets all reservations made at this campsite to invalid
+                reservationDAO.invalidateCampsiteReservations(id);
 
                 campsites.remove(id);
                 return save();
