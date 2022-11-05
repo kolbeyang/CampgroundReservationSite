@@ -13,7 +13,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full' },
+  {path: '', redirectTo: '/errorpage', pathMatch: 'full' },
   {path: 'login', component: UserLoginComponent},
   {path: 'cart', component: ViewCartComponent},
   {path: 'home', component: HomePageComponent},
