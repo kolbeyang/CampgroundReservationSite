@@ -18,4 +18,9 @@
         </h3>
 
     </div>
+    <div 
+        *ngIf="errorMessage!=''"
+        class = "alert">
+        {{errorMessage}}
+    </div>
 </div>
