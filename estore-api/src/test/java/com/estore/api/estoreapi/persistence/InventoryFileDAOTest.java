@@ -33,6 +33,8 @@ public class InventoryFileDAOTest {
     InventoryFileDAO inventoryFileDAO;
     ObjectMapper mockObjectMapper;
     Campsite[] testCampsites;  
+
+    ReservationDAO reservationDAO;
     
 
 

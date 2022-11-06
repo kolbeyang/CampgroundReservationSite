@@ -70,6 +70,7 @@ public class Campsite {
     }
     */
 
+
     /**
      * the Coordinates of the campsite
      * @return
