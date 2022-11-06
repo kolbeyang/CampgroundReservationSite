@@ -6,6 +6,7 @@ import { User } from './user';
 import { LoginRequest } from './loginRequest';
 import { LoginResponse } from './loginResponse';
 import { Reservation } from './Reservation';
+import { LocalStorageService } from './local-storage-service.service';
 export interface LoginInfo {
   loggedIn:boolean;
 }
@@ -47,12 +48,6 @@ export class LoginService {
    * undefined if there is no user logged in
    * @returns Returns the token of the user who is logged in
    */
-  /*
-  getToken(): String {
-    return this.loginResponse.token;
-  }
-  */
-
   getToken() { 
     return localStorage.getItem('token')
   }
@@ -81,12 +76,19 @@ export class LoginService {
   logout() {
     this.loggedIn = false;
     this.loginInfo.loggedIn = false;
+
+    //!----------------------------------HERE 11/6/22----------------------------------!
+    localStorage.removeItem('token')
+
   }
   login(loginResponse: LoginResponse) {
     this.loginResponse = loginResponse;
     this.loggedIn = true;
     this.loginInfo.loggedIn = true;
     console.log("LoginService: the token is " + this.getToken())
+
+    //!----------------------------------HERE 11/6/22----------------------------------!
+    localStorage.setItem('token', this.loginResponse.username)
   }
   loginRequest(loginRequest: LoginRequest): Observable<LoginResponse> {
     console.log("Sending post requset fo Login")
