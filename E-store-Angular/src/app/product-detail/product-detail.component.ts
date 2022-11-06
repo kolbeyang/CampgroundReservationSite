@@ -25,6 +25,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductDetailComponent implements OnInit {
 
   @Input() campsite?: Campsite;
+  reservations: Reservation[] = [];
 
   products$!: Observable<Campsite[]>;
   private searchTerms = new Subject<string>();
@@ -50,6 +51,15 @@ export class ProductDetailComponent implements OnInit {
     this.getCampsite();
   }
 
+  getReservations(): void {
+    this.reservationService.getReservations().subscribe(
+      (reservations) => {
+        this.reservations = reservations.filter((reservation: Reservation) => {return reservation.campsiteId === this.campsite?.id});
+        console.log("Got reservations of campsiteId " + this.campsite?.id);
+      }
+    );
+  }
+
   onSelect(product: Product): void {
     this.selectedProduct = product;
   }
@@ -68,7 +78,10 @@ export class ProductDetailComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log("Campsite id is " + id)
     this.productService.getProduct(id)
-      .subscribe(campsite => this.campsite = campsite);
+      .subscribe(campsite => {
+        this.campsite = campsite;
+        this.getReservations();
+      });
   }
 
   // Push a search term into the observable stream.
