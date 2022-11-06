@@ -7,13 +7,10 @@ import { ViewCartComponent } from './view-cart/view-cart.component';
 import { ViewReservationsComponent } from './view-reservations/view-reservations.component';
 import { BrowseCampsitesComponent } from './browse-campsites/browse-campsites.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-<<<<<<< HEAD
 import { CampsiteMapComponent } from './campsite-map/campsite-map.component';
-=======
 import { ErrorPageComponent } from './error-page/error-page.component';
 //import { ErrorPageComponent } from './error-page/error-page.component';
 
->>>>>>> 38c48070e44dac885fdf7cffdbbe366ee834e0a4
 
 
 const routes: Routes = [
@@ -24,12 +21,9 @@ const routes: Routes = [
   {path: 'reservations', component: ViewReservationsComponent},
   {path: 'browse', component: BrowseCampsitesComponent},
   { path: 'detail/:id', component: ProductDetailComponent },
-<<<<<<< HEAD
-  { path: 'map', component: CampsiteMapComponent}
-=======
+  { path: 'map', component: CampsiteMapComponent},
   {path: 'errorpage', component: ErrorPageComponent},
   {path: '**', component: ErrorPageComponent},
->>>>>>> 38c48070e44dac885fdf7cffdbbe366ee834e0a4
 ];
 
 @NgModule({
