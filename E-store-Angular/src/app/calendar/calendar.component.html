@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="week-block week-one">
-        <button class="day-block" *ngFor="let date of week1" [style.background-color]="getColor(date, 0)"
+        <button class="day-block" [ngClass]="{'unclickable':this.forAdmin}" *ngFor="let date of week1" [style.background-color]="getColor(date, 0)"
             (mousedown)="handleCalendarClick(date)">
             <div class="lower-triangle">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg"
@@ -67,7 +67,7 @@
         </button>
     </div>
     <div class="week-block week-two">
-        <button class="day-block" *ngFor="let date of week2" [style.background-color]="getColor(date, 0)"
+        <button class="day-block" [ngClass]="{'unclickable':this.forAdmin}"  *ngFor="let date of week2" [style.background-color]="getColor(date, 0)"
             (mousedown)="handleCalendarClick(date)">
             <div class="lower-triangle">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116.11 116.11" class="triangle-svg"
