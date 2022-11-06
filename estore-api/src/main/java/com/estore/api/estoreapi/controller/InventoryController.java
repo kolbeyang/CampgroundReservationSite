@@ -207,7 +207,10 @@ public class InventoryController {
         LOG.info("DELETE /campsites/" + id);
         try {
             if (inventoryDAO.deleteCampsite(id))
+            {
+                this.reservationDAO.invalidateCampsiteReservations(id);
                 return new ResponseEntity<>(HttpStatus.OK);
+            }
             else 
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

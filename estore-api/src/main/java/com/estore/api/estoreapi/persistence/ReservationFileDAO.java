@@ -296,7 +296,7 @@ public class ReservationFileDAO implements ReservationDAO {
      * @inheritDoc
      */
     @Override
-    public void invalidateCampsiteReservations(int campsiteId) {
+    public void invalidateCampsiteReservations(int campsiteId) throws IOException {
         synchronized(reservations) {
             Reservation[] campsiteReservations = getCampsiteReservations(campsiteId);
 

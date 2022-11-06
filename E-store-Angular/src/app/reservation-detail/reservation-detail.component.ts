@@ -39,7 +39,6 @@ export class ReservationDetailComponent implements OnInit {
 
     if(campsiteId == -1) {
       this.errorMessage = "The campsite for this reservation is no longer available. This reservation has been deleted."; 
-      this.deleteReservation();
     }
     else {
       this.productService.getProduct(campsiteId)

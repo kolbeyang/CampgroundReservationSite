@@ -17,7 +17,6 @@ import com.estore.api.estoreapi.model.Reservation;
 import com.estore.api.estoreapi.persistence.ReservationDAO;
 
 
-
 /**
  * The Inventory Data Access Object
  * Handles the persistance of campsites
@@ -30,7 +29,6 @@ public class InventoryFileDAO implements InventoryDAO {
     private static int nextId; 
     private String filename;    
 
-    private ReservationDAO reservationDAO;
 
     /**
      * Constructor
@@ -185,9 +183,6 @@ public class InventoryFileDAO implements InventoryDAO {
     public boolean deleteCampsite(int id) throws IOException {
         synchronized(campsites) {
             if (campsites.containsKey(id)) {
-                // sets all reservations made at this campsite to invalid
-                reservationDAO.invalidateCampsiteReservations(id);
-
                 campsites.remove(id);
                 return save();
             }

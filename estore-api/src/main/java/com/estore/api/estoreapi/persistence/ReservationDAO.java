@@ -91,5 +91,5 @@ public interface ReservationDAO {
      * @param campsiteId  The id of the campsite whose reservations will be deleted.
      * @throws IOException
      */
-    void invalidateCampsiteReservations(int campsiteId);
+    void invalidateCampsiteReservations(int campsiteId) throws IOException;
 }
