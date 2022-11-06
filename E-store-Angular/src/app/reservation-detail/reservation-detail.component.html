@@ -1,9 +1,9 @@
 
-<div class = "container">
+<div class = "container" *ngIf="campsite && reservation">
     <button class="remove-button" type="button" (click)="deleteReservation()">
         <img class="remove-button-image" src="../assets/x-icon.png">
     </button>
-    <div class = "list-element" *ngIf="campsite && reservation">
+    <div class = "list-element">
 
 
 
@@ -18,4 +18,30 @@
         </h3>
 
     </div>
+    
+
+
+</div>
+
+<div class = "container" *ngIf="reservation && errorMessage!=''">
+    <button class="remove-button" type="button" (click)="deleteReservation()">
+        <img class="remove-button-image" src="../assets/x-icon.png">
+    </button>
+    
+    <div class = "list-element">
+
+
+        <div class = "horizontal-display">
+            <h2 class = "text-block"> {{errorMessage}}</h2>
+            <h2 class = "text-block">${{reservation.price}}  </h2>
+        </div>
+
+        <h3 class = "detail-text"> 
+            from {{getStartDate().getMonth() + 1}}/{{getStartDate().getDate()}}/{{getStartDate().getFullYear()}}
+            to {{getEndDate().getMonth() + 1}}/{{getEndDate().getDate()}}/{{getEndDate().getFullYear()}}
+        </h3>
+
+    </div>
+
+
 </div>

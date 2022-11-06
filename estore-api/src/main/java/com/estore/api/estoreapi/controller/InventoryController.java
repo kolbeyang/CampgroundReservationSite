@@ -87,6 +87,7 @@ public class InventoryController {
         }
     }
 
+
     /**
      * Get all reservations for a specific campsite.
      * @param id : id of the campsite whose reservations to get
@@ -207,7 +208,10 @@ public class InventoryController {
         LOG.info("DELETE /campsites/" + id);
         try {
             if (inventoryDAO.deleteCampsite(id))
+            {
+                this.reservationDAO.invalidateCampsiteReservations(id);
                 return new ResponseEntity<>(HttpStatus.OK);
+            }
             else 
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
