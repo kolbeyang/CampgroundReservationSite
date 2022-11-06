@@ -13,14 +13,15 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/errorpage', pathMatch: 'full' },
+  {path: '', redirectTo: '/home', pathMatch: 'full' },
   {path: 'login', component: UserLoginComponent},
   {path: 'cart', component: ViewCartComponent},
   {path: 'home', component: HomePageComponent},
   {path: 'reservations', component: ViewReservationsComponent},
   {path: 'browse', component: BrowseCampsitesComponent},
   { path: 'detail/:id', component: ProductDetailComponent },
-  {path: 'errorpage', component: ErrorPageComponent}
+  {path: 'errorpage', component: ErrorPageComponent},
+  {path: '**', component: ErrorPageComponent},
 ];
 
 @NgModule({
