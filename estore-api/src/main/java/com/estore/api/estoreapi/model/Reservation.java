@@ -95,6 +95,7 @@ public class Reservation {
     public void setToInvalid()
     {
         this.campsiteId = -1;
+        this.price = 0.0;
     }
 
     /**
