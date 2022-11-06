@@ -31,8 +31,12 @@ An online E-store system built in Java 17
 
 ## Known bugs and disclaimers
 (It may be the case that your implementation is not perfect.)
+<<<<<<< HEAD
+When the owner reserves a campsite it doesn't cancel the reservations with that associated campsite
+=======
 -Reservations can't overlap, however their is no message to the users that their reservation was unable to be made.
 -When the owner reserves a campsite it doesn't cancel the reservations with that associated campsite
+>>>>>>> b6fafa5b025661e5c9fe62f7d2e37cf28cf7da31
 
 Document any known bug or nuisance.
 If any shortcomings, make clear what these are and where they are located.
