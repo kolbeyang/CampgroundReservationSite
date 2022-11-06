@@ -47,8 +47,14 @@ export class LoginService {
    * undefined if there is no user logged in
    * @returns Returns the token of the user who is logged in
    */
+  /*
   getToken(): String {
     return this.loginResponse.token;
+  }
+  */
+
+  getToken() { 
+    return localStorage.getItem('token')
   }
   /**
    * Returns an object that shows whether a user is loggedIn or not
@@ -143,6 +149,8 @@ export class LoginService {
       tap(_ => this.log('pay for reservations')), catchError(this.handleError<any>('getCart', []))
     );
   }
+
+
 
 
     /**
