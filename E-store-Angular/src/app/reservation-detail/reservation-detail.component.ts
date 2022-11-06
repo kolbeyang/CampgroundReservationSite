@@ -51,7 +51,10 @@ export class ReservationDetailComponent implements OnInit {
     return <Date> <unknown> undefined;
   }
   getEndDate(): Date {
-    if (this.reservation)  {return new Date(this.reservation.endDate);}
+    if (this.reservation)  {
+      return new Date(this.reservation.endDate);
+    }
+
     return <Date> <unknown> undefined;
   }
 
