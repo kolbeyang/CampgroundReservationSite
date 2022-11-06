@@ -93,9 +93,10 @@ export class ProductDetailComponent implements OnInit {
     }else if(this.campsite) {
         this.errorMessage = '';
         this.successMessage = 'Successful purchase';
-        let x = new Number(this.getPossiblex());
-        let y = new Number(this.getPossibley());
-        let updatedCampsite = new Campsite(this.campsite.name,this.campsite.id,this.campsite.rate,x.valueOf(),y.valueOf());
+        let x = this.getPossiblex();
+        let y = this.getPossibley();
+        console.log("Setting coordinates to be " + x + " , " + y);
+        let updatedCampsite = new Campsite(this.campsite.name,this.campsite.id,this.campsite.rate,x,y);
         this.productService.updateProduct(updatedCampsite)
         .subscribe(() => this.goBack());
       }
@@ -163,16 +164,14 @@ export class ProductDetailComponent implements OnInit {
     console.log("Product detail received date range from " + this.startDate + " to " + this.endDate);
   }
 
-  getPossiblex(): string{
+  getPossiblex(): number{
     let campsite = this.productService.getPossibleCampsite();
-    let xString = new String(campsite.x);
-      return xString.toString();
+    return campsite.x;
   }
 
-  getPossibley(): string{
+  getPossibley(): number{
     let campsite = this.productService.getPossibleCampsite();
-    let yString = new String(campsite.y);
-      return yString.toString();
+    return campsite.y;
   }
 
 

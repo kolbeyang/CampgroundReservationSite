@@ -53,9 +53,10 @@ public class InventoryController {
         LOG.info("GET /campsites/" + id);
         try {
             Campsite campsite = inventoryDAO.getCampsite(id);
-            if (campsite != null)
+            if (campsite != null) {
+                System.out.println("Getting campsite of name " + campsite.getName() + " and coordinates " + campsite.getXCoord() + " , " + campsite.getYCoord());
                 return new ResponseEntity<Campsite>(campsite,HttpStatus.OK);
-            else
+            } else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         catch(IOException e) {

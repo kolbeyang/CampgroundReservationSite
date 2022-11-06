@@ -1,51 +1,48 @@
-
-
-<div *ngIf="!this.isLoggedIn()" class = "card">
+<div *ngIf="!this.isLoggedIn()" class="card">
   <h1>Log in to view Campsites</h1>
 </div>
 
-<div *ngIf="this.isLoggedIn() && !this.isAdmin() && campsite" class = "card">
-  <div class = "horizontal-display">
-    <h2 class = "text-block campsite-name"> {{campsite.name}}</h2>
-    <h2 class = "text-block">${{campsite.rate}} / night  </h2>
+<div *ngIf="this.isLoggedIn() && !this.isAdmin() && campsite" class="card">
+  <div class="horizontal-display">
+    <h2 class="text-block campsite-name"> {{campsite.name}}</h2>
+    <h2 class="text-block">${{campsite.rate}} / night </h2>
   </div>
-  <div 
-    *ngIf="errorMessage!=''"
-    class = "alert">
+  <div *ngIf="errorMessage!=''" class="alert">
     {{errorMessage}}
   </div>
   <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="false"></app-calendar>
   <div>
     <!-- calling to createReservvation once this button is pressed-->
-    <button class="make-reservation-button" [disabled]="!(this.startDate && this.endDate)" type="button"(click)="createReservation(this.startDate, this.endDate)">Make Reservation</button>
+    <button class="make-reservation-button" [disabled]="!(this.startDate && this.endDate)" type="button"
+      (click)="createReservation(this.startDate, this.endDate)">Make Reservation</button>
   </div>
 </div>
 
-  <div *ngIf="this.isAdmin() && campsite && this.isLoggedIn()" class = "card">
-      <h2>{{campsite.name}} Details</h2>
-      <div 
-      *ngIf="errorMessage!=''"
-      class = "alert">
-      {{errorMessage}}
-    </div>
-    <div 
-    *ngIf="successMessage!=''"
-    class = "success">
+<div *ngIf="this.isAdmin() && campsite && this.isLoggedIn()" class="card">
+  <h2>{{campsite.name}}</h2>
+  <div *ngIf="errorMessage!=''" class="alert">
+    {{errorMessage}}
+  </div>
+  <div *ngIf="successMessage!=''" class="success">
     {{successMessage}}
   </div>
-    <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
-      <div>
-        <input id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name"/>
-        <input id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
-
-        <span >X Coordinate: {{this.getPossiblex()}}</span>
-        <br>
-        <span >Y Coordinate: {{this.getPossibley()}}</span>
-
-        <button type="Button" (click)="editConfirmation()">Save Changes</button>
-        <button mat-button (click)="deleteConfirmation(campsite)"delete>Delete</button>
-      </div>
+  <h1 class="info-label">This campsite's schedule</h1>
+  <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
+  <h1 class="info-label">Edit location</h1>
+  <div class="campsite-map">
+    <app-campsite-map></app-campsite-map>
   </div>
-<span *ngIf="this.isAdmin()">
-  <app-campsite-map></app-campsite-map>
-</span>
+  <h1 class="info-label">Edit name</h1>
+  <input class="edit-input" id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name" />
+  <h1 class="info-label">Edit nightly rate</h1>
+  <input class="edit-input" id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
+
+  <!-- <span>X Coordinate: {{this.getPossiblex()}}</span>
+    <br>
+    <span>Y Coordinate: {{this.getPossibley()}}</span> -->
+  <div class="button-box">
+    <button class="side-by-side-button" type="Button" (click)="editConfirmation()">Save Changes</button>
+    <button class="side-by-side-button" mat-button (click)="deleteConfirmation(campsite)" delete>Delete</button>
+  </div>
+
+</div>
