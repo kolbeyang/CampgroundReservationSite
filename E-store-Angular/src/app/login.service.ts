@@ -7,6 +7,7 @@ import { LoginRequest } from './loginRequest';
 import { LoginResponse } from './loginResponse';
 import { Reservation } from './Reservation';
 import { LocalStorageService } from './local-storage-service.service';
+import { DeclarationListEmitMode } from '@angular/compiler';
 export interface LoginInfo {
   loggedIn:boolean;
 }
@@ -34,15 +35,23 @@ export class LoginService {
   isLoggedIn() {
     return this.loggedIn;
   }
+
   getUserName(){
     return this.loginResponse.username;
   }
 
   wasLoggedIn(){
     if(localStorage.getItem('token') != null){
-      this.loginResponse.username = String(localStorage.getItem('token'))
+      this.loginResponse.username = String(localStorage.getItem('token'));
+      if(localStorage.getItem('admin') == 'false'){
+        this.loginResponse.isAdmin = false;
+      }
+      else if(localStorage.getItem('admin') == 'true'){
+        this.loginResponse.isAdmin = true;
+      }
       return true;
     }
+
     else{
       return false;
     }
@@ -99,6 +108,7 @@ export class LoginService {
 
     //!----------------------------------HERE 11/6/22----------------------------------!
     localStorage.setItem('token', this.loginResponse.username)
+    localStorage.setItem('admin', String(this.loginResponse.isAdmin))
   }
   loginRequest(loginRequest: LoginRequest): Observable<LoginResponse> {
     console.log("Sending post requset fo Login")
