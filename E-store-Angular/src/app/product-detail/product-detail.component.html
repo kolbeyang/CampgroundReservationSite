@@ -18,31 +18,40 @@
   </div>
 </div>
 
-<div *ngIf="this.isAdmin() && campsite && this.isLoggedIn()" class="card">
-  <h2>{{campsite.name}}</h2>
-  <div *ngIf="errorMessage!=''" class="alert">
-    {{errorMessage}}
-  </div>
-  <div *ngIf="successMessage!=''" class="success">
-    {{successMessage}}
-  </div>
-  <h1 class="info-label">This campsite's schedule</h1>
-  <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
-  <h1 class="info-label">Edit location</h1>
-  <div class="campsite-map">
-    <app-campsite-map></app-campsite-map>
-  </div>
-  <h1 class="info-label">Edit name</h1>
-  <input class="edit-input" id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name" />
-  <h1 class="info-label">Edit nightly rate</h1>
-  <input class="edit-input" id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
-
-  <!-- <span>X Coordinate: {{this.getPossiblex()}}</span>
-    <br>
-    <span>Y Coordinate: {{this.getPossibley()}}</span> -->
-  <div class="button-box">
-    <button class="side-by-side-button" type="Button" (click)="editConfirmation()">Save Changes</button>
-    <button class="side-by-side-button" mat-button (click)="deleteConfirmation(campsite)" delete>Delete</button>
+<div *ngIf="this.isAdmin() && campsite && this.isLoggedIn()" class="card search-card">
+  <div class="search-card-element">
+    <h2>{{campsite.name}}</h2>
+    <div *ngIf="errorMessage!=''" class="alert">
+      {{errorMessage}}
+    </div>
+    <div *ngIf="successMessage!=''" class="success">
+      {{successMessage}}
+    </div>
+    <h1 class="info-label">This campsite's schedule</h1>
+    <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
+    <h1 class="info-label">This campsite's reservations</h1>
   </div>
 
+  <li *ngFor="let reservation of reservations">
+    <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation] = "reservation"> </app-reservation-detail>
+  </li>
+
+  <div class="search-card-element">
+    <h1 class="info-label">Edit location</h1>
+    <div class="campsite-map">
+      <app-campsite-map></app-campsite-map>
+    </div>
+    <h1 class="info-label">Edit name</h1>
+    <input class="edit-input" id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name" />
+    <h1 class="info-label">Edit nightly rate</h1>
+    <input class="edit-input" id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
+
+    <!-- <span>X Coordinate: {{this.getPossiblex()}}</span>
+      <br>
+      <span>Y Coordinate: {{this.getPossibley()}}</span> -->
+    <div class="button-box">
+      <button class="side-by-side-button" type="Button" (click)="editConfirmation()">Save Changes</button>
+      <button class="side-by-side-button" mat-button (click)="deleteConfirmation(campsite)" delete>Delete</button>
+    </div>
+  </div>
 </div>
