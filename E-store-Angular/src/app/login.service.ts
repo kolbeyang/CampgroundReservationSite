@@ -24,7 +24,7 @@ export class LoginService {
   constructor(
     private http: HttpClient) {
     this.loginResponse = <LoginResponse>{};
-    this.loggedIn = false;
+    this.loggedIn = this.wasLoggedIn();
     this.loginInfo.loggedIn = this.loggedIn;
   }
   /**
@@ -36,6 +36,16 @@ export class LoginService {
   }
   getUserName(){
     return this.loginResponse.username;
+  }
+
+  wasLoggedIn(){
+    if(localStorage.getItem('token') != null){
+      this.loginResponse.username = String(localStorage.getItem('token'))
+      return true;
+    }
+    else{
+      return false;
+    }
   }
   /**
    * Getter
@@ -78,7 +88,7 @@ export class LoginService {
     this.loginInfo.loggedIn = false;
 
     //!----------------------------------HERE 11/6/22----------------------------------!
-    localStorage.removeItem('token')
+    localStorage.clear()
 
   }
   login(loginResponse: LoginResponse) {
