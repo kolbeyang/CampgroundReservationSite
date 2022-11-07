@@ -7,7 +7,7 @@ import { DOCUMENT, Location } from '@angular/common';
 import { Campsite } from '../Campsite';
 import { ReservationService } from '../reservation.service';
 import { DeclarationListEmitMode } from '@angular/compiler';
-import { Observable, Subject } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-campsite-map',
@@ -47,8 +47,14 @@ export class CampsiteMapComponent implements OnInit {
     console.log("MAPWIDTH " + mapWidth);
 
     if (((e.target) instanceof HTMLDivElement) && this.isAdmin()) {
+      console.log(e);
       console.log("Mouse event x-offset " + e.offsetX + " y-offset " + e.offsetY + " with map width of " + mapWidth);
-      this.productService.setPossibleCampsiteLocation(e.offsetX * 500 / mapWidth, e.offsetY * 500 / mapWidth);
+      if( e.target.id == "possibleimage"){
+        this.productService.movePossibleCampsiteLocation(e.offsetX * 500 / mapWidth, e.offsetY * 500 / mapWidth);
+      }
+      else{
+        this.productService.setPossibleCampsiteLocation(e.offsetX * 500 / mapWidth, e.offsetY * 500 / mapWidth);
+      }
       this.campsite = this.productService.getPossibleCampsite();
     }
     this.products$ = this.productService.searchProducts("");

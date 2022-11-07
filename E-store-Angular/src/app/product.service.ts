@@ -24,6 +24,10 @@ export class ProductService {
       this.campsite = new Campsite(this.campsite.name, this.campsite.id, this.campsite.rate, x, y);    
   }
 
+  movePossibleCampsiteLocation(x: number, y: number): void {
+    this.campsite = new Campsite(this.campsite.name, this.campsite.id, this.campsite.rate, this.campsite.x + x, this.campsite.y + y);
+  }
+
   resetPossibleCampsite():void {
     this.campsite = new Campsite("Possible Campsite Location", -1, -12, 0, 0);
   }

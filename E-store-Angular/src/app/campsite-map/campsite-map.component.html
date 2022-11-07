@@ -6,7 +6,7 @@
     </li>
 
     <span *ngIf="this.isAdmin()">
-        <div class="possibleimage" [ngStyle]="{'left.%': campsite.x / 5, 'top.%': campsite.y / 5}"
+        <div class="possibleimage" id="possibleimage" [ngStyle]="{'left.%': campsite.x / 5, 'top.%': campsite.y / 5}"
             title="Campsite Name: {{campsite.name}} Click for more details" >
         </div>
     </span>
