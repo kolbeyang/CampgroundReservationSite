@@ -53,9 +53,10 @@ public class InventoryController {
         LOG.info("GET /campsites/" + id);
         try {
             Campsite campsite = inventoryDAO.getCampsite(id);
-            if (campsite != null)
+            if (campsite != null) {
+                System.out.println("Getting campsite of name " + campsite.getName() + " and coordinates " + campsite.getXCoord() + " , " + campsite.getYCoord());
                 return new ResponseEntity<Campsite>(campsite,HttpStatus.OK);
-            else
+            } else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         catch(IOException e) {
@@ -85,6 +86,7 @@ public class InventoryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     /**
      * Get all reservations for a specific campsite.
@@ -206,7 +208,10 @@ public class InventoryController {
         LOG.info("DELETE /campsites/" + id);
         try {
             if (inventoryDAO.deleteCampsite(id))
+            {
+                this.reservationDAO.invalidateCampsiteReservations(id);
                 return new ResponseEntity<>(HttpStatus.OK);
+            }
             else 
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

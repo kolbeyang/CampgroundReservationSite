@@ -7,7 +7,9 @@ import { ViewCartComponent } from './view-cart/view-cart.component';
 import { ViewReservationsComponent } from './view-reservations/view-reservations.component';
 import { BrowseCampsitesComponent } from './browse-campsites/browse-campsites.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CampsiteMapComponent } from './campsite-map/campsite-map.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+
 
 
 
@@ -19,8 +21,9 @@ const routes: Routes = [
   {path: 'reservations', component: ViewReservationsComponent},
   {path: 'browse', component: BrowseCampsitesComponent},
   { path: 'detail/:id', component: ProductDetailComponent },
+  { path: 'map', component: CampsiteMapComponent},
   {path: 'errorpage', component: ErrorPageComponent},
-  {path: '**', component: ErrorPageComponent}
+  {path: '**', component: ErrorPageComponent},
 ];
 
 @NgModule({

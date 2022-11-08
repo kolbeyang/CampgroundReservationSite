@@ -18,6 +18,8 @@ export class ReservationDetailComponent implements OnInit {
 
   @Output() deleteSelf: EventEmitter<any> = new EventEmitter();
 
+  errorMessage = '';
+
   constructor(
     private reservationService: ReservationService,
     private productService: ProductService,
@@ -34,8 +36,14 @@ export class ReservationDetailComponent implements OnInit {
     this.reservation = reservation;
     console.log("Displaying the data of a reservation from " + new Date(reservation.startDate) + " to " + new Date(reservation.endDate));
     const campsiteId = reservation.campsiteId;
-    this.productService.getProduct(campsiteId)
-      .subscribe(campsite => this.campsite = campsite);
+
+    if(campsiteId == -1) {
+      this.errorMessage = "The campsite for this reservation is no longer available. This reservation has been deleted."; 
+    }
+    else {
+      this.productService.getProduct(campsiteId)
+        .subscribe(campsite => this.campsite = campsite);
+    }
   }
 
   getStartDate(): Date {

@@ -25,6 +25,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductDetailComponent implements OnInit {
 
   @Input() campsite?: Campsite;
+  reservations: Reservation[] = [];
 
   products$!: Observable<Campsite[]>;
   private searchTerms = new Subject<string>();
@@ -50,6 +51,15 @@ export class ProductDetailComponent implements OnInit {
     this.getCampsite();
   }
 
+  getReservations(): void {
+    this.reservationService.getReservations().subscribe(
+      (reservations) => {
+        this.reservations = reservations.filter((reservation: Reservation) => {return reservation.campsiteId === this.campsite?.id});
+        console.log("Got reservations of campsiteId " + this.campsite?.id);
+      }
+    );
+  }
+
   onSelect(product: Product): void {
     this.selectedProduct = product;
   }
@@ -68,7 +78,10 @@ export class ProductDetailComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log("Campsite id is " + id)
     this.productService.getProduct(id)
-      .subscribe(campsite => this.campsite = campsite);
+      .subscribe(campsite => {
+        this.campsite = campsite;
+        this.getReservations();
+      });
   }
 
   // Push a search term into the observable stream.
@@ -93,9 +106,10 @@ export class ProductDetailComponent implements OnInit {
     }else if(this.campsite) {
         this.errorMessage = '';
         this.successMessage = 'Successful purchase';
-        let x = new Number(this.getPossiblex());
-        let y = new Number(this.getPossibley());
-        let updatedCampsite = new Campsite(this.campsite.name,this.campsite.id,this.campsite.rate,x.valueOf(),y.valueOf());
+        let x = this.getPossiblex();
+        let y = this.getPossibley();
+        console.log("Setting coordinates to be " + x + " , " + y);
+        let updatedCampsite = new Campsite(this.campsite.name,this.campsite.id,this.campsite.rate,x,y);
         this.productService.updateProduct(updatedCampsite)
         .subscribe(() => this.goBack());
       }
@@ -163,16 +177,14 @@ export class ProductDetailComponent implements OnInit {
     console.log("Product detail received date range from " + this.startDate + " to " + this.endDate);
   }
 
-  getPossiblex(): string{
+  getPossiblex(): number{
     let campsite = this.productService.getPossibleCampsite();
-    let xString = new String(campsite.x);
-      return xString.toString();
+    return campsite.x;
   }
 
-  getPossibley(): string{
+  getPossibley(): number{
     let campsite = this.productService.getPossibleCampsite();
-    let yString = new String(campsite.y);
-      return yString.toString();
+    return campsite.y;
   }
 
 

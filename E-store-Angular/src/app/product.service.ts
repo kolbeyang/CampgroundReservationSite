@@ -21,15 +21,14 @@ export class ProductService {
   };
 
   setPossibleCampsiteLocation(x: number, y: number): void{
-    if(x > 460 || y > 460 ){
-        // do nothing
-    }
-    else{
       this.campsite = new Campsite(this.campsite.name, this.campsite.id, this.campsite.rate, x, y);    
-    }
   }
 
-  private resetPossibleCampsite():void {
+  movePossibleCampsiteLocation(x: number, y: number): void {
+    this.campsite = new Campsite(this.campsite.name, this.campsite.id, this.campsite.rate, this.campsite.x + x, this.campsite.y + y);
+  }
+
+  resetPossibleCampsite():void {
     this.campsite = new Campsite("Possible Campsite Location", -1, -12, 0, 0);
   }
 
@@ -55,6 +54,8 @@ export class ProductService {
 
   updateProduct(product: Product): Observable<any> {
     this.resetPossibleCampsite();
+    let campsite = product as Campsite;
+    console.log("Updating product " + campsite.name + " and coordinates " + campsite.x +  " , " + campsite.y);
     return this.http.put(this.productUrl, product, this.httpOptions).pipe(
       tap(_ => this.log(`updated campsite id=${product.id}`)),
       catchError(this.handleError<any>('updateCampsite'))
