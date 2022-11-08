@@ -87,6 +87,13 @@ export class BrowseCampsitesComponent implements OnInit {
     }
   }
 
+  handleCreateCampsiteError(error: any) {
+    console.log("Error caught in component " + error.status);
+    if (error.status == 409) {
+      this.errorMessage = 'Campsite name already';
+    }
+  }
+
   createProduct(name: string, rate: string, x: string, y: string):void{
     const DUMMYNUMBER = 23;
     let ratenume = new Number(rate);
@@ -108,8 +115,8 @@ export class BrowseCampsitesComponent implements OnInit {
     }
     else {
       this.errorMessage = '';
-      this.productService.addProduct(campsite).subscribe(campsite => {
-        this.search("")});
+      this.productService.addProduct(campsite).subscribe((campstie)=>{this.search("")},(error)=>{this.handleCreateCampsiteError(error)});
+      
     }
 
   }
@@ -151,7 +158,7 @@ export class BrowseCampsitesComponent implements OnInit {
       //calling to reservation service add reservation 
       // this.reservationService.addReservation(reserve).subscribe(
       //  (error) => this.handleCreateReservationError(error)); //reservation =>{this.search("")
-      this.reservationService.addReservation(reserve).subscribe();
+      this.reservationService.addReservation(reserve).subscribe(      );
     }    
   }
 

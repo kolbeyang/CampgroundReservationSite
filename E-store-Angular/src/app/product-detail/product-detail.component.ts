@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Product } from '../Product';
 import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
@@ -15,7 +15,9 @@ import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 import { Reservation } from '../Reservation';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BrowseCampsitesComponent } from '../browse-campsites/browse-campsites.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 @Component({
   selector: 'app-product-detail',
@@ -42,6 +44,8 @@ export class ProductDetailComponent implements OnInit {
     private loginService: LoginService,
     private reservationService: ReservationService,
     private location : Location,
+    private appRoutingModule : AppRoutingModule, 
+    private router: Router ,
     public dialog: MatDialog) {
   }
   
@@ -135,8 +139,13 @@ export class ProductDetailComponent implements OnInit {
 
   deleteProduct(product: Product):void{
     //this.products = this.products.filter(h => h !== product);
-    this.productService.deleteProduct(product.id).subscribe(() => this.search(""));
-    this.location.back();
+    this.productService.deleteProduct(product.id).subscribe( 
+      () => {this.search("");
+        //window.location.reload();
+        this.router.navigate(["/browse"]);
+      }
+    );
+
 }
 
   onSelectAdmin(product:Product): void {
