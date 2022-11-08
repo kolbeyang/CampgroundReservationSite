@@ -346,7 +346,10 @@ export class CalendarComponent implements OnInit {
         valid = false;
       }
     } else {
-      this.setStartDate(date);
+        let nextDay = new Date(date);
+        nextDay.setDate(nextDay.getDate() + 1);
+        valid = this.setDateRangeIfValid(date, nextDay)
+
     }
     return valid;
   }

@@ -88,6 +88,13 @@ export class BrowseCampsitesComponent implements OnInit {
     }
   }
 
+  handleCreateCampsiteError(error: any) {
+    console.log("Error caught in component " + error.status);
+    if (error.status == 409) {
+      this.errorMessage = 'Campsite name already';
+    }
+  }
+
   createProduct(name: string, rate: string, x: string, y: string):void{
     const DUMMYNUMBER = 23;
     let ratenume = new Number(rate);
@@ -114,8 +121,8 @@ export class BrowseCampsitesComponent implements OnInit {
     }
     else {
       this.errorMessage = '';
-      this.productService.addProduct(campsite).subscribe(campsite => {
-        this.search("")});
+      this.productService.addProduct(campsite).subscribe((campstie)=>{this.search("")},(error)=>{this.handleCreateCampsiteError(error)});
+      
     }
 
   }

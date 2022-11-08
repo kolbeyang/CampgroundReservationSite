@@ -90,7 +90,7 @@ export class ProductService {
     );
   }
 
-  addProduct(campsite: Campsite){
+  addProduct(campsite: Campsite): Observable<any>{
     this.resetPossibleCampsite();
     return this.http.post<Campsite>(this.productUrl, campsite, this.httpOptions).pipe(     
     catchError(this.handleError<any>('addCampsite')));
