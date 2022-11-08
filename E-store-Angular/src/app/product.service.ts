@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProductService {
 
   private productUrl = 'http://localhost:8080/campsites'
-  campsite: Campsite = new Campsite("Possible Campsite Location", 900, 10, 0, 0);
+  campsite: Campsite = new Campsite("Possible Campsite Location", 900, 10, NaN, NaN);
 
 
 
@@ -29,7 +29,7 @@ export class ProductService {
   }
 
   resetPossibleCampsite():void {
-    this.campsite = new Campsite("Possible Campsite Location", -1, -12, 0, 0);
+    this.campsite = new Campsite("Possible Campsite Location", -1, -12, NaN, NaN);
   }
 
   getPossibleCampsite(): Campsite{
