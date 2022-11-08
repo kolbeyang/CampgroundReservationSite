@@ -99,19 +99,24 @@ export class BrowseCampsitesComponent implements OnInit {
     let ratenume = new Number(rate);
     let xcoord = new Number(x);
     let ycoord = new Number(y);
-    console.log("X: " + xcoord.valueOf() + " Y:"  + ycoord.valueOf());
+    //console.log("X: " + xcoord.valueOf() + " Y:"  + ycoord.valueOf());
     let campsite = new Campsite(name, DUMMYNUMBER, ratenume.valueOf(), xcoord.valueOf(), ycoord.valueOf()); 
     console.log("Campsite x: " + campsite.x + "y: " + campsite.y);
-    console.log("Rate nume Value: " + ratenume);
-    console.log('Rate nume: type' + typeof(ratenume));
-    console.log(ratenume === NaN);
-    console.log("rate nume " + ratenume.valueOf());
+    console.log(campsite.x.valueOf());
+
+    //console.log("Rate nume Value: " + ratenume);
+    //console.log('Rate nume: type' + typeof(ratenume));
+    //console.log(ratenume === NaN);
+    //console.log("rate nume " + ratenume.valueOf());
     if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
-      this.errorMessage = 'Invalid Campsite Name, Try Again';
+      this.errorMessage = 'Invalid Campsite Name, please include the word campesite in the name and try again';
       console.log("Error message was written");
     }
     else if(!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
       this.errorMessage = 'Invalid Rate Value, Try Again';
+    }
+    else if(isNaN(campsite.x) || isNaN(campsite.y)){
+      this.errorMessage = 'Invalid Campsite Location';
     }
     else {
       this.errorMessage = '';
@@ -158,7 +163,8 @@ export class BrowseCampsitesComponent implements OnInit {
       //calling to reservation service add reservation 
       // this.reservationService.addReservation(reserve).subscribe(
       //  (error) => this.handleCreateReservationError(error)); //reservation =>{this.search("")
-      this.reservationService.addReservation(reserve).subscribe(      );
+      this.reservationService.addReservation(reserve).subscribe();
+      this.productService.resetPossibleCampsite();
     }    
   }
 

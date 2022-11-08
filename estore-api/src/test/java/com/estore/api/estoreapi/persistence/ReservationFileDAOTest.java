@@ -35,6 +35,7 @@ public class ReservationFileDAOTest {
     final static long DAY = 86400000;                      //ms in a day
 
     ReservationFileDAO reservationFileDAO;
+    InventoryFileDAO inventoryFileDAO;
     ObjectMapper mockObjectMapper;
     Reservation[] testReservations;
     Campsite[] testCampsites;                              //Since reservations are based on campsite, it is best to include a mock testCampsites
@@ -71,15 +72,35 @@ public class ReservationFileDAOTest {
         testReservations[2] = reserve3;
     
 
+        when(mockObjectMapper
+        .readValue(new File("doesnt_matter.txt"), Campsite[].class))
+            .thenReturn(testCampsites);
+
+        inventoryFileDAO = new InventoryFileDAO("doesnt_matter.txt",mockObjectMapper);
 
         when(mockObjectMapper
             .readValue(new File("Whatever.txt"), Reservation[].class))
                 .thenReturn(testReservations);
 
-        reservationFileDAO = new ReservationFileDAO("Whatever.txt", mockObjectMapper, null); //Check inventoryDao Paramater
+        reservationFileDAO = new ReservationFileDAO("Whatever.txt", mockObjectMapper, inventoryFileDAO); //Check inventoryDao Paramater
         
     }
 
+    @Test
+    public void testcreateReservation(){
+        Reservation tReservation =  new Reservation(3, testCampsites[2].getId(), EPOCH + (DAY * 8), EPOCH + (DAY * 10), fakeUsername, false, 3);
+        Reservation aReservation = assertDoesNotThrow(() -> reservationFileDAO.createReservation(tReservation));
+        assertEquals(tReservation, aReservation);
+
+        Reservation inValidReservation = new Reservation(3, -1, EPOCH + (DAY * 8), EPOCH + (DAY * 10), fakeUsername, false, 3);
+        assertThrows(NullPointerException.class, () -> reservationFileDAO.createReservation(inValidReservation));
+    }
+
+    @Test
+    public void testinvalidateCampsiteReservations() {
+        assertDoesNotThrow(() -> reservationFileDAO.invalidateCampsiteReservations(testCampsites[0].getId()));
+        assertEquals(reservationFileDAO.getCampsiteReservations(testCampsites[0].getId()).length, 0);
+    }
 
     @Test
     public void testgetUserReservationsArray(){
@@ -233,5 +254,8 @@ public class ReservationFileDAOTest {
         
 
     }
+
+
+
     
 }

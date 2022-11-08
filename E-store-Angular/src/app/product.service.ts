@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProductService {
 
   private productUrl = 'http://localhost:8080/campsites'
-  campsite: Campsite = new Campsite("Possible Campsite Location", 900, 10, 0, 0);
+  campsite: Campsite = new Campsite("Possible Campsite Location", 900, 10, NaN, NaN);
 
 
 
@@ -25,11 +25,11 @@ export class ProductService {
   }
 
   movePossibleCampsiteLocation(x: number, y: number): void {
-    this.campsite = new Campsite(this.campsite.name, this.campsite.id, this.campsite.rate, this.campsite.x + x, this.campsite.y + y);
+    this.campsite = new Campsite(this.campsite.name, this.campsite.id, this.campsite.rate, this.campsite.x, this.campsite.y);
   }
 
   resetPossibleCampsite():void {
-    this.campsite = new Campsite("Possible Campsite Location", -1, -12, 0, 0);
+    this.campsite = new Campsite("Possible Campsite Location", -1, -12, NaN, NaN);
   }
 
   getPossibleCampsite(): Campsite{
