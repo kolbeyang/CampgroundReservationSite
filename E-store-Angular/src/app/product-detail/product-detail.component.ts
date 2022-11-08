@@ -141,7 +141,6 @@ export class ProductDetailComponent implements OnInit {
     //this.products = this.products.filter(h => h !== product);
     this.productService.deleteProduct(product.id).subscribe( 
       () => {this.search("");
-        //window.location.reload();
         this.router.navigate(["/browse"]);
       }
     );
