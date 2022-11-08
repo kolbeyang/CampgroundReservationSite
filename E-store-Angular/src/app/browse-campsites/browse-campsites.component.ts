@@ -78,6 +78,7 @@ export class BrowseCampsitesComponent implements OnInit {
   deleteProduct(product: Product):void{
     //this.products = this.products.filter(h => h !== product);
     this.productService.deleteProduct(product.id).subscribe(() => this.search(""));
+    alert("Campsite Successfully Deleted");
 }
 
   onSelectAdmin(product:Product): void {

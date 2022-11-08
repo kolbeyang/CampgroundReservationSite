@@ -137,6 +137,7 @@ export class ProductDetailComponent implements OnInit {
     //this.products = this.products.filter(h => h !== product);
     this.productService.deleteProduct(product.id).subscribe(() => this.search(""));
     this.location.back();
+    alert("Campsite Successfully deleted");
 }
 
   onSelectAdmin(product:Product): void {
@@ -231,6 +232,7 @@ export class ProductDetailComponent implements OnInit {
       // this.reservationService.addReservation(reserve).subscribe(
       //  (error) => this.handleCreateReservationError(error)); //reservation =>{this.search("")
       this.reservationService.addReservation(reserve).subscribe();
+      alert("Reservation Successfully Created")
     }
 
 
