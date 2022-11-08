@@ -22,6 +22,7 @@ import { Reservation } from '../Reservation';
 export class BrowseCampsitesComponent implements OnInit {
 
   products$!: Observable<Campsite[]>;
+  private products: Campsite[] = [];
   private searchTerms = new Subject<string>();
   selectedProduct?:Product;
   errorMessage = '';
@@ -36,6 +37,7 @@ export class BrowseCampsitesComponent implements OnInit {
   ngOnInit(): void {
 
     this.products$ = this.productService.searchProducts("");
+    this.products$.subscribe(products=> this.products = products);
   }
 
   onSelect(product: Product): void {
@@ -51,6 +53,7 @@ export class BrowseCampsitesComponent implements OnInit {
   // Push a search term into the observable stream.
   search(term: string): void {
     this.products$ = this.productService.searchProducts(term.toLowerCase());
+    this.products$.subscribe(products=> this.products = products);
   }
 
   editProduct(): void{
@@ -112,6 +115,8 @@ export class BrowseCampsitesComponent implements OnInit {
     if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
       this.errorMessage = 'Invalid Campsite Name, please include the word campesite in the name and try again';
       console.log("Error message was written");
+    } else if (this.products.filter((product: Campsite) => product.name===name)) {
+      this.errorMessage = 'Duplicate Campsite Name';
     }
     else if(!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
       this.errorMessage = 'Invalid Rate Value, Try Again';
