@@ -26,6 +26,12 @@ export class ViewReservationsComponent implements OnInit {
   campsite?: Campsite;
   campsites: Campsite[] = [];
 
+  currentReservations: Reservation[] = [];
+  pastReservations: Reservation[] = [];
+
+  // current date time
+  date = new Date().getMilliseconds();
+
   ngOnInit(): void {
     this.getReservations();
   }
@@ -47,11 +53,17 @@ export class ViewReservationsComponent implements OnInit {
 
   getReservations(): void{
     this.loginService.getPaidReservations(this.loginService.getUserName())
-      .subscribe(reservations => {this.reservations = reservations; this.getCampsites();});
+      .subscribe(reservations => {
+        this.reservations = reservations; 
+        this.currentReservations = reservations.filter((reservation: Reservation) => {return reservation.startDate >= (new Date()).getTime() });
+        this.pastReservations = reservations.filter((reservation: Reservation) => {return reservation.startDate < (new Date()).getTime() });
+        this.getCampsites();});
+
   }
   // onSelect(reservation: Reservation): void {
   //   this.selectedReservation = reservation;
   // }
+
 
   getUsername(): String {
     return this.loginService.getUserName();
