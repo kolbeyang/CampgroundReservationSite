@@ -157,7 +157,7 @@ export class ProductDetailComponent implements OnInit {
     console.log(ratenume === NaN);
     console.log("rate nume " + ratenume.valueOf());
     if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
-      this.errorMessage = 'Invalid Campsite Name, Try Again';
+      this.errorMessage = 'Invalid Campsite Name, please include the word campesite in the name and try again';
       console.log("Error message was written");
     }
     else if(!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
