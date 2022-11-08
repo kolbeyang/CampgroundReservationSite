@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +15,7 @@ import { ReservationDetailComponent } from './reservation-detail/reservation-det
 import { BrowseCampsitesComponent } from './browse-campsites/browse-campsites.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CampsiteMapComponent } from './campsite-map/campsite-map.component';
-
+import { TokenInterceptorService } from './token-interceptor.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {MatNativeDateModule} from '@angular/material/core';
@@ -53,7 +53,13 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
