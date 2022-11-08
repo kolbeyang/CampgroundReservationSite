@@ -6,6 +6,8 @@ import { User } from './user';
 import { LoginRequest } from './loginRequest';
 import { LoginResponse } from './loginResponse';
 import { Reservation } from './Reservation';
+import { LocalStorageService } from './local-storage-service.service';
+import { DeclarationListEmitMode } from '@angular/compiler';
 export interface LoginInfo {
   loggedIn:boolean;
 }
@@ -23,7 +25,7 @@ export class LoginService {
   constructor(
     private http: HttpClient) {
     this.loginResponse = <LoginResponse>{};
-    this.loggedIn = false;
+    this.loggedIn = this.wasLoggedIn();
     this.loginInfo.loggedIn = this.loggedIn;
   }
   /**
@@ -33,8 +35,26 @@ export class LoginService {
   isLoggedIn() {
     return this.loggedIn;
   }
+
   getUserName(){
     return this.loginResponse.username;
+  }
+
+  wasLoggedIn(){
+    if(localStorage.getItem('token') != null){
+      this.loginResponse.username = String(localStorage.getItem('token'));
+      if(localStorage.getItem('admin') == 'false'){
+        this.loginResponse.isAdmin = false;
+      }
+      else if(localStorage.getItem('admin') == 'true'){
+        this.loginResponse.isAdmin = true;
+      }
+      return true;
+    }
+
+    else{
+      return false;
+    }
   }
   /**
    * Getter
@@ -47,8 +67,8 @@ export class LoginService {
    * undefined if there is no user logged in
    * @returns Returns the token of the user who is logged in
    */
-  getToken(): String {
-    return this.loginResponse.token;
+  getToken() { 
+    return localStorage.getItem('token')
   }
   /**
    * Returns an object that shows whether a user is loggedIn or not
@@ -75,12 +95,20 @@ export class LoginService {
   logout() {
     this.loggedIn = false;
     this.loginInfo.loggedIn = false;
+
+    //!----------------------------------HERE 11/6/22----------------------------------!
+    localStorage.clear()
+
   }
   login(loginResponse: LoginResponse) {
     this.loginResponse = loginResponse;
     this.loggedIn = true;
     this.loginInfo.loggedIn = true;
     console.log("LoginService: the token is " + this.getToken())
+
+    //!----------------------------------HERE 11/6/22----------------------------------!
+    localStorage.setItem('token', this.loginResponse.username)
+    localStorage.setItem('admin', String(this.loginResponse.isAdmin))
   }
   loginRequest(loginRequest: LoginRequest): Observable<LoginResponse> {
     console.log("Sending post requset fo Login")
@@ -143,6 +171,8 @@ export class LoginService {
       tap(_ => this.log('pay for reservations')), catchError(this.handleError<any>('getCart', []))
     );
   }
+
+
 
 
     /**
