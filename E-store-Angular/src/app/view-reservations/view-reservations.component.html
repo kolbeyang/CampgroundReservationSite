@@ -1,25 +1,29 @@
-<div *ngIf="!isLoggedIn()"> 
-  <h2 class = "page-title">Log in to view reservations</h2>
+<div *ngIf="!isLoggedIn()">
+  <h2 class="page-title">Log in to view reservations</h2>
 </div>
 
 
 <div *ngIf="isLoggedIn()" class="card search-card">
 
-  <div class = "search-card-element">
-    <h2 class = "page-title"> Hi {{getUsername()}}! </h2>
-    <h1> Your Reservations </h1>
+  <div class="search-card-element">
+    <h2 class="page-title"> Hi {{getUsername()}}! </h2>
+    <h1 *ngiIf="currentReservations.length > 0"> Your Reservations </h1>
   </div>
-    <li *ngFor="let reservation of currentReservations">
-      <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation] = "reservation"> </app-reservation-detail>
-    </li>
+  <li *ngFor="let reservation of currentReservations">
+    <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation]="reservation">
+    </app-reservation-detail>
+  </li>
 
-    <div class = "search-card-element">
-      <h1> Your Past Reservations </h1>
-    </div>
-      <li *ngFor="let reservation of pastReservations">
-        <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation] = "reservation"> </app-reservation-detail>
-      </li>
+  <div class="search-card-element">
+    <h1 *ngIf="pastReservations.length == 0 && currentReservations.length == 0">No reservations yet!</h1>
+  </div>
+
+  <div class="search-card-element"  *ngIf="pastReservations.length > 0">
+    <h1> Your Past Reservations </h1>
+  </div>
+  <li *ngFor="let reservation of pastReservations">
+    <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation]="reservation">
+    </app-reservation-detail>
+  </li>
 
 </div>
-
-

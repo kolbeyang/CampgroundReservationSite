@@ -4,7 +4,7 @@
     <a class = "nav-button" routerLink="/home">Home</a>
     <a class = "nav-button" routerLink="/browse">Browse</a>
     <a *ngIf="loginInfo.loggedIn && !isAdmin()" class = "nav-button" routerLink="/cart">Cart</a>
-    <a *ngIf="loginInfo.loggedIn && !isAdmin()" class = "nav-button" routerLink="/reservations">Reservation</a>
+    <a *ngIf="loginInfo.loggedIn && !isAdmin()" class = "nav-button" routerLink="/reservations">Account</a>
     <button *ngIf="!loginInfo.loggedIn" class = "login-button" routerLink="/login">Login</button>
     <button *ngIf="loginInfo.loggedIn"  class = "login-button" (click)="logout()">Logout</button>
   </nav>
