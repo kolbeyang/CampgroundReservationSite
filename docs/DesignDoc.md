@@ -70,10 +70,7 @@ STORY
 
 
 ### Roadmap of Enhancements
-<br>Scheduling: Campsites will not be able to have more than a specified amount of reservations at any given time.
-<br>Changes in inventory: If the owner removes a campsite from the inventory or changes its status to not reservable, any customers with paid reservations or reservations in their cart for that campsite will receive a notice and their reservations will be removed the next time they login. 
-<br>Setting Campsite Dates: The owner will be able to specify certain times of year that the campsites are available or unavailable and users will be able to see this.
-
+<br>All Features are Implemented
 
 
 ## Application Domain
@@ -167,6 +164,12 @@ view-cart.component
 view-reservations.component
 - Uses the logi.service to get all purchased reservations for the logged-in user
 - allows the user to delete reservations that they've purchased
+
+calendar.component
+- handles the interactive calendar and user input
+
+map-detail.component
+- handles the interactive map and user input
 
 reservation.service
 - sends requests to the api to create, delete, update, and get reservations
