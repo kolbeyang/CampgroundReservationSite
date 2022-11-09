@@ -9,7 +9,7 @@
 
         <div class = "horizontal-display">
             <h2 class = "text-block"> {{campsite.name}}</h2>
-            <h2 class = "text-block">${{reservation.price}}  </h2>
+            <h2 class = "text-block">${{reservation.price | number:'1.2-2' }}  </h2>
         </div>
 
         <h3 class = "detail-text"> 
@@ -33,7 +33,7 @@
 
         <div class = "horizontal-display">
             <h2 class = "text-block"> {{errorMessage}}</h2>
-            <h2 class = "text-block">${{reservation.price}}  </h2>
+            <h2 class = "text-block">${{reservation.price | number:'1.2-2'}}  </h2>
         </div>
 
         <h3 class = "detail-text"> 
