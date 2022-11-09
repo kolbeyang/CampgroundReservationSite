@@ -372,6 +372,13 @@ export class CalendarComponent implements OnInit {
     return valid;
   }
 
+  clearSelection(): void {
+    this.setStartDate(undefined);
+    this.setEndDate(undefined);
+    this.updateCalendar();
+    this.emitDateRange();
+  }
+
   handleStartDate(date: string | null): void {
     console.log("Setting Start Date");
     if (date === null) {return;}

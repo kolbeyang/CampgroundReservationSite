@@ -85,11 +85,13 @@
         </button>
     </div>
 </div>
-
-<div class="input-bar" *ngIf="!this.forAdmin">
-    <input class="date-input start-date" type="date" id="startDate" #StartDate placeholder="Start date"
-        (change)="handleStartDate(StartDate.value)">
-    <h1 class="date-to-date-label">to</h1>
-    <input class="date-input end-date" type="date" id="endDate" #EndDate placeholder="End date"
-        (change)="handleEndDate(EndDate.value)">
+<div class="bottom-bar">
+    <div class="input-bar" *ngIf="!this.forAdmin">
+        <input class="date-input start-date" type="date" id="startDate" #StartDate placeholder="Start date"
+            (change)="handleStartDate(StartDate.value)">
+        <h1 class="date-to-date-label">to</h1>
+        <input class="date-input end-date" type="date" id="endDate" #EndDate placeholder="End date"
+            (change)="handleEndDate(EndDate.value)">
+    </div>
+    <button class="clear-selection" *ngIf="this.startDate || this.endDate" (click)="clearSelection()">Clear</button>
 </div>

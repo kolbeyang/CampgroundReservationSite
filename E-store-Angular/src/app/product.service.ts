@@ -5,6 +5,7 @@ import { Reservation } from './Reservation';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -92,8 +93,10 @@ export class ProductService {
 
   addProduct(campsite: Campsite): Observable<any>{
     this.resetPossibleCampsite();
-    return this.http.post<Campsite>(this.productUrl, campsite, this.httpOptions).pipe(     
-    catchError(this.handleError<any>('addCampsite')));
+    return this.http.post<Campsite>(this.productUrl, campsite, this.httpOptions);
+
+    // .pipe(     
+    // catchError(this.handleError<any>('addCampsite')));
   }
   
   log(arg0: string): void {

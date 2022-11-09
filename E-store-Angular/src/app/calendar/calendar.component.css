@@ -203,6 +203,10 @@
     cursor: pointer;
 }
 
+.clear-selection {
+    margin-top: 20px;
+}
+
 .unclickable:hover {
     top: 0px;
     box-shadow: none;

@@ -94,7 +94,7 @@ export class BrowseCampsitesComponent implements OnInit {
   handleCreateCampsiteError(error: any) {
     console.log("Error caught in component " + error.status);
     if (error.status == 409) {
-      this.errorMessage = 'Campsite name already';
+      this.errorMessage = 'Campsite name already taken';
     }
   }
 
@@ -115,9 +115,9 @@ export class BrowseCampsitesComponent implements OnInit {
     if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
       this.errorMessage = 'Invalid Campsite Name, please include the word campesite in the name and try again';
       console.log("Error message was written");
-    } else if (this.products.filter((product: Campsite) => product.name===name)) {
-      this.errorMessage = 'Duplicate Campsite Name';
-    }
+    } //else if (this.products.filter((product: Campsite) => product.name===name).length > 0) {
+      //this.errorMessage = 'Duplicate Campsite Name';
+    //}
     else if(!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
       this.errorMessage = 'Invalid Rate Value, Try Again';
     }
@@ -126,7 +126,11 @@ export class BrowseCampsitesComponent implements OnInit {
     }
     else {
       this.errorMessage = '';
-      this.productService.addProduct(campsite).subscribe((campstie)=>{this.search("")},(error)=>{this.handleCreateCampsiteError(error)});
+      this.productService.addProduct(campsite).subscribe({
+        next: (campsite) => this.search(""),
+        error: (e) => this.handleCreateCampsiteError(e)
+        // (campstie)=>{this.search("")},(error)=>{this.handleCreateCampsiteError(error)}
+      });
       
     }
 
