@@ -8,6 +8,10 @@ button:active {
     background-color:black;
 }
 
+.footer {
+  height: 50px;
+}
+
 .nav-bar {
     display: flex;
     padding: 20px;

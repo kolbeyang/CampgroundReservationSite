@@ -28,9 +28,6 @@
     </div>
     <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name" />
     <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
-    <span>X Coordinate: {{this.getPossiblex()}}</span>
-    <br>
-    <span>Y Coordinate: {{this.getPossibley()}}</span>
 
     <button class="make-campsite-button" type="Button"
       (click)="createProduct(NewCampsiteName.value, NewCampsiteRate.value, this.getPossiblex(), this.getPossibley())">Create
