@@ -11,12 +11,13 @@
 
 
 .input-bar {
+    flex-grow: 1;
     display: flex;
     outline: none;
     justify-content: space-between;
     border-radius: 6px;
-    margin-top: 20px;
     position: relative;
+    width: calc(100% - 150px);
 }
 
 .date-input {
@@ -37,6 +38,11 @@
     z-index: 1;
     display: flex;
     justify-content: space-between;
+}
+
+.bottom-bar {
+    display: flex;
+    margin-top: 20px;
 }
 
 .arrow-box {
@@ -204,7 +210,18 @@
 }
 
 .clear-selection {
-    margin-top: 20px;
+    float: left;
+    font-size: 16px;
+    /* height: 100%; */
+    width: 100px;
+    padding: 5px;
+    margin-left: 20px;
+    margin-top: 0px;
+    background-color: var(--red);
+}
+
+.clear-selection:active {
+    background-color: black;
 }
 
 .unclickable:hover {

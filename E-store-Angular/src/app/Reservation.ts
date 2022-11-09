@@ -15,5 +15,6 @@ export class Reservation {
         this.username = username;
         this.paid = paid;
         this.price = price;
+
     }
 }
