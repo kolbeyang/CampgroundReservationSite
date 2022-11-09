@@ -115,9 +115,9 @@ export class BrowseCampsitesComponent implements OnInit {
     if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
       this.errorMessage = 'Invalid Campsite Name, please include the word campesite in the name and try again';
       console.log("Error message was written");
-    } //else if (this.products.filter((product: Campsite) => product.name===name).length > 0) {
-      //this.errorMessage = 'Duplicate Campsite Name';
-    //}
+    } else if (this.products.filter((product: Campsite) => product.name===name).length > 0) {
+      this.errorMessage = 'Duplicate Campsite Name';
+    }
     else if(!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
       this.errorMessage = 'Invalid Rate Value, Try Again';
     }

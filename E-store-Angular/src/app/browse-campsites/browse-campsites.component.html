@@ -20,7 +20,7 @@
 </div>
 
 
-<div *ngIf="this.isAdmin()" class="card">
+<div *ngIf="this.isAdmin() && this.isLoggedIn()" class="card">
   <h2>Create New Campsite</h2>
   <div>
     <div *ngIf="errorMessage!=''" class="alert">
