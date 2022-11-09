@@ -49,6 +49,39 @@ input:focus::placeholder {
     color: var(--yellow);
 }
 
+.confirmation-card .mat-dialog-container{
+  width: 400px;
+  border-radius: 12px;
+  outline: black outset 3px;
+  padding: 40px;
+}
+
+
+.dialogue-button-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.dialogue-side-by-side-button {
+    width: calc(50% - 5px);
+    margin-top: 0px;
+}
+
+.dialogue-side-by-side-button:hover {
+  top: 0px;
+  box-shadow: none;
+  background-color: black;
+  font-weight: normal;
+  color: white;
+}
+
+
+.delete-button:hover {
+  background-color: var(--red);
+  font-weight: bold;
+  color: black;
+}
   
   li {
     list-style : none;

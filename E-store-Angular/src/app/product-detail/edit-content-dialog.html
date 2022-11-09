@@ -1,9 +1,10 @@
 
-<h2 mat-dialog-title>Save Campsite</h2>
+
+<h2 mat-dialog-title>Save Changes</h2>
 <mat-dialog-content>
-    Are you sure these are the changes you want?
+    Are you sure you would like to save these changes?
 </mat-dialog-content>
-<mat-dialog-actions align="end" >
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
-  </mat-dialog-actions>
+<mat-dialog-actions class="dialogue-button-box">
+    <button class="dialogue-side-by-side-button" mat-button mat-dialog-close>Cancel</button>
+    <button class="dialogue-side-by-side-button" mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

@@ -121,7 +121,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
   editConfirmation(): void {
-    const dialogRef = this.dialog.open(EditContentDialog);
+    const dialogRef = this.dialog.open(EditContentDialog, {
+      panelClass : "confirmation-card"
+    });
+    
     dialogRef.afterClosed().subscribe(result => {
       this.editProduct();
     });
@@ -130,7 +133,9 @@ export class ProductDetailComponent implements OnInit {
 
 
   deleteConfirmation(product: Product):void{
-      const dialogRef = this.dialog.open(DeleteContentDialog);
+      const dialogRef = this.dialog.open(DeleteContentDialog, {
+        panelClass : "confirmation-card"
+      });
 
       dialogRef.afterClosed().subscribe(result => {
         if(result) this.deleteProduct(product);
