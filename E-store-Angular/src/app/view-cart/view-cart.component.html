@@ -11,7 +11,7 @@
   <div class = "search-card-element">
     <div class = "horizontal-display">
       <h2 class = "text-block">Total</h2>
-      <h2 class = "text-block">${{calculateTotalPrice()}}  </h2>
+      <h2 class = "text-block">${{calculateTotalPrice() | number:'1.2-2' }}  </h2>
     </div>
     <button class = "purchase-button" [disabled]="reservations.length == 0" (click) = "purchase()">Make Payment</button>
   </div>

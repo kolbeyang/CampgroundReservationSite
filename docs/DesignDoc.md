@@ -70,10 +70,7 @@ STORY
 
 
 ### Roadmap of Enhancements
-<br>Scheduling: Campsites will not be able to have more than a specified amount of reservations at any given time.
-<br>Changes in inventory: If the owner removes a campsite from the inventory or changes its status to not reservable, any customers with paid reservations or reservations in their cart for that campsite will receive a notice and their reservations will be removed the next time they login. 
-<br>Setting Campsite Dates: The owner will be able to specify certain times of year that the campsites are available or unavailable and users will be able to see this.
-
+<br>All Features are Implemented
 
 
 ## Application Domain
@@ -167,6 +164,12 @@ view-cart.component
 view-reservations.component
 - Uses the logi.service to get all purchased reservations for the logged-in user
 - allows the user to delete reservations that they've purchased
+
+calendar.component
+- handles the interactive calendar and user input
+
+map-detail.component
+- handles the interactive map and user input
 
 reservation.service
 - sends requests to the api to create, delete, update, and get reservations
@@ -279,6 +282,6 @@ The strategy that was used for unit testing was to first have a developer fully 
 After all the tests passed, a Jacoco report was generated to check the coverage of the testing. This was used to determine what other test cases/scenarios need to be covered. The figure below shows the results of the Jacoco report. 
 
 
-![Overall Code Coverage](Code_Coverage.PNG)
+![Overall Code Coverage](Code_Coverage.png)
 
-As it can be seen the code coverage 97% was achieved for the persistence, 91% was achieved for the model, and 90% was achieved for the controller. The coverage targets that were aimed for were 90% for the controller and persistence, and 95% for the model.  Although all of the coverage targets were achieved, there were still some untested scenarios that will need to be addressed later on.  For some classes in the model it made more sense to follow Test Driven Development (TDD) and have tests the fail until methods are implemented, but for the remaining classes in the other tiers it wasn't as feasible. Overall, as the project continues, the unit testing will be continually updated to ensure that the code is functioning.
+As it can be seen the code coverage 98% was achieved for the persistence, 95% was achieved for the model, and 90% was achieved for the controller. The coverage targets that were aimed for were 90% for the controller and persistence, and 95% for the model.  Although all of the coverage targets were achieved, there were still some minor untested scenarios.  For some classes in the model it made more sense to follow Test Driven Development (TDD) and have tests the fail until methods are implemented, but for the remaining classes in the other tiers it wasn't as feasible. Overall, as the project continues, the unit testing will be continually updated to ensure that the code is functioning.
