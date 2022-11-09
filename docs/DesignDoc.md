@@ -282,6 +282,6 @@ The strategy that was used for unit testing was to first have a developer fully 
 After all the tests passed, a Jacoco report was generated to check the coverage of the testing. This was used to determine what other test cases/scenarios need to be covered. The figure below shows the results of the Jacoco report. 
 
 
-![Overall Code Coverage](Code_Coverage.PNG)
+![Overall Code Coverage](Code_Coverage.png)
 
 As it can be seen the code coverage 97% was achieved for the persistence, 91% was achieved for the model, and 90% was achieved for the controller. The coverage targets that were aimed for were 90% for the controller and persistence, and 95% for the model.  Although all of the coverage targets were achieved, there were still some untested scenarios that will need to be addressed later on.  For some classes in the model it made more sense to follow Test Driven Development (TDD) and have tests the fail until methods are implemented, but for the remaining classes in the other tiers it wasn't as feasible. Overall, as the project continues, the unit testing will be continually updated to ensure that the code is functioning.
