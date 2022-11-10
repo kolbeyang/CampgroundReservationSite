@@ -1,47 +1,28 @@
 
-<div class = "container" *ngIf="campsite && reservation">
+<div class = "container" *ngIf="reservation ">
     <button class="remove-button" type="button" (click)="deleteReservation()">
         <img class="remove-button-image" src="../assets/x-icon.png">
     </button>
     <div class = "list-element">
-
-
-
-        <div class = "horizontal-display">
+        <div class = "horizontal-display" *ngIf="campsite && reservation">
             <h2 class = "text-block"> {{campsite.name}}</h2>
             <h2 class = "text-block">${{reservation.price | number:'1.2-2' }}  </h2>
         </div>
 
-        <h3 class = "detail-text"> 
-            from {{getStartDate().getMonth() + 1}}/{{getStartDate().getDate()}}/{{getStartDate().getFullYear()}}
-            to {{getEndDate().getMonth() + 1}}/{{getEndDate().getDate()}}/{{getEndDate().getFullYear()}}
-        </h3>
-
-    </div>
-
-
-
-</div>
-
-<div class = "container" *ngIf="reservation && errorMessage!=''">
-    <button class="remove-button" type="button" (click)="deleteReservation()">
-        <img class="remove-button-image" src="../assets/x-icon.png">
-    </button>
-    
-    <div class = "list-element">
-
-
-        <div class = "horizontal-display">
-            <h2 class = "text-block"> {{errorMessage}}</h2>
+        <div class = "horizontal-display" *ngIf="reservation && errorMessage!=''">
+            <h2 class = "text-block">(Reservation for deleted campsite)</h2>
             <h2 class = "text-block">${{reservation.price | number:'1.2-2'}}  </h2>
         </div>
 
-        <h3 class = "detail-text"> 
+        <h3 class = "detail-text" *ngIf="campsite && reservation"> 
             from {{getStartDate().getMonth() + 1}}/{{getStartDate().getDate()}}/{{getStartDate().getFullYear()}}
+            to {{getEndDate().getMonth() + 1}}/{{getEndDate().getDate()}}/{{getEndDate().getFullYear()}}
+        </h3>
+
+        <h3 class = "detail-text" *ngIf="reservation && errorMessage!=''"> 
+            Refund has been issued on reservation from {{getStartDate().getMonth() + 1}}/{{getStartDate().getDate()}}/{{getStartDate().getFullYear()}}
             to {{getEndDate().getMonth() + 1}}/{{getEndDate().getDate()}}/{{getEndDate().getFullYear()}}
         </h3>
 
     </div>
 
-
-</div>
