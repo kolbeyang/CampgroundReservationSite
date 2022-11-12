@@ -377,6 +377,7 @@ export class CalendarComponent implements OnInit {
     this.setEndDate(undefined);
     this.updateCalendar();
     this.emitDateRange();
+    this.errorMessage = "";
   }
 
   handleStartDate(date: string | null): void {

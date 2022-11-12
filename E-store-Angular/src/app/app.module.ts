@@ -20,6 +20,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CreateCampsiteComponent } from './create-campsite/create-campsite.component';
 
 
 
@@ -37,7 +38,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     DeleteContentDialog,
     EditContentDialog,
     CalendarComponent,
-    CampsiteMapComponent
+    CampsiteMapComponent,
+    CreateCampsiteComponent
   ],
   imports: [
     AppRoutingModule,

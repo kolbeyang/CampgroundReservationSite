@@ -17,20 +17,9 @@
     <app-campsite-map></app-campsite-map>
   </div>
 
-</div>
-
-
-<div *ngIf="this.isAdmin() && this.isLoggedIn()" class="card">
-  <h2>Create New Campsite</h2>
-  <div>
-    <div *ngIf="errorMessage!=''" class="alert">
-      {{errorMessage}}
-    </div>
-    <input id="Campsite-name" #NewCampsiteName placeholder="Campsite name" />
-    <input id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
-
-    <button class="make-campsite-button" type="Button"
-      (click)="createProduct(NewCampsiteName.value, NewCampsiteRate.value, this.getPossiblex(), this.getPossibley())">Create
-      New Campsite</button>
+  <div class="search-card-element align-top">
+    <button class="create-campsite-button" routerLink="/create"> Create new campsite </button>
   </div>
+
 </div>
+

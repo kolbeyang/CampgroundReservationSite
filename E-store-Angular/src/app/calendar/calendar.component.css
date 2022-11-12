@@ -22,6 +22,7 @@
 
 .date-input {
     width: 40%;
+    font-family: Helvetica, sans-serif;
     margin-top: 0px;
 }
 
@@ -206,7 +207,7 @@
     top: 0px;
     border-radius: 50%;
     z-index: 1;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .clear-selection {
@@ -228,7 +229,7 @@
     top: 0px;
     box-shadow: none;
     border-radius: 0px;
-    cursor: pointer;
+    /* cursor: pointer; */
     z-index: 0;
 }
 

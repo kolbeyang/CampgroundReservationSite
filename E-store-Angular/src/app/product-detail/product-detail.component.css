@@ -48,11 +48,6 @@
     margin-top: 10px;
 }
 
-.info-label {
-    margin-top: 30px;
-    font-size: 18px;
-}
-
 button {
     margin-top:30px;
 }
@@ -92,3 +87,6 @@ button {
     margin-top: 30px;
 }
   
+.align-lower {
+    padding-bottom: 20px;
+}

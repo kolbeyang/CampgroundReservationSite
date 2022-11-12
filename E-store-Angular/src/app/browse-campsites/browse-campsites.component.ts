@@ -115,9 +115,10 @@ export class BrowseCampsitesComponent implements OnInit {
     if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
       this.errorMessage = 'Invalid Campsite Name, please include the word campesite in the name and try again';
       console.log("Error message was written");
-    } else if (this.products.filter((product: Campsite) => product.name===name).length > 0) {
-      this.errorMessage = 'Duplicate Campsite Name';
-    }
+    } 
+    // else if (this.products.filter((product: Campsite) => product.name===name).length > 0) {
+    //   this.errorMessage = 'Duplicate Campsite Name';
+    // }
     else if(!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
       this.errorMessage = 'Invalid Rate Value, Try Again';
     }
@@ -136,47 +137,6 @@ export class BrowseCampsitesComponent implements OnInit {
 
   }
 
-  //   /**
-  //  * Handles Errors from a failed login
-  //  * @param error The error to check
-  //  */
-  //    handleCreateReservationError(error: any) {
-  //     console.log("Error caught in component ");
-  //     console.log(error.status);
-  //     this.errorMessage = 'Reservation has a conflict.';
-  //   }
-
-  createReservation(start: string, end: string, site: Campsite):void{
-    // console.log("Start value" + start);
-    // console.log("End Value" + end);
-    let currentDate = new Date();
-    let startDate = new Date(start);
-    let endDate = new Date(end);
-
-    // console.log("Start Date:" + startDate.getTime());
-    // console.log("End Date:" + endDate.getTime());
-    this.errorMessage = '';
-    if(startDate.getTime() < currentDate.getTime()){
-      this.errorMessage = 'Cannot Create Reservation in the past'
-    }
-    else if(endDate.getFullYear() > currentDate.getFullYear()){
-      this.errorMessage = 'Cannot Book Reservations outside of this year';
-    }
-    else if(endDate.getTime() <= startDate.getTime()){
-      this.errorMessage = 'Invalid Reservation Time';
-    }
-    else{
-      let camp = new Campsite(site.name, site.id, site.rate, site.x, site.y);
-
-      let reserve = new Reservation(1001, Number(camp.id), Number(startDate), Number(endDate), this.loginService.getUserName(), false, camp.rate);
-      
-      //calling to reservation service add reservation 
-      // this.reservationService.addReservation(reserve).subscribe(
-      //  (error) => this.handleCreateReservationError(error)); //reservation =>{this.search("")
-      this.reservationService.addReservation(reserve).subscribe();
-      this.productService.resetPossibleCampsite();
-    }    
-  }
 
   getPossiblex(): string{
     let campsite = this.productService.getPossibleCampsite();

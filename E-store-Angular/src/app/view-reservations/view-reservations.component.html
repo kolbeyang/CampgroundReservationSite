@@ -5,9 +5,9 @@
 
 <div *ngIf="isLoggedIn()" class="card search-card">
 
-  <div class="search-card-element">
+  <div class="search-card-element align-lower">
     <h2 class="page-title"> Hi {{getUsername()}}! </h2>
-    <h1 *ngiIf="currentReservations.length > 0"> Your Reservations </h1>
+    <h1 class="section-title" *ngIf="currentReservations.length > 0"> Your upcoming reservations </h1>
   </div>
   <li *ngFor="let reservation of currentReservations">
     <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation]="reservation">

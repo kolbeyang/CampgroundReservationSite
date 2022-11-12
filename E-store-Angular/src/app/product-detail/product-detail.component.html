@@ -19,7 +19,7 @@
 </div>
 
 <div *ngIf="this.isAdmin() && campsite && this.isLoggedIn()" class="card search-card">
-  <div class="search-card-element">
+  <div class="search-card-element align-lower">
     <h2>{{campsite.name}}</h2>
     <div *ngIf="errorMessage!=''" class="alert">
       {{errorMessage}}
