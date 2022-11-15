@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Campsite } from '../Campsite';
 import { LoginService } from '../login.service';
 import { ProductService } from '../product.service';
@@ -16,7 +17,8 @@ export class CreateCampsiteComponent implements OnInit {
   constructor(    
     private productService: ProductService, 
     private loginService: LoginService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -55,7 +57,9 @@ export class CreateCampsiteComponent implements OnInit {
     else {
       this.errorMessage = '';
       this.productService.addProduct(campsite).subscribe({
-        next: (campsite) => {return},
+        next: (campsite) => {
+          this.router.navigate(['/response'], {state: {responseType : "campsiteCreated-success"}});
+        },
         error: (e) => this.handleCreateCampsiteError(e)
         // (campstie)=>{this.search("")},(error)=>{this.handleCreateCampsiteError(error)}
       });

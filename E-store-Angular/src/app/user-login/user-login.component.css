@@ -1,6 +1,7 @@
 
-.card {
-    max-width: 450px;
+.login-card {
+    width: 450px;
+    min-width: 450px;
 }
 
 button{

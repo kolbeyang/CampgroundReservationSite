@@ -1,0 +1,23 @@
+<div *ngIf="responseType === 'campsiteUpdated-success'" class="container">
+    <h2 class="main-text">Campsite updated!</h2> 
+    
+    <button class="main-button" routerLink="/browse">Back to browse</button>
+</div>
+
+<div *ngIf="responseType === 'reservationCreated-success'" class="container">
+    <h2 class="main-text">Reservation created!</h2> 
+    
+    <button class="main-button" routerLink="/browse">Back to browse</button>
+</div>
+
+<div *ngIf="responseType === 'campsiteCreated-success'" class="container">
+    <h2 class="main-text">Campsite created!</h2> 
+    
+    <button class="main-button" routerLink="/browse">Back to browse</button>
+</div>
+
+<div *ngIf="responseType === 'campsiteDeleted-success'" class="container">
+    <h2 class="main-text">Campsite deleted!</h2> 
+    
+    <button class="main-button" routerLink="/browse">Back to browse</button>
+</div>

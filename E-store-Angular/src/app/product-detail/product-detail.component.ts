@@ -115,7 +115,11 @@ export class ProductDetailComponent implements OnInit {
         console.log("Setting coordinates to be " + x + " , " + y);
         let updatedCampsite = new Campsite(this.campsite.name,this.campsite.id,this.campsite.rate,x,y);
         this.productService.updateProduct(updatedCampsite)
-        .subscribe(() => this.goBack());
+        // .subscribe(() => this.goBack());
+        .subscribe((campsite) => {
+          console.log("Update Success, now routing...");
+          this.router.navigate(['/response'], {state: {responseType : "campsiteUpdated-success"}});
+        })
       }
     
   }
@@ -145,9 +149,8 @@ export class ProductDetailComponent implements OnInit {
   deleteProduct(product: Product):void{
     //this.products = this.products.filter(h => h !== product);
     this.productService.deleteProduct(product.id).subscribe( 
-      () => {this.search("");
-        this.router.navigate(["/browse"]);
-        alert("Campsite Successfully deleted");
+      () => {
+        this.router.navigate(['/response'], {state: {responseType : "campsiteDeleted-success"}});
       }
     );
 
@@ -160,30 +163,7 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  createProduct(name: string, rate: string, x: string, y: string):void{
-    const DUMMYNUMBER = 23;
-    let ratenume = new Number(rate);
-    let xcoord = new Number(x);
-    let ycoord = new Number(y);
-    let campsite = new Campsite(name, DUMMYNUMBER, ratenume.valueOf(), xcoord.valueOf(), ycoord.valueOf()); 
-    console.log("Rate nume Value: " + ratenume);
-    console.log('Rate nume: type' + typeof(ratenume));
-    console.log(ratenume === NaN);
-    console.log("rate nume " + ratenume.valueOf());
-    if(name.trim() === '' || !name.toLowerCase().includes('campsite')){
-      this.errorMessage = 'Invalid Campsite Name, please include the word campesite in the name and try again';
-      console.log("Error message was written");
-    }
-    else if(!ratenume.valueOf() || ratenume <= 1 || ratenume > 1000000){
-      this.errorMessage = 'Invalid Rate Value, Try Again';
-    }
-    else {
-      this.errorMessage = '';
-      this.productService.addProduct(campsite).subscribe(campsite => {
-        this.search("")});
-    }
 
-  }
 
   updateDateRange(dateRange: Date[]): void {
     this.startDate = dateRange[0];
@@ -244,8 +224,9 @@ export class ProductDetailComponent implements OnInit {
       //calling to reservation service add reservation 
       // this.reservationService.addReservation(reserve).subscribe(
       //  (error) => this.handleCreateReservationError(error)); //reservation =>{this.search("")
-      this.reservationService.addReservation(reserve).subscribe();
-      alert("Reservation Successfully Created")
+      this.reservationService.addReservation(reserve).subscribe(
+        () => this.router.navigate(['/response'], {state: {responseType : "reservationCreated-success"}})
+      );
     }
 
 

@@ -10,6 +10,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { CampsiteMapComponent } from './campsite-map/campsite-map.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { CreateCampsiteComponent } from './create-campsite/create-campsite.component';
+import { ResponsePageComponent } from './response-page/response-page.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'map', component: CampsiteMapComponent },
   { path: 'errorpage', component: ErrorPageComponent },
   { path: 'create', component: CreateCampsiteComponent},
+  { path: 'response', component: ResponsePageComponent} ,
   { path: '**', component: ErrorPageComponent },
 
 ];

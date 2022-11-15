@@ -17,7 +17,7 @@
     <app-campsite-map></app-campsite-map>
   </div>
 
-  <div class="search-card-element align-top">
+  <div *ngIf="this.isAdmin() && this.isLoggedIn()" class="search-card-element align-top">
     <button class="create-campsite-button" routerLink="/create"> Create new campsite </button>
   </div>
 

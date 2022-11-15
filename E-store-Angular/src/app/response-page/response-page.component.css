@@ -1,0 +1,32 @@
+.container {
+    position: absolute;
+    top: 40vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 350px;
+}
+
+.main-text{
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 72px;
+    text-align: center;
+}
+
+.main-button {
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 50px;
+    padding: 30px;
+}
+
+.button-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.side-by-side-button {
+    width: calc(50% - 5px);
+    margin-top: 0px;
+}
