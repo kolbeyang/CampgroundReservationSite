@@ -29,13 +29,13 @@
     </div>
     <h1 class="info-label margin-top-big">This campsite's schedule</h1>
     <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
-    <h1 class="info-label margin-top-small">This campsite's reservations</h1>
+    <h1 class="info-label margin-top-small" *ngIf="reservations.length > 0">This campsite's reservations</h1>
   </div>
-
-  <li *ngFor="let reservation of reservations">
-    <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation] = "reservation"> </app-reservation-detail>
-  </li>
-
+  <div *ngIf="reservations.length > 0">
+    <li *ngFor="let reservation of reservations">
+      <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation] = "reservation"> </app-reservation-detail>
+    </li>  
+  </div>
   <div class="search-card-element">
     <h1 class="info-label">Edit location</h1>
     <div class="campsite-map">
