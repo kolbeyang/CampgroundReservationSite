@@ -5,21 +5,21 @@
 
 <div *ngIf="isLoggedIn()" class="card search-card">
 
-  <div class="search-card-element align-lower">
+  <div class="search-card-element reduce-bottom-padding">
     <h2 class="page-title"> Hi {{getUsername()}}! </h2>
-    <h1 class="section-title" *ngIf="currentReservations.length > 0"> Your upcoming reservations </h1>
+    <h1 class="section-title margin-top-big" *ngIf="currentReservations.length > 0"> Your upcoming reservations </h1>
   </div>
   <li *ngFor="let reservation of currentReservations">
     <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation]="reservation">
     </app-reservation-detail>
   </li>
 
-  <div class="search-card-element">
-    <h1 *ngIf="pastReservations.length == 0 && currentReservations.length == 0">No reservations yet!</h1>
+  <div class="search-card-element" *ngIf="pastReservations.length == 0 && currentReservations.length == 0">
+    <h1 class="section-title">No reservations yet!</h1>
   </div>
 
-  <div class="search-card-element"  *ngIf="pastReservations.length > 0">
-    <h1> Your Past Reservations </h1>
+  <div class="search-card-element reduce-bottom-padding"  *ngIf="pastReservations.length > 0">
+    <h1 class="section-title"> Your Past Reservations </h1>
   </div>
   <li *ngFor="let reservation of pastReservations">
     <app-reservation-detail (deleteSelf)="getReservations()" *ngIf="reservation" [reservation]="reservation">

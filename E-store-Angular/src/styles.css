@@ -60,6 +60,9 @@ input:focus::placeholder {
   padding: 40px;
 }
 
+.search-card-element {
+  padding: 36px 32px;
+}
 
 .dialogue-button-box {
     display: flex;
@@ -92,10 +95,20 @@ input:focus::placeholder {
   }
 
   .info-label {
-    margin-top: 30px;
     font-size: 18px;
 }
 
+.margin-top-big {
+  margin-top: 30px;
+}
+
+.margin-top-small {
+  margin-top: 10px;
+}
+
+.reduce-bottom-padding {
+  padding-bottom: 20px;
+}
   
   .card{
     width: 50%;

@@ -4,20 +4,20 @@
 
 
 
-    <h1 class="info-label">Set location</h1>
+    <h1 class="info-label margin-top-big">Set location</h1>
     <div class="campsite-map">
         <app-campsite-map></app-campsite-map>
     </div>
     <div *ngIf="errorMessage!=''" class="alert">
         {{errorMessage}}
     </div>
-    <h1 class="info-label">Campsite name</h1>
+    <h1 class="info-label margin-top-big">Campsite name</h1>
     <input class="edit-input" id="Campsite-name" #NewCampsiteName placeholder="Campsite name" />
-    <h1 class="info-label">Nightly rate</h1>
+    <h1 class="info-label margin-top-small">Nightly rate</h1>
     <input class="edit-input" id="Campsite-rate" #NewCampsiteRate placeholder="Campsite Rate">
 
 
-    <button class="make-campsite-button" type="Button"
+    <button class="make-campsite-button " type="Button"
         (click)="createProduct(NewCampsiteName.value, NewCampsiteRate.value, this.getPossiblex(), this.getPossibley())">Create
         New Campsite</button>
 </div>

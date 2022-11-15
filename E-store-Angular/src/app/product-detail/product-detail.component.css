@@ -42,8 +42,6 @@
     
 }
 
-
-
 .edit-input {
     margin-top: 10px;
 }
@@ -60,7 +58,7 @@ button {
 .button-box {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .side-by-side-button {

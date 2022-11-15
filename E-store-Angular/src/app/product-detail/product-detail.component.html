@@ -27,9 +27,9 @@
     <div *ngIf="successMessage!=''" class="success">
       {{successMessage}}
     </div>
-    <h1 class="info-label">This campsite's schedule</h1>
+    <h1 class="info-label margin-top-big">This campsite's schedule</h1>
     <app-calendar [campsite]="campsite" (dateRange)="updateDateRange($event)" [forAdmin]="true"></app-calendar>
-    <h1 class="info-label">This campsite's reservations</h1>
+    <h1 class="info-label margin-top-small">This campsite's reservations</h1>
   </div>
 
   <li *ngFor="let reservation of reservations">
@@ -41,9 +41,9 @@
     <div class="campsite-map">
       <app-campsite-map></app-campsite-map>
     </div>
-    <h1 class="info-label">Edit name</h1>
+    <h1 class="info-label margin-top-big">Edit name</h1>
     <input class="edit-input" id="Campsite-name" [(ngModel)]="campsite.name" placeholder="Campsite name" />
-    <h1 class="info-label">Edit nightly rate</h1>
+    <h1 class="info-label margin-top-small">Edit nightly rate</h1>
     <input class="edit-input" id="Campsite-rate" [(ngModel)]="campsite.rate" placeholder="Campsite Rate">
 
     <!-- <span>X Coordinate: {{this.getPossiblex()}}</span>
