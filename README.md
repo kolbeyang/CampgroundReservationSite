@@ -2,6 +2,8 @@
 
 An online E-store system built in Java 17 
   
+![CampgroundReservationSite](./campground_screenshot_05.png)
+  
 ## Team
 
 - Michael Oldziej
@@ -26,41 +28,29 @@ An online E-store system built in Java 17
 3. Execute `mvn compile exec:java`
 4. Go to E-store-Angular directory
 5. Run 'npm install' and then 'npm start'
-6. Open in your browser `http://localhost:8080/`
-7. Have a command prompt ready to run cURL commands
+6. Open in your browser `http://localhost:4200/`
+
+User Login
+![CampgroundReservationSite](./campground_screenshot_04.png)
+
+Browse Campsites
+![CampgroundReservationSite](./campground_screenshot_03.png)
+
+Make Reservation, select dates
+![CampgroundReservationSite](./campground_screenshot_02.png)
+
+Checkout, purchase reservations
+![CampgroundReservationSite](./campground_screenshot_01.png)
+
+See existing reservations
 
 ## Known bugs and disclaimers
 -when updating the location of a campsite on the map, the map displays both the temporary location and the existing location
 
-Document any known bug or nuisance.
-If any shortcomings, make clear what these are and where they are located.
-
 ## How to test it
 
 Run 'mvn clean test' from the estore-api directory
-
-### For Windows:
-
-Create/Add an new Campsite
-`curl -X POST http://localhost:8080/campsites -H Content-Type:application/json -d "{\"name\":\"INSERT NAME HERE\", \"rate\":INSERT RATE HERE}" -i`
-
--Get all the products in the inventory
-`curl -X GET "localhost:8080/campsites" -i`
-
--Delete the product with an ID 
-`curl -X DELETE "localhost:8080/campsites/INSERTIDNUMBERHERE" -i`
-
--Get a certain product with the ID
-`curl -X GET "localhost:8080/campsites/INSERTIDNUMBERHERE" -i`
-
--Update a certain product with a new name or ID
-`curl -X PUT http://localhost:8080/campsites -H Content-Type:application/json -d "{\"id\":INSERT ID NAME HERE,\"name\":\"INSERT NAME HERE\", \"rate\":INSERT RATE HERE}" -i`
-
--Search a certain product using a string
-`curl -X GET "localhost:8080/campsites/?name=INSERT STRING HERE" -i`
-
-
-The Maven build script provides hooks for run unit tests and generate code coverage
+hooks for run unit tests and generate code coverage
 reports in HTML.
 
 To run tests on all tiers together do this:
@@ -89,14 +79,6 @@ To run tests on all the tiers in isolation do this:
 2. Execute `mvn exec:exec@docs`
 3. The generated PDF will be in `PROJECT_DOCS_HOME/` directory
 
-
-## How to setup/run/test program 
-
-1. Tester, first obtain the Acceptance Test plan
-2. IP address of target machine running the app
-3. Execute ________
-4. ...
-5. ...
 
 ## License
 
